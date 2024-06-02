@@ -1,0 +1,28 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "storepress/marquee",
+	"version": "1.0.0",
+	"title": "Marquee",
+	"category": "storepress",
+	"description": "Marquee block is CSS only animation block to display scrolling text or images horizontally.",
+	"attributes": {
+		"pause": {
+			"type": "boolean",
+			"default": true
+		},
+		"animationSpeed": {
+			"type": "integer",
+			"default": 9
+		}
+	},
+	"example": {},
+	"supports": {
+		"html": false,
+		"align": ["wide", "full"]
+	},
+	"textdomain": "marquee-block",
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"render": "file:./render.php"
+}

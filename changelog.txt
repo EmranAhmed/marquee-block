@@ -1,0 +1,17 @@
+== Marquee Block ==
+
+
+
+= 1.0.0 - 2023-09-30 =
+
+* Add - add msg
+* Update - update msg
+* Fix - fix msg
+* Tweak - what we tweak
+* Enhancement - add action / add filter
+* Performance - if any performance added
+
+
+= 1.0.0 - 2023-09-18 =
+
+* Initial release
