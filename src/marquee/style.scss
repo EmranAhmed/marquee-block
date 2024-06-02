@@ -4,34 +4,23 @@
  *
  * Replace them with your own styles or remove the file completely.
  */
-@use "@wordpress/base-styles/breakpoints";
 
-body:not(.block-editor-page) {
-	.wp-block-storepress-marquee {
-		--content-gap: 40px;
-		--animation-speed: 9s;
+.wp-block-storepress-marquee {
+	--content-gap: 40px;
+	--animation-speed: 9s;
 
-		gap: var(--content-gap);
-		display: flex;
-		overflow: hidden;
+	gap: var(--content-gap);
+	display: flex;
+	overflow: hidden;
 
-		> .wp-block-storepress-marquee__item {
-			flex: 0 0 100%;
-			white-space: nowrap;
-			animation: marquee-animation var(--animation-speed) linear infinite;
-		}
+	> .wp-block-storepress-marquee__item {
+		flex: 0 0 100%;
+		white-space: nowrap;
+		animation: marquee-animation var(--animation-speed) linear infinite;
+	}
 
-		&.pause-on-hover:hover > .wp-block-storepress-marquee__item {
-			animation-play-state: paused;
-		}
-
-		//&:not(.is-enable-desktop) {
-		//	@media (min-width: #{ (breakpoints.$break-medium) }) {
-		//		> .wp-block-storepress-marquee__item {
-		//			animation: none;
-		//		}
-		//	}
-		//}
+	&.pause-on-hover:hover > .wp-block-storepress-marquee__item {
+		animation-play-state: paused;
 	}
 }
 

@@ -1,0 +1,13 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-storepress-marquee {
+	display: inherit;
+
+	> .wp-block-storepress-marquee__item {
+		animation: none;
+	}
+}

@@ -12,6 +12,7 @@ import { PanelBody, ToggleControl, RangeControl } from '@wordpress/components';
 /**
  * Internal dependencies
  */
+import './editor.scss';
 
 export default function Edit( { attributes, setAttributes } ) {
 	const { pause, animationSpeed } = attributes;
