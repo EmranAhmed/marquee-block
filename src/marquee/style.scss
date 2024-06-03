@@ -6,33 +6,65 @@
  */
 
 .wp-block-storepress-marquee {
+	--direction: normal;
 	--content-gap: 40px;
 	--animation-speed: 9s;
 
 	gap: var(--content-gap);
-	display: flex;
 	overflow: hidden;
+
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
 
 	> .wp-block-storepress-marquee__item {
 		flex: 0 0 100%;
 		white-space: nowrap;
-		animation: marquee-animation var(--animation-speed) linear infinite;
+		animation: marquee-animation-x var(--animation-speed) linear infinite;
+		animation-direction: var(--direction);
 
 		@media (prefers-reduced-motion: reduce) {
-			animation: none;
+			animation: none !important;
 			white-space: unset;
+
+			&.mirror {
+				display: none;
+			}
 		}
 	}
 
 	&.pause-on-hover:hover > .wp-block-storepress-marquee__item {
 		animation-play-state: paused;
 	}
+
+	&.orientation-y {
+		flex-direction: column;
+
+		> .wp-block-storepress-marquee__item {
+			white-space: unset;
+			animation: marquee-animation-y var(--animation-speed) linear infinite;
+			animation-direction: var(--direction);
+			animation-delay: -3s;
+
+			//&.mirror {
+			//	visibility: hidden;
+			//}
+		}
+	}
 }
 
-
-
-@keyframes marquee-animation {
+@keyframes marquee-animation-x {
 	to {
-		transform: translateX( calc( -100% - var( --content-gap ) ) );
+		transform: translateX(calc(-100% - var(--content-gap)));
+	}
+}
+
+@keyframes marquee-animation-y {
+	from {
+		transform: translateY(0px);
+	}
+	to {
+		transform: translateY(calc(-100% - var(--content-gap)));
 	}
 }

@@ -7,7 +7,20 @@ import {
 	useBlockProps,
 	useInnerBlocksProps,
 } from '@wordpress/block-editor';
-import { PanelBody, ToggleControl, RangeControl } from '@wordpress/components';
+import {
+	PanelBody,
+	ToggleControl,
+	RangeControl,
+	__experimentalToggleGroupControl as ToggleGroupControl,
+	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
+} from '@wordpress/components';
+import {
+	Icon,
+	arrowLeft,
+	arrowRight,
+	arrowUp,
+	arrowDown,
+} from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -15,7 +28,7 @@ import { PanelBody, ToggleControl, RangeControl } from '@wordpress/components';
 import './editor.scss';
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { pause, animationSpeed } = attributes;
+	const { orientation, direction, pause, animationSpeed, gap } = attributes;
 
 	const blockProps = useBlockProps();
 	const innerBlockProps = useInnerBlocksProps(
@@ -28,7 +41,6 @@ export default function Edit( { attributes, setAttributes } ) {
 					'core/paragraph',
 					{
 						align: 'center',
-						metadata: { name: 'Text' },
 						content:
 							'Marquee block adds a touch of movement and interactivity to your site and help to capture attention and engage your site visitors in a unique way.',
 					},
@@ -41,13 +53,85 @@ export default function Edit( { attributes, setAttributes } ) {
 		<>
 			<InspectorControls>
 				<PanelBody title={ __( 'Settings', 'marquee-block' ) }>
-					<ToggleControl
-						label={ __( 'Pause on hover', 'marquee-block' ) }
-						checked={ pause }
+					<ToggleGroupControl
+						label={ __( 'Orientation', 'marquee-block' ) }
+						value={ orientation }
 						onChange={ ( value ) =>
-							setAttributes( { pause: value } )
+							setAttributes( { orientation: value } )
 						}
-					/>
+						isBlock
+					>
+						<ToggleGroupControlOption
+							key="x"
+							value="x"
+							label={
+								<Icon
+									icon={
+										<svg>
+											<path
+												transform="rotate(45 12 12)"
+												d="M7 18h4.5v1.5h-7v-7H6V17L17 6h-4.5V4.5h7v7H18V7L7 18Z"
+											></path>
+										</svg>
+									}
+								/>
+							}
+						/>
+						<ToggleGroupControlOption
+							key="y"
+							value="y"
+							label={
+								<Icon
+									icon={
+										<svg>
+											<path
+												transform="rotate(135 12 12)"
+												d="M7 18h4.5v1.5h-7v-7H6V17L17 6h-4.5V4.5h7v7H18V7L7 18Z"
+											></path>
+										</svg>
+									}
+								/>
+							}
+						/>
+					</ToggleGroupControl>
+
+					<ToggleGroupControl
+						label={ __( 'Animation Direction', 'marquee-block' ) }
+						value={ direction }
+						onChange={ ( value ) =>
+							setAttributes( { direction: value } )
+						}
+						isBlock
+					>
+						<ToggleGroupControlOption
+							key="left"
+							value="left"
+							label={
+								<Icon
+									icon={
+										orientation === 'x'
+											? arrowLeft
+											: arrowUp
+									}
+									size="30"
+								/>
+							}
+						/>
+						<ToggleGroupControlOption
+							key="right"
+							value="right"
+							label={
+								<Icon
+									icon={
+										orientation === 'x'
+											? arrowRight
+											: arrowDown
+									}
+									size="30"
+								/>
+							}
+						/>
+					</ToggleGroupControl>
 
 					<RangeControl
 						initialPosition={ 9 }
@@ -61,6 +145,27 @@ export default function Edit( { attributes, setAttributes } ) {
 						min={ 1 }
 						onChange={ ( value ) =>
 							setAttributes( { animationSpeed: value } )
+						}
+					/>
+
+					<RangeControl
+						initialPosition={ 9 }
+						value={ gap }
+						label={ __( 'Content Gap', 'marquee-block' ) }
+						help={ __( 'Content gap in PX', 'marquee-block' ) }
+						max={ 200 }
+						min={ 0 }
+						step={ 5 }
+						onChange={ ( value ) =>
+							setAttributes( { gap: value } )
+						}
+					/>
+
+					<ToggleControl
+						label={ __( 'Pause on hover', 'marquee-block' ) }
+						checked={ pause }
+						onChange={ ( value ) =>
+							setAttributes( { pause: value } )
 						}
 					/>
 				</PanelBody>

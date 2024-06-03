@@ -7,6 +7,14 @@
 	"category": "storepress",
 	"description": "Marquee block is CSS only animation block to display scrolling text or images horizontally.",
 	"attributes": {
+		"orientation": {
+			"type": "string",
+			"default": "x"
+		},
+		"direction": {
+			"type": "string",
+			"default": "left"
+		},
 		"pause": {
 			"type": "boolean",
 			"default": true
@@ -14,6 +22,10 @@
 		"animationSpeed": {
 			"type": "integer",
 			"default": 9
+		},
+		"gap": {
+			"type": "integer",
+			"default": 40
 		}
 	},
 	"example": {},
@@ -25,5 +37,6 @@
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css",
+	"viewScript" : "file:./view.js",
 	"render": "file:./render.php"
 }

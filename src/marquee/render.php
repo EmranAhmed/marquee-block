@@ -11,11 +11,15 @@ use WP_Block;
  */
 
 $classes = [
-	'pause-on-hover' => $attributes['pause']
+	'pause-on-hover' => $attributes['pause'],
+	'orientation-x'  => 'x' === $attributes['orientation'],
+	'orientation-y'  => 'y' === $attributes['orientation'],
 ];
 
 $styles = [
-	'--animation-speed'=> sprintf( '%ds', $attributes['animationSpeed'] ),
+	'--direction'       => "left" === $attributes['direction'] ? 'normal' : 'reverse',
+	'--animation-speed' => sprintf( '%ds', $attributes['animationSpeed'] ),
+	'--content-gap' => sprintf( '%dpx', $attributes['gap'] ),
 ];
 
 $wrapper_attrs = array(
@@ -29,7 +33,8 @@ $wrapper_attrs = array(
 		<?php echo wp_kses_post( $content ); ?>
 	</div>
 
-	<div class="wp-block-storepress-marquee__item" aria-hidden="true">
+	<!-- Mirrors the content above -->
+	<div class="wp-block-storepress-marquee__item mirror" aria-hidden="true">
 		<?php echo wp_kses_post( $content ); ?>
 	</div>
 </div>
