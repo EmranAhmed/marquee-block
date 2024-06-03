@@ -17,12 +17,19 @@
 		flex: 0 0 100%;
 		white-space: nowrap;
 		animation: marquee-animation var(--animation-speed) linear infinite;
+
+		@media (prefers-reduced-motion: reduce) {
+			animation: none;
+			white-space: unset;
+		}
 	}
 
 	&.pause-on-hover:hover > .wp-block-storepress-marquee__item {
 		animation-play-state: paused;
 	}
 }
+
+
 
 @keyframes marquee-animation {
 	to {
