@@ -18,20 +18,24 @@ export default function Edit( { attributes, setAttributes } ) {
 	const { pause, animationSpeed } = attributes;
 
 	const blockProps = useBlockProps();
-	const innerBlockProps = useInnerBlocksProps( blockProps, {
-		template: [
-			[
-				'core/paragraph',
-				{
-					className: 'wp-block-storepress-marquee__item',
-					align: 'center',
-					metadata: { name: 'Text' },
-					content:
-						'Marquee block adds a touch of movement and interactivity to your site and help to capture attention and engage your site visitors in a unique way.',
-				},
+	const innerBlockProps = useInnerBlocksProps(
+		{
+			className: 'wp-block-storepress-marquee__item',
+		},
+		{
+			template: [
+				[
+					'core/paragraph',
+					{
+						align: 'center',
+						metadata: { name: 'Text' },
+						content:
+							'Marquee block adds a touch of movement and interactivity to your site and help to capture attention and engage your site visitors in a unique way.',
+					},
+				],
 			],
-		],
-	} );
+		}
+	);
 
 	return (
 		<>
