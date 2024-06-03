@@ -340,20 +340,8 @@ class Plugin {
 				$message = sprintf( '%s(): %s', $function_name, $message );
 			}
 
-			$message = wp_kses(
-				$message,
-				array(
-					'a' => array( 'href' ),
-					'br',
-					'code',
-					'em',
-					'strong',
-				),
-				array( 'http', 'https' )
-			);
-
 			// phpcs:ignore
-			trigger_error( $message );
+			trigger_error( wp_kses_post( $message ) );
 		}
 	}
 

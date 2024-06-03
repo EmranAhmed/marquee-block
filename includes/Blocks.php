@@ -127,17 +127,20 @@ class Blocks {
 
 		$allowed_tags = array_fill_keys( array( 'svg', 'g', 'title', 'path' ), array() );
 
-		$allowed_tags['svg']   = array_fill_keys( array(
-			'id',
-			'class',
-			'aria-hidden',
-			'aria-labelledby',
-			'role',
-			'xmlns',
-			'width',
-			'height',
-			'viewbox'
-		), true );
+		$allowed_tags['svg']   = array_fill_keys(
+			array(
+				'id',
+				'class',
+				'aria-hidden',
+				'aria-labelledby',
+				'role',
+				'xmlns',
+				'width',
+				'height',
+				'viewbox',
+			),
+			true
+		);
 		$allowed_tags['g']     = array_fill_keys( array( 'fill' ), true );
 		$allowed_tags['title'] = array_fill_keys( array( 'title' ), true );
 		$allowed_tags['path']  = array_fill_keys( array( 'd', 'fill' ), true );
