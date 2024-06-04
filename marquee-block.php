@@ -9,7 +9,7 @@
  * Plugin URI:        https://storepress.com/marquee-block/
  * Description:       A starter WordPress plugin scaffold which comes pre-configured for block development, admin dashboard with settings and standard plugin code.
  * Version:           1.0.0
- * Requires at least: 6.3
+ * Requires at least: 6.4
  * Requires PHP:      7.4
  * Author:            Emran Ahmed.
  * Author URI:        https://storepress.com/

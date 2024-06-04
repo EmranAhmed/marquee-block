@@ -62,7 +62,7 @@
 
 @keyframes marquee-animation-y {
 	from {
-		transform: translateY(0px);
+		transform: translateY(0);
 	}
 	to {
 		transform: translateY(calc(-100% - var(--content-gap)));

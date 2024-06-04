@@ -67,16 +67,21 @@ class Blocks {
 	 */
 	public function add_block_category( array $block_categories ): array {
 
+		$available_slugs = wp_list_pluck( $block_categories, 'slug' );
+
 		$category = array(
 			'slug'  => 'storepress',
 			'title' => esc_html__( 'StorePress', 'marquee-block' ),
 			'icon'  => null,
 		);
 
-		array_unshift( $block_categories, $category );
+		if ( ! in_array( 'storepress', $available_slugs, true ) ) {
+			array_unshift( $block_categories, $category );
+		}
 
 		return $block_categories;
 	}
+
 
 	/**
 	 * Block Editor Script

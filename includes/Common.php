@@ -146,38 +146,4 @@ trait Common {
 
 		return true === $value ? 'yes' : 'no';
 	}
-
-	/**
-	 * Generates a user-level error/warning/notice/deprecation message.
-	 *
-	 * Generates the message when `WP_DEBUG` is true.
-	 *
-	 * @param string $function_name The function that triggered the error.
-	 * @param string $message       The message explaining the error.
-	 *                              The message can contain allowed HTML 'a' (with href), 'code',
-	 *                              'br', 'em', and 'strong' tags and http or https protocols.
-	 *                              If it contains other HTML tags or protocols, the message should be escaped
-	 *                              before passing to this function to avoid being stripped {@see wp_kses()}.
-	 *
-	 * @since 1.0.0
-	 */
-	public function trigger_error( string $function_name, string $message ) {
-
-		// Bail out if WP_DEBUG is not turned on.
-		if ( ! WP_DEBUG ) {
-			return;
-		}
-
-		if ( function_exists( 'wp_trigger_error' ) ) {
-			wp_trigger_error( $function_name, $message );
-		} else {
-
-			if ( ! empty( $function_name ) ) {
-				$message = sprintf( '%s(): %s', $function_name, $message );
-			}
-
-			// phpcs:ignore
-			trigger_error( wp_kses_post( $message ) );
-		}
-	}
 }

@@ -63,3 +63,4 @@ bin/composer/**/vendor/
 lib/vendor/
 contributors.md
 contributors.html
+phpcs-report*

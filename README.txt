@@ -1,17 +1,17 @@
 === Marquee Block ===
 Contributors: EmranAhmed
-Requires at least: 6.3
-Tested up to: 6.3
+Requires at least: 6.4
+Tested up to: 6.5
 Requires PHP: 7.4
 Stable tag: tag: 1.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Base plugin
+Marquee Block
 
 == Description ==
 
-
+Marquee block adds a touch of movement and interactivity to your site and help to capture attention and engage your site visitors in a unique way.
 
 == Installation ==
 = Minimum Requirements =
@@ -34,5 +34,6 @@ Manual installation method requires downloading the “Image Hotspot Blocks for 
 == Screenshots ==
 
 == Changelog ==
-= 1.0.0 - 2024-06-02 =
+= 1.0.0 - 2024-06-04 =
 - Initial release
+

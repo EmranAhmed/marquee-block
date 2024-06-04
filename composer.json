@@ -21,10 +21,11 @@
 		"storepress/admin-utils" : "^1.7.0"
 	},
 	"require-dev" : {
-		"woocommerce/woocommerce-sniffs" : "^1.0.0",
+		"automattic/vipwpcs" : "^3.0",
 		"phpcompatibility/phpcompatibility-wp" : "^2.1.5",
-		"wp-coding-standards/wpcs" : "^3.1.0",
-		"wp-cli/wp-cli-bundle" : "v2.10.0"
+		"woocommerce/woocommerce-sniffs" : "^1.0.0",
+		"wp-cli/wp-cli-bundle" : "v2.10.0",
+		"wp-coding-standards/wpcs" : "^3.1.0"
 	},
 	"autoload" : {
 		"psr-4" : {
@@ -40,6 +41,6 @@
 	},
 	"scripts" : {
 		"format" : "./bin/phpcbf.sh --standard=phpcs.xml",
-		"lint" : "./vendor/bin/phpcs --standard=phpcs.xml --warning-severity=0 --report-summary --report-source --ignore-annotations --report-full=phpcs-report.txt"
+		"lint" : "./vendor/bin/phpcs --standard=phpcs.xml --report-summary --report-source --ignore-annotations --report-full=phpcs-report.txt"
 	}
 }

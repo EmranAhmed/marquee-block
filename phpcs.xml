@@ -31,7 +31,7 @@
 	<!-- Set the memory limit to 256M.
 	 For most standard PHP configurations, this means the memory limit will temporarily be raised.
 	 Ref: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Advanced-Usage#specifying-phpini-settings
-    -->
+	-->
 	<ini name="memory_limit" value="256M"/>
 
 	<!-- Configs -->
@@ -55,6 +55,7 @@
 	https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/wiki/Customizable-sniff-properties
 	-->
 	<rule ref="WordPress-Core"/>
+	<rule ref="WordPress-VIP-Go"/>
 	<rule ref="WordPress-Extra">
 		<exclude name="WordPress.Files.FileName"/>
 		<exclude name="Squiz.Commenting.FileComment.MissingPackageTag"/>
@@ -92,3 +93,4 @@
 		</properties>
 	</rule>
 </ruleset>
+
