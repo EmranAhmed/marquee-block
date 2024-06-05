@@ -8,25 +8,24 @@ function marqueeHeight() {
 		.querySelectorAll(
 			'.wp-block-storepress-marquee.orientation-y .wp-block-storepress-marquee__item'
 		)
-		.forEach( function ( el ) {
+		.forEach(function (el) {
 			el.parentNode.style.height = false;
 
 			const { height } = el.getBoundingClientRect();
 
-			el.parentNode.style.height = `${ height }px`;
+			el.parentNode.style.height = `${height}px`;
 			// el.nextElementSibling.style.visibility = 'visible';
-		} );
+		});
 }
 
 // window.addEventListener( 'load', ( event ) => {} );
 
-domReady( function () {
+domReady(function () {
 	const isReduced =
-		window.matchMedia( `(prefers-reduced-motion: reduce)` ) === true ||
-		window.matchMedia( `(prefers-reduced-motion: reduce)` ).matches ===
-			true;
+		window.matchMedia(`(prefers-reduced-motion: reduce)`) === true ||
+		window.matchMedia(`(prefers-reduced-motion: reduce)`).matches === true;
 
-	if ( isReduced ) {
+	if (isReduced) {
 		return false;
 	}
 
@@ -41,4 +40,4 @@ domReady( function () {
 	// 		marqueeHeight();
 	// 	}, 300 );
 	// } );
-} );
+});

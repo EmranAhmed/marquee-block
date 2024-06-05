@@ -1,5 +1,0 @@
-build
-vendor
-build-style
-node_modules
-packages/stylelint-config/test

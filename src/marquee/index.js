@@ -17,11 +17,11 @@ import './style.scss';
  *
  * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-registration/
  */
-registerBlockType( metadata.name, {
+registerBlockType(metadata.name, {
 	/**
 	 * @see ./edit.js
 	 */
 	icon,
 	edit: Edit,
 	save: () => <InnerBlocks.Content />,
-} );
+});

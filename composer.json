@@ -21,6 +21,7 @@
 		"storepress/admin-utils" : "^1.7.0"
 	},
 	"require-dev" : {
+		"automattic/jetpack-autoloader" : "^v3.0.8",
 		"automattic/vipwpcs" : "^3.0",
 		"phpcompatibility/phpcompatibility-wp" : "^2.1.5",
 		"woocommerce/woocommerce-sniffs" : "^1.0.0",
@@ -36,7 +37,8 @@
 		"optimize-autoloader" : true,
 		"sort-packages" : true,
 		"allow-plugins" : {
-			"dealerdirect/phpcodesniffer-composer-installer" : true
+			"dealerdirect/phpcodesniffer-composer-installer" : true,
+			"automattic/jetpack-autoloader" : true
 		}
 	},
 	"scripts" : {

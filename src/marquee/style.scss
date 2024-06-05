@@ -13,6 +13,7 @@
 
 	display: flex;
 	align-items: center;
+
 	/*justify-content: space-around;*/
 	gap: var(--content-gap);
 	overflow: hidden;
@@ -42,7 +43,9 @@
 
 		> .wp-block-storepress-marquee__item {
 			white-space: unset;
-			animation: marquee-animation-y var(--animation-speed) linear infinite;
+			animation:
+				marquee-animation-y var(--animation-speed) linear
+				infinite;
 			animation-direction: var(--direction);
 			animation-delay: -3s;
 
@@ -75,6 +78,7 @@
 		}
 
 		&.orientation-y {
+
 			&::before,
 			&::after {
 				width: 100%;
@@ -95,15 +99,18 @@
 }
 
 @keyframes marquee-animation-x {
+
 	to {
 		transform: translateX(calc(-100% - var(--content-gap)));
 	}
 }
 
 @keyframes marquee-animation-y {
+
 	from {
 		transform: translateY(0);
 	}
+
 	to {
 		transform: translateY(calc(-100% - var(--content-gap)));
 	}

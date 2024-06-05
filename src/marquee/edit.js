@@ -12,8 +12,8 @@ import {
 	ToggleControl,
 	RangeControl,
 	ColorPicker,
-	__experimentalToggleGroupControl as ToggleGroupControl,
-	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
+	__experimentalToggleGroupControl as ToggleGroupControl, // eslint-disable-line @wordpress/no-unsafe-wp-apis
+	__experimentalToggleGroupControlOption as ToggleGroupControlOption, // eslint-disable-line @wordpress/no-unsafe-wp-apis
 } from '@wordpress/components';
 import {
 	Icon,
@@ -28,7 +28,7 @@ import {
  */
 import './editor.scss';
 
-export default function Edit( { attributes, setAttributes } ) {
+export default function Edit({ attributes, setAttributes }) {
 	const {
 		orientation,
 		direction,
@@ -61,12 +61,12 @@ export default function Edit( { attributes, setAttributes } ) {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Settings', 'marquee-block' ) }>
+				<PanelBody title={__('Settings', 'marquee-block')}>
 					<ToggleGroupControl
-						label={ __( 'Orientation', 'marquee-block' ) }
-						value={ orientation }
-						onChange={ ( value ) =>
-							setAttributes( { orientation: value } )
+						label={__('Orientation', 'marquee-block')}
+						value={orientation}
+						onChange={(value) =>
+							setAttributes({ orientation: value })
 						}
 						isBlock
 					>
@@ -105,10 +105,10 @@ export default function Edit( { attributes, setAttributes } ) {
 					</ToggleGroupControl>
 
 					<ToggleGroupControl
-						label={ __( 'Animation Direction', 'marquee-block' ) }
-						value={ direction }
-						onChange={ ( value ) =>
-							setAttributes( { direction: value } )
+						label={__('Animation Direction', 'marquee-block')}
+						value={direction}
+						onChange={(value) =>
+							setAttributes({ direction: value })
 						}
 						isBlock
 					>
@@ -143,66 +143,57 @@ export default function Edit( { attributes, setAttributes } ) {
 					</ToggleGroupControl>
 
 					<RangeControl
-						initialPosition={ 9 }
-						value={ animationSpeed }
-						label={ __( 'Animation Speed', 'marquee-block' ) }
-						help={ __(
-							'Animation speed in seconds',
-							'marquee-block'
-						) }
-						max={ 100 }
-						min={ 1 }
-						onChange={ ( value ) =>
-							setAttributes( { animationSpeed: value } )
+						initialPosition={9}
+						value={animationSpeed}
+						label={__('Animation Speed', 'marquee-block')}
+						help={__('Animation speed in seconds', 'marquee-block')}
+						max={100}
+						min={1}
+						onChange={(value) =>
+							setAttributes({ animationSpeed: value })
 						}
 					/>
 
 					<RangeControl
-						initialPosition={ 9 }
-						value={ gap }
-						label={ __( 'Content Gap', 'marquee-block' ) }
-						help={ __( 'Content gap in PX', 'marquee-block' ) }
-						max={ 200 }
-						min={ 0 }
-						step={ 5 }
-						onChange={ ( value ) =>
-							setAttributes( { gap: value } )
-						}
+						initialPosition={9}
+						value={gap}
+						label={__('Content Gap', 'marquee-block')}
+						help={__('Content gap in PX', 'marquee-block')}
+						max={200}
+						min={0}
+						step={5}
+						onChange={(value) => setAttributes({ gap: value })}
 					/>
 
 					<ToggleControl
-						label={ __( 'Pause on hover', 'marquee-block' ) }
-						checked={ pause }
-						onChange={ ( value ) =>
-							setAttributes( { pause: value } )
-						}
+						label={__('Pause on hover', 'marquee-block')}
+						checked={pause}
+						onChange={(value) => setAttributes({ pause: value })}
 					/>
 				</PanelBody>
 			</InspectorControls>
 
 			<InspectorControls group="styles">
-				<PanelBody title={ __( 'Styles', 'marquee-block' ) } gr>
+				<PanelBody title={__('Styles', 'marquee-block')} gr>
 					<ToggleControl
-						label={ __( 'Enable Overlay', 'marquee-block' ) }
-						checked={ overlay }
-						onChange={ ( value ) =>
-							setAttributes( { overlay: value } )
-						}
+						label={__('Enable Overlay', 'marquee-block')}
+						checked={overlay}
+						onChange={(value) => setAttributes({ overlay: value })}
 					/>
 
-					{ overlay && (
+					{overlay && (
 						<ColorPicker
-							defaultValue={ overlayColor }
-							onChange={ ( value ) => {
-								setAttributes( { overlayColor: value } );
-							} }
+							defaultValue={overlayColor}
+							onChange={(value) => {
+								setAttributes({ overlayColor: value });
+							}}
 						/>
-					) }
+					)}
 				</PanelBody>
 			</InspectorControls>
 
-			<div { ...blockProps }>
-				<div { ...innerBlockProps } />
+			<div {...blockProps}>
+				<div {...innerBlockProps} />
 			</div>
 		</>
 	);

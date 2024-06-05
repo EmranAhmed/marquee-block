@@ -50,9 +50,9 @@ class Plugin {
 		/**
 		 * Action to signal that Plugin has finished loading.
 		 *
-		 * @param Plugin $this Plugin Object.
-		 *
 		 * @since 1.0.0
+		 *
+		 * @param Plugin $this Plugin Object.
 		 */
 		do_action( 'marquee_block_plugin_loaded', $this );
 	}
@@ -92,14 +92,14 @@ class Plugin {
 	 */
 	public function includes(): bool {
 
-		if ( file_exists( $this->vendor_path() . '/autoload.php' ) ) {
-			require_once $this->vendor_path() . '/autoload.php';
+		if ( file_exists( $this->vendor_path() . '/autoload_packages.php' ) ) {
+			require_once $this->vendor_path() . '/autoload_packages.php';
 			require_once __DIR__ . '/functions.php';
 
 			return true;
 		}
 
-		throw new Exception( '"vendor/autoload.php" file missing. Please run `composer install`' );
+		throw new Exception( '"vendor/autoload_packages.php" file missing. Please run `composer install`' );
 	}
 
 	/**
@@ -108,18 +108,8 @@ class Plugin {
 	 * @since 1.0.0
 	 */
 	public function init() {
-
 		// Setup BLocks.
 		$this->get_blocks();
-
-		// Set up cache management.
-		// new Extension_Cache();.
-
-		// Initialize REST API.
-		// new Extension_REST_API();.
-
-		// Set up email management.
-		// new Extension_Email_Manager();.
 	}
 
 	/**
