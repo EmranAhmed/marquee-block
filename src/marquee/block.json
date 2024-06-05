@@ -26,6 +26,14 @@
 		"gap": {
 			"type": "integer",
 			"default": 40
+		},
+		"overlay": {
+			"type": "boolean",
+			"default": true
+		},
+		"overlayColor": {
+			"type": "string",
+			"default": "#fff"
 		}
 	},
 	"example": {},

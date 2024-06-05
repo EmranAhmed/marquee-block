@@ -7,7 +7,7 @@
  * @wordpress-plugin
  * Plugin Name:       Marquee Block
  * Plugin URI:        https://storepress.com/marquee-block/
- * Description:       A starter WordPress plugin scaffold which comes pre-configured for block development, admin dashboard with settings and standard plugin code.
+ * Description:       Marquee block adds a touch of movement and interactivity to your site and help to capture attention and engage your site visitors in a unique way.
  * Version:           1.0.0
  * Requires at least: 6.4
  * Requires PHP:      7.4

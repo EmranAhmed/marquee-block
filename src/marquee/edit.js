@@ -11,6 +11,7 @@ import {
 	PanelBody,
 	ToggleControl,
 	RangeControl,
+	ColorPicker,
 	__experimentalToggleGroupControl as ToggleGroupControl,
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption,
 } from '@wordpress/components';
@@ -28,7 +29,15 @@ import {
 import './editor.scss';
 
 export default function Edit( { attributes, setAttributes } ) {
-	const { orientation, direction, pause, animationSpeed, gap } = attributes;
+	const {
+		orientation,
+		direction,
+		pause,
+		animationSpeed,
+		gap,
+		overlay,
+		overlayColor,
+	} = attributes;
 
 	const blockProps = useBlockProps();
 	const innerBlockProps = useInnerBlocksProps(
@@ -168,6 +177,27 @@ export default function Edit( { attributes, setAttributes } ) {
 							setAttributes( { pause: value } )
 						}
 					/>
+				</PanelBody>
+			</InspectorControls>
+
+			<InspectorControls group="styles">
+				<PanelBody title={ __( 'Styles', 'marquee-block' ) } gr>
+					<ToggleControl
+						label={ __( 'Enable Overlay', 'marquee-block' ) }
+						checked={ overlay }
+						onChange={ ( value ) =>
+							setAttributes( { overlay: value } )
+						}
+					/>
+
+					{ overlay && (
+						<ColorPicker
+							defaultValue={ overlayColor }
+							onChange={ ( value ) => {
+								setAttributes( { overlayColor: value } );
+							} }
+						/>
+					) }
 				</PanelBody>
 			</InspectorControls>
 

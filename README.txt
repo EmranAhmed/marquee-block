@@ -34,6 +34,6 @@ Manual installation method requires downloading the “Image Hotspot Blocks for 
 == Screenshots ==
 
 == Changelog ==
-= 1.0.0 - 2024-06-04 =
+= 1.0.0 - 2024-06-05 =
 - Initial release
 

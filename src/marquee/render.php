@@ -17,6 +17,7 @@ use WP_Block;
 
 $marquee_block_classes = array(
 	'pause-on-hover' => $attributes['pause'],
+	'has-overlay'    => $attributes['overlay'],
 	'orientation-x'  => 'x' === $attributes['orientation'],
 	'orientation-y'  => 'y' === $attributes['orientation'],
 );
@@ -25,6 +26,7 @@ $marquee_block_styles = array(
 	'--direction'       => 'left' === $attributes['direction'] ? 'normal' : 'reverse',
 	'--animation-speed' => sprintf( '%ds', $attributes['animationSpeed'] ),
 	'--content-gap'     => sprintf( '%dpx', $attributes['gap'] ),
+	'--overlay-color'   => $attributes['overlayColor'],
 );
 
 $marquee_block_wrapper_attrs = array(
