@@ -13,8 +13,7 @@
 		"package" : "./bin/package.js"
 	},
 	"scripts": {
-		"preinstall": "rm -rf ./vendor && rm -rf ./composer.lock",
-		"postinstall": "composer install",
+		"postinstall": "rm -rf ./vendor && rm -rf ./composer.lock && composer install",
 		"clean": "rm -rf ./vendor && rm -rf ./build",
 		"ready": "npm run clean && npm run build && npm run build:php",
 		"build:php": "composer install --no-dev --optimize-autoloader",
@@ -58,7 +57,6 @@
 		"@storepress/utils": "^0.2.6",
 		"@wordpress/dom-ready": "^4.0.0",
 		"@wordpress/icons": "^10.0.0",
-		"@wordpress/interactivity": "^6.0.0",
 		"classnames": "^2.3.2"
 	},
 	"devDependencies": {
