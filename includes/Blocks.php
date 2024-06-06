@@ -35,7 +35,7 @@ class Blocks {
 		 *
 		 * @since 1.0.0
 		 */
-		do_action( 'storepress_blocks_loaded', $this );
+		do_action( 'marquee_block_loaded', $this );
 	}
 
 	/**

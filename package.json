@@ -44,9 +44,9 @@
 		"start": "rm -rf ./build && wp-scripts start --webpack-copy-php --experimental-modules",
 		"language": "./vendor/bin/wp i18n make-pot --domain-path languages --pot-file storepress-base-plugin.pot --type plugin --main-file storepress-base-plugin.php --exclude=assets,bin,build,node_modules,vendor,languages --package-name=\"StorePress Base Plugin\" --headers='{\"Report-Msgid-Bugs-To\":\"https://storepress.com/\", \"language-team\":\"LANGUAGE <EMAIL@ADDRESS>\"}'",
 		"language-json": "./vendor/bin/wp i18n make-json languages --no-purge --pretty-print",
-		"add": "npx @wordpress/create-block@latest --namespace storepress --variant dynamic --no-plugin",
-		"add-static": "npx @wordpress/create-block@latest --namespace storepress --no-plugin",
-		"add-interactive": "npx @wordpress/create-block@latest --template @wordpress/create-block-interactive-template --namespace storepress --no-plugin",
+		"create-dynamic-block": "npx @wordpress/create-block@latest --namespace storepress --variant dynamic --no-plugin",
+		"create-static-block": "npx @wordpress/create-block@latest --namespace storepress --no-plugin",
+		"create-interactive-block": "npx @wordpress/create-block@latest --template @wordpress/create-block-interactive-template --namespace storepress --no-plugin",
 		"create-woo-extension": "npx @wordpress/create-block@latest --template @woocommerce/create-woo-extension --namespace storepress",
 		"create-product-editor-block": "npx @wordpress/create-block@latest --template @woocommerce/create-product-editor-block --namespace storepress"
 	},
@@ -56,6 +56,7 @@
 		"@storepress/utils": "^0.2.6",
 		"@wordpress/dom-ready": "^4.0.0",
 		"@wordpress/icons": "^10.0.0",
+		"@wordpress/interactivity": "^5.7.0",
 		"classnames": "^2.3.2"
 	},
 	"devDependencies": {
@@ -63,12 +64,12 @@
 		"@woocommerce/eslint-plugin": "^2.2.0",
 		"@wordpress/base-styles": "^5.0.0",
 		"@wordpress/blocks": "^13.0.0",
-		"@wordpress/dependency-extraction-webpack-plugin": "^6.0.0",
+		"@wordpress/dependency-extraction-webpack-plugin": "^5.9.0",
 		"@wordpress/i18n": "^5.0.0",
-		"@wordpress/scripts": "^28.0.0",
+		"@wordpress/scripts": "^27.9.0",
 		"eslint-plugin-you-dont-need-lodash-underscore": "6.14.0",
 		"fs-extra": "^11.2.0",
 		"webpack-remove-empty-scripts": "^1.0.4",
-		"eslint-plugin-prettier" : "^5.0.1"
+		"eslint-plugin-prettier" : "^5.1.3"
 	}
 }

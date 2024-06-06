@@ -25,7 +25,7 @@
 		"automattic/vipwpcs" : "^3.0",
 		"phpcompatibility/phpcompatibility-wp" : "^2.1.5",
 		"woocommerce/woocommerce-sniffs" : "^1.0.0",
-		"wp-cli/wp-cli-bundle" : "v2.10.0",
+		"wp-cli/i18n-command" : "^v2.6.0",
 		"wp-coding-standards/wpcs" : "^3.1.0"
 	},
 	"autoload" : {
