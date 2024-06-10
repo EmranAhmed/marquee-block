@@ -42,14 +42,14 @@ trait Common {
 
 				// Exclude attribute.
 				if ( in_array( $key, $exclude, true ) ) {
-							return '';
+					return '';
 				}
 
 				$value = $attributes[ $key ];
 
 				// If attribute value is null.
 				if ( is_null( $value ) ) {
-						return '';
+					return '';
 				}
 
 				// If attribute value is boolean.
@@ -107,11 +107,17 @@ trait Common {
 
 		foreach ( $classes_array as $class_name => $should_include ) {
 
-			if ( empty( $should_include ) ) {
+			// Is class assign by numeric array. Like: ['class-a', 'class-b'].
+			if ( is_numeric( $class_name ) && ! is_string( $class_name ) ) {
+				$classes[] = esc_attr( $should_include );
 				continue;
 			}
 
-			$classes[] = esc_attr( $class_name );
+			// Is class assign by associative array.
+			// Like: ['class-a'=>true, 'class-b'=>false, class-c'=>'', 'class-d'=>'hello'].
+			if ( ! empty( $should_include ) ) {
+				$classes[] = esc_attr( $class_name );
+			}
 		}
 
 		return implode( ' ', array_unique( $classes ) );

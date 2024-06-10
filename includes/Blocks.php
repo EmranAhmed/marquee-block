@@ -87,6 +87,8 @@ class Blocks {
 	 * Block Editor Script
 	 *
 	 * @since      1.0.0
+	 * @see https://developer.wordpress.org/reference/functions/wp_set_script_translations/
+	 * @see https://developer.wordpress.org/block-editor/how-to-guides/internationalization/#load-translation-file
 	 */
 	public function block_editor_scripts() {
 		// Editor Scripts.
@@ -96,7 +98,6 @@ class Blocks {
 
 		wp_enqueue_script( 'marquee-block-editor-scripts', $editor_script_src_url, $editor_script_asset['dependencies'], $editor_script_asset['version'], array( 'strategy' => 'defer' ) );
 
-		// Docs: https://developer.wordpress.org/reference/functions/wp_set_script_translations/.
 		wp_set_script_translations( 'marquee-block-editor-scripts', 'marquee-block', marquee_block_plugin()->plugin_path() . '/languages' );
 	}
 
@@ -130,26 +131,22 @@ class Blocks {
 	public function get_kses_allowed_html( array $args = array() ): array {
 		$defaults = wp_kses_allowed_html( 'post' );
 
-		$allowed_tags = array_fill_keys( array( 'svg', 'g', 'title', 'path' ), array() );
-
-		$allowed_tags['svg']   = array_fill_keys(
-			array(
-				'id',
-				'class',
-				'aria-hidden',
-				'aria-labelledby',
-				'role',
-				'xmlns',
-				'width',
-				'height',
-				'viewbox',
-			),
-			true
+		$tags = array(
+			'svg'   => array( 'class', 'aria-hidden', 'aria-labelledby', 'role', 'xmlns', 'width', 'height', 'viewbox', 'height' ),
+			'g'     => array( 'fill' ),
+			'title' => array( 'title' ),
+			'path'  => array( 'd', 'fill' ),
 		);
-		$allowed_tags['g']     = array_fill_keys( array( 'fill' ), true );
-		$allowed_tags['title'] = array_fill_keys( array( 'title' ), true );
-		$allowed_tags['path']  = array_fill_keys( array( 'd', 'fill' ), true );
 
-		return array_merge( $defaults, $allowed_tags, $args );
+		$allowed_args = array_reduce(
+			array_keys( $tags ),
+			function ( $carry, $tag ) use ( $tags ) {
+				$carry[ $tag ] = array_fill_keys( $tags[ $tag ], true );
+				return $carry;
+			},
+			array()
+		);
+
+		return array_merge( $defaults, $allowed_args, $args );
 	}
 }

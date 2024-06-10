@@ -23,11 +23,6 @@ import {
 	arrowDown,
 } from '@wordpress/icons';
 
-/**
- * Internal dependencies
- */
-import './editor.scss';
-
 export default function Edit({ attributes, setAttributes }) {
 	const {
 		orientation,

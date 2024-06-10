@@ -3,6 +3,8 @@
  */
 import domReady from '@wordpress/dom-ready';
 
+import './view.scss'; // See: https://github.com/WordPress/gutenberg/pull/55492
+
 function marqueeHeight() {
 	document
 		.querySelectorAll(
