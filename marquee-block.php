@@ -43,6 +43,7 @@ if ( ! class_exists( 'StorePress\MarqueeBlock\Plugin' ) ) {
  * @since 1.0.0
  */
 function marquee_block_plugin(): Plugin {
+	load_plugin_textdomain( 'marquee-block', false, plugin_dir_path( __FILE__ ) . 'languages' );
 	// Include the main class.
 	return Plugin::instance();
 }

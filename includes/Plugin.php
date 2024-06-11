@@ -1,9 +1,10 @@
 <?php
 	/**
-	 * Main Plugin Class.
+	 * Main Plugin Class File.
 	 *
 	 * @package    StorePress/MarqueeBlock
 	 * @since      1.0.0
+	 * @version    1.0.0
 	 */
 
 	namespace StorePress\MarqueeBlock;
@@ -13,7 +14,7 @@
 	use Exception;
 
 	/**
-	 * Class Plugin.
+	 * Main Plugin Class.
 	 */
 class Plugin {
 
@@ -54,7 +55,7 @@ class Plugin {
 		 *
 		 * @param Plugin $this Plugin Object.
 		 */
-		do_action( 'marquee_block_plugin_loaded', $this );
+		do_action( 'storepress_marquee_block_plugin_loaded', $this );
 	}
 
 	/**
@@ -120,17 +121,6 @@ class Plugin {
 	 */
 	public function hooks() {
 		// Register with hook.
-		add_action( 'init', array( $this, 'language' ), 1 );
-	}
-
-	/**
-	 * Language
-	 *
-	 * @return void
-	 * @since 1.0.0
-	 */
-	public function language() {
-		load_plugin_textdomain( 'marquee-block', false, $this->plugin_path() . '/languages' );
 	}
 
 	/**

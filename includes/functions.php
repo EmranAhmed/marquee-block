@@ -4,6 +4,7 @@
 	 *
 	 * @package    StorePress/MarqueeBlock
 	 * @since      1.0.0
+	 * @version    1.0.0
 	 */
 
 	namespace StorePress\MarqueeBlock;

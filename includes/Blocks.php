@@ -1,9 +1,10 @@
 <?php
 	/**
-	 * Blocks API: Blocks class
+	 * Blocks Class file.
 	 *
 	 * @package    StorePress/MarqueeBlock
 	 * @since      1.0.0
+	 * @version    1.0.0
 	 */
 
 	namespace StorePress\MarqueeBlock;
@@ -35,7 +36,7 @@ class Blocks {
 		 *
 		 * @since 1.0.0
 		 */
-		do_action( 'marquee_block_loaded', $this );
+		do_action( 'storepress_marquee_block_blocks_loaded', $this );
 	}
 
 	/**
