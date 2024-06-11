@@ -18,10 +18,10 @@
 		}
 	],
 	"require" : {
-		"storepress/admin-utils" : "^1.7.0"
+		"storepress/admin-utils" : "^1.8.6",
+		"automattic/jetpack-autoloader" : "^v3.0.8"
 	},
 	"require-dev" : {
-		"automattic/jetpack-autoloader" : "^v3.0.8",
 		"automattic/vipwpcs" : "^3.0",
 		"phpcompatibility/phpcompatibility-wp" : "^2.1.5",
 		"woocommerce/woocommerce-sniffs" : "^1.0.0",

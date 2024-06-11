@@ -14,7 +14,7 @@
 	},
 	"scripts": {
 		"postinstall": "rm -rf ./vendor && rm -rf ./composer.lock && composer install",
-		"clean": "rm -rf ./vendor && rm -rf ./build",
+		"clean": "rm -rf ./vendor  && rm -rf ./composer.lock && rm -rf ./build",
 		"ready": "npm run clean && npm run build && npm run build:php",
 		"build:php": "composer install --no-dev --optimize-autoloader",
 		"lint:php": "composer run lint",
