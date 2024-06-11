@@ -58,7 +58,6 @@
 	<rule ref="WordPress-VIP-Go"/>
 	<rule ref="WordPress-Extra">
 		<exclude name="WordPress.Files.FileName"/>
-		<exclude name="Squiz.Commenting.FileComment.MissingPackageTag"/>
 	</rule>
 	<rule ref="WooCommerce-Core"/>
 	<!-- Let's also check that everything is properly documented. -->
