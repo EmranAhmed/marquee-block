@@ -65,7 +65,7 @@ class Plugin {
 	 * @since 1.0.0
 	 */
 	public function get_plugin_file(): string {
-		return constant( 'MARQUEE_BLOCK_PLUGIN_FILE' );
+		return constant( 'STOREPRESS_MARQUEE_BLOCK_PLUGIN_FILE' );
 	}
 
 	/**

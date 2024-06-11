@@ -49,7 +49,7 @@ if ( hasPackageProp( 'files' ) ) {
 			'block.json',
 			'changelog.*',
 			'license.*',
-			'readme.txt',
+			'README.txt',
 		],
 		{
 			caseSensitiveMatch: false,

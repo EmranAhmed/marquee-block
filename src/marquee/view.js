@@ -3,9 +3,14 @@
  */
 import domReady from '@wordpress/dom-ready';
 
-import './view.scss'; // See: https://github.com/WordPress/gutenberg/pull/55492
+/**
+ * Internal dependencies
+ *
+ * @see https://github.com/WordPress/gutenberg/pull/55492
+ */
+import './view.scss';
 
-function marqueeHeight() {
+function storepressMarqueeBlockHeight() {
 	document
 		.querySelectorAll(
 			'.wp-block-storepress-marquee.orientation-y .wp-block-storepress-marquee__item'
@@ -16,11 +21,8 @@ function marqueeHeight() {
 			const { height } = el.getBoundingClientRect();
 
 			el.parentNode.style.height = `${height}px`;
-			// el.nextElementSibling.style.visibility = 'visible';
 		});
 }
-
-// window.addEventListener( 'load', ( event ) => {} );
 
 domReady(function () {
 	const isReduced =
@@ -31,15 +33,5 @@ domReady(function () {
 		return false;
 	}
 
-	marqueeHeight();
-
-	// let timer;
-	//
-	// window.addEventListener( 'resize', ( event ) => {
-	// 	clearTimeout( timer );
-	//
-	// 	timer = setTimeout( () => {
-	// 		marqueeHeight();
-	// 	}, 300 );
-	// } );
+	storepressMarqueeBlockHeight();
 });

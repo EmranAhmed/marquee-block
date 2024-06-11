@@ -138,7 +138,7 @@ export default function Edit({ attributes, setAttributes }) {
 					</ToggleGroupControl>
 
 					<RangeControl
-						initialPosition={9}
+						initialPosition={10}
 						value={animationSpeed}
 						label={__('Animation Speed', 'marquee-block')}
 						help={__('Animation speed in seconds', 'marquee-block')}
@@ -150,7 +150,7 @@ export default function Edit({ attributes, setAttributes }) {
 					/>
 
 					<RangeControl
-						initialPosition={9}
+						initialPosition={40}
 						value={gap}
 						label={__('Content Gap', 'marquee-block')}
 						help={__('Content gap in PX', 'marquee-block')}

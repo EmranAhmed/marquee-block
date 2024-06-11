@@ -27,8 +27,8 @@ defined( 'ABSPATH' ) || die( 'Keep Silent' );
 
 use StorePress\MarqueeBlock\Plugin;
 
-if ( ! defined( 'MARQUEE_BLOCK_PLUGIN_FILE' ) ) {
-	define( 'MARQUEE_BLOCK_PLUGIN_FILE', __FILE__ );
+if ( ! defined( 'STOREPRESS_MARQUEE_BLOCK_PLUGIN_FILE' ) ) {
+	define( 'STOREPRESS_MARQUEE_BLOCK_PLUGIN_FILE', __FILE__ );
 }
 
 // Include the Plugin class.
@@ -43,6 +43,7 @@ if ( ! class_exists( 'StorePress\MarqueeBlock\Plugin' ) ) {
  * @since 1.0.0
  */
 function marquee_block_plugin(): Plugin {
+	// Load Plugin textdomain.
 	load_plugin_textdomain( 'marquee-block', false, plugin_dir_path( __FILE__ ) . 'languages' );
 	// Include the main class.
 	return Plugin::instance();

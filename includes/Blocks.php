@@ -95,7 +95,7 @@ class Blocks {
 		// Editor Scripts.
 		$editor_script_src_url    = marquee_block_plugin()->build_url() . '/editor-scripts.js';
 		$editor_script_asset_file = marquee_block_plugin()->build_path() . '/editor-scripts.asset.php';
-		$editor_script_asset      = require $editor_script_asset_file;
+		$editor_script_asset      = include $editor_script_asset_file;
 
 		wp_enqueue_script( 'marquee-block-editor-scripts', $editor_script_src_url, $editor_script_asset['dependencies'], $editor_script_asset['version'], array( 'strategy' => 'defer' ) );
 
