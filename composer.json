@@ -41,7 +41,7 @@
 		}
 	},
 	"scripts" : {
-		"format" : "./bin/phpcbf.sh --standard=phpcs.xml",
+		"format" : "./vendor/bin/phpcbf --standard=phpcs.xml",
 		"lint" : "./vendor/bin/phpcs --standard=phpcs.xml --report-summary --report-source --ignore-annotations --report-full=phpcs-report.txt"
 	}
 }

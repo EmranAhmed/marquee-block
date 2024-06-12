@@ -4,62 +4,107 @@
 	"description" : "StorePress Marquee Block",
 	"author" : "Emran Ahmed",
 	"private" : true,
-	"license" : "GPLv3",
+	"license" : "GPL-2.0-or-later",
+	"keywords": ["wordpress", "gutenberg", "block", "storepress"],
+	"homepage": "https://github.com/EmranAhmed/marquee-block",
 	"repository" : {
 		"type" : "git",
 		"url" : "https://github.com/EmranAhmed/marquee-block"
 	},
-	"bin" : {
-		"package" : "./bin/package.js"
+	"bugs": {
+		"url": "https://github.com/EmranAhmed/marquee-block/issues"
 	},
+	"lint-staged": {
+		"*.scss": [
+			"npm run lint:css:fix",
+			"npm run lint:css"
+		],
+		"*.{js,ts,tsx}": [
+			"npm run lint:js:fix",
+			"npm run lint:js"
+		],
+		"*.php": [
+			"npm run format:php",
+			"npm run lint:php"
+		],
+		"*.md": [
+			"npm run lint:md:docs"
+		]
+	},
+	"files": [
+		"vendor/**",
+		"admin/**",
+		"build/**",
+		"assets/**",
+		"images/**",
+		"includes/**",
+		"templates/**",
+		"languages/**",
+		"public/**",
+		"*.php",
+		"block.json",
+		"changelog.*",
+		"LICENSE.*",
+		"README.txt",
+		"wpml-config.xml"
+	],
 	"scripts": {
-		"postinstall": "rm -rf ./vendor && rm -rf ./composer.lock && composer install",
-		"clean": "rm -rf ./vendor  && rm -rf ./composer.lock && rm -rf ./build",
-		"ready": "npm run clean && npm run build && npm run build:php",
-		"build:php": "composer install --no-dev --optimize-autoloader",
+		"clean-composer": "rm -rf ./vendor && rm -rf ./composer.lock",
+		"postinstall": "npm run clean-composer && composer install",
+
 		"lint:php": "composer run lint",
 		"format:php": "composer run format",
-		"build": "wp-scripts build --webpack-copy-php --experimental-modules",
+
+		"prebuild": "npm run clean-composer && composer install --no-dev --optimize-autoloader",
+		"build": "rm -rf ./build && wp-scripts build --webpack-copy-php --experimental-modules",
+
 		"check-engines": "wp-scripts check-engines",
 		"check-licenses": "wp-scripts check-licenses",
-		"format": "wp-scripts format",
-		"format:all": "npm run format:js && npm run format:css && npm run lint:format:php",
+
+		"format": "wp-scripts format ./src",
+		"format:all": "npm run format:php && npm run format:css && npm run format:js",
 		"format:js": "wp-scripts format './src/**/*.js'",
 		"format:css": "wp-scripts format './src/**/*.scss'",
-		"lint:css": "npm run lint:css-fix && wp-scripts lint-style './src/**/*.scss'",
-		"lint:css-fix": "wp-scripts lint-style './src/**/*.scss' --fix",
-		"lint:js": "npm run lint:js-fix && wp-scripts lint-js './src/**/*.js'",
-		"lint:js-fix": "wp-scripts lint-js './src/**/*.js' --fix",
+
+		"lint:css": "wp-scripts lint-style './src/**/*.scss'",
+		"lint:css:report": "npm run lint:css -- --output-file scss-report.txt",
+		"lint:css:fix": "npm run lint:css -- --fix",
+
+		"lint:js": "wp-scripts lint-js './src/**/*.js'",
+		"lint:js:report": "npm run lint:js -- --format html --output-file lint-report.html",
+		"lint:js:fix": "npm run lint:js -- --fix",
+
 		"lint:md:docs": "wp-scripts lint-md-docs",
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
+
 		"packages-update": "wp-scripts packages-update",
-		"plugin-zip:native": "wp-scripts plugin-zip",
-		"plugin-zip": "npm run zip",
-		"prepackage": "rm -rf ./languages && npm run language && npm run ready",
-		"package": "./bin/package.js",
-		"postpackage": "composer install",
-		"prezip": "rm -rf ./languages && npm run language && npm run ready",
-		"zip": "./bin/package.js --zip",
-		"postzip": "composer install",
+
+		"preplugin-zip": "rm -rf ./languages && npm run language && npm run build",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"postplugin-zip": "composer install",
+
 		"test:e2e": "wp-scripts test-e2e",
 		"test:unit": "wp-scripts test-unit-js",
+
 		"start": "rm -rf ./build && wp-scripts start --webpack-copy-php --experimental-modules",
+
 		"language": "npm run language:make-pot && npm run language:make-json",
-		"language:make-pot": "./vendor/bin/wp i18n make-pot . languages/marquee-block.pot --exclude=bin,node_modules,vendor,languages --package-name=\"Marquee Block\" --headers='{\"Report-Msgid-Bugs-To\":\"https://storepress.com/\", \"language-team\":\"LANGUAGE <EMAIL@ADDRESS>\"}'",
+		"language:make-pot": "./vendor/bin/wp i18n make-pot . languages/${npm_package_name}.pot --exclude=bin,node_modules,vendor,languages --package-name=\"StorePress Marquee Block Plugin\" --headers='{\"Report-Msgid-Bugs-To\":\"https://storepress.com/\", \"language-team\":\"LANGUAGE <EMAIL@ADDRESS>\"}'",
 		"language:make-json": "./vendor/bin/wp i18n make-json languages --no-purge --pretty-print",
+
 		"create-dynamic-block": "npx @wordpress/create-block@latest --namespace storepress --variant dynamic --no-plugin",
 		"create-static-block": "npx @wordpress/create-block@latest --namespace storepress --no-plugin",
 		"create-interactive-block": "npx @wordpress/create-block@latest --template @wordpress/create-block-interactive-template --namespace storepress --no-plugin",
 		"create-woo-extension": "npx @wordpress/create-block@latest --template @woocommerce/create-woo-extension --namespace storepress",
-		"create-product-editor-block": "npx @wordpress/create-block@latest --template @woocommerce/create-product-editor-block --namespace storepress"
+		"create-product-editor-block": "npx @wordpress/create-block@latest --template @woocommerce/create-product-editor-block --namespace storepress",
+
+		"prepare": "husky install && npx husky add .husky/pre-commit \"npm run pre-commit\"",
+		"pre-commit": "lint-staged"
 	},
 	"dependencies": {
-		"@storepress/components": "^0.0.2",
 		"@storepress/icons": "^2.0.0",
-		"@storepress/utils": "^0.2.6",
 		"@wordpress/dom-ready": "^4.0.0",
-		"@wordpress/icons": "^10.0.0",
-		"classnames": "^2.3.2"
+		"@wordpress/icons": "^10.0.0"
 	},
 	"devDependencies": {
 		"@woocommerce/dependency-extraction-webpack-plugin": "^3.0.1",
@@ -71,6 +116,8 @@
 		"@wordpress/scripts": "27.9.0",
 		"eslint-plugin-you-dont-need-lodash-underscore": "^6.14.0",
 		"fs-extra": "^11.2.0",
+		"husky": "^8.0.0",
+		"lint-staged": "^15.2.5",
 		"webpack-remove-empty-scripts": "^1.0.4",
 		"eslint-plugin-prettier" : "^5.1.3"
 	}
