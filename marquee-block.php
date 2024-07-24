@@ -37,17 +37,27 @@ if ( ! class_exists( 'StorePress\MarqueeBlock\Plugin' ) ) {
 }
 
 /**
- * The main function that returns the Plugin class
+ * The function that always returns the same instance to ensure only one instance exists in the global scope at any time.
  *
  * @return Plugin
  * @since 1.0.0
  */
 function marquee_block_plugin(): Plugin {
-	// Load Plugin textdomain.
-	load_plugin_textdomain( 'marquee-block', false, plugin_dir_path( __FILE__ ) . 'languages' );
-	// Include the main class.
 	return Plugin::instance();
 }
 
+/**
+ * Plugin Init.
+ *
+ * @return void
+ */
+function marquee_block_plugin_init() {
+	// Load Plugin textdomain.
+	load_plugin_textdomain( 'marquee-block', false, plugin_dir_path( __FILE__ ) . 'languages' );
+
+	// Init Plugin.
+	marquee_block_plugin();
+}
+
 // Get the plugin running.
-add_action( 'plugins_loaded', 'marquee_block_plugin' );
+add_action( 'plugins_loaded', 'marquee_block_plugin_init' );

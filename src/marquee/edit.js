@@ -169,7 +169,7 @@ export default function Edit({ attributes, setAttributes }) {
 			</InspectorControls>
 
 			<InspectorControls group="styles">
-				<PanelBody title={__('Styles', 'marquee-block')} gr>
+				<PanelBody title={__('Styles', 'marquee-block')}>
 					<ToggleControl
 						label={__('Enable Overlay', 'marquee-block')}
 						checked={overlay}

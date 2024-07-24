@@ -13,6 +13,10 @@
 	"homepage" : "https://github.com/EmranAhmed/marquee-block#readme",
 	"authors" : [
 		{
+			"name" : "EmranAhmed",
+			"email" : "emran.bd.08@gmail.com"
+		},
+		{
 			"name" : "StorePress",
 			"email" : "storepresshq@gmail.com"
 		}

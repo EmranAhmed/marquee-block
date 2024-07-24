@@ -4,5 +4,5 @@ build
 languages
 node_modules
 vendor
-webpack*
+webpack.*
 postcss*
