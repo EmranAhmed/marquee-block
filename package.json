@@ -32,23 +32,15 @@
 		]
 	},
 	"files": [
-		"vendor/**",
-		"admin/**",
-		"build/**",
-		"src/**",
-		"assets/**",
-		"images/**",
-		"includes/**",
-		"templates/**",
-		"languages/**",
-		"public/**",
-		"*.php",
-		"block.json",
+		"vendor",
+		"build",
+		"src",
+		"includes",
+		"languages",
+		"marquee-block.php",
 		"composer.json",
-		"changelog.*",
-		"LICENSE.*",
-		"README.txt",
-		"wpml-config.xml"
+		"changelog.txt",
+		"README.txt"
 	],
 	"scripts": {
 		"clean-composer": "rm -rf ./vendor && rm -rf ./composer.lock",
