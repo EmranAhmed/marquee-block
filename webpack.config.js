@@ -2,6 +2,7 @@ const [
 	defaultJSConfig,
 	defaultModuleConfig,
 ] = require( '@wordpress/scripts/config/webpack.config' );
+
 const {
 	requestToExternal,
 	requestToHandle,
