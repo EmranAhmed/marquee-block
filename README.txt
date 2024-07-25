@@ -3,7 +3,7 @@ Contributors: EmranAhmed
 Requires at least: 6.4
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -34,6 +34,9 @@ Manual installation method requires downloading the “Marquee Block” plugin a
 == Screenshots ==
 
 == Changelog ==
+= 1.0.1 - 2024-07-25 =
+- Update required by org
+
 = 1.0.0 - 2024-06-10 =
 - Initial release
 

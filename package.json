@@ -1,6 +1,6 @@
 {
 	"name" : "marquee-block",
-	"version" : "1.0.0",
+	"version" : "1.0.1",
 	"description" : "StorePress Marquee Block",
 	"author" : "Emran Ahmed",
 	"private" : true,
@@ -15,11 +15,11 @@
 		"url": "https://github.com/EmranAhmed/marquee-block/issues"
 	},
 	"lint-staged": {
-		"*.scss": [
+		"./src/*.scss": [
 			"npm run lint:css:fix",
 			"npm run lint:css"
 		],
-		"*.{js,ts,tsx}": [
+		"./src/*.{js,ts,tsx}": [
 			"npm run lint:js:fix",
 			"npm run lint:js"
 		],
@@ -27,8 +27,11 @@
 			"npm run format:php",
 			"npm run lint:php"
 		],
-		"*.md": [
+		"./*.md": [
 			"npm run lint:md:docs"
+		],
+		"./package.json": [
+			"npm run lint:pkg-json"
 		]
 	},
 	"files": [
@@ -42,6 +45,26 @@
 		"changelog.txt",
 		"README.txt"
 	],
+	"dependencies": {
+		"@storepress/icons": "^2.0.0",
+		"@wordpress/dom-ready": "^4.0.0",
+		"@wordpress/icons": "^10.0.0"
+	},
+	"devDependencies": {
+		"@woocommerce/dependency-extraction-webpack-plugin": "^3.0.1",
+		"@woocommerce/eslint-plugin": "^2.2.0",
+		"@wordpress/base-styles": "^5.0.0",
+		"@wordpress/blocks": "^13.0.0",
+		"@wordpress/dependency-extraction-webpack-plugin": "5.9.0",
+		"@wordpress/i18n": "^5.0.0",
+		"@wordpress/scripts": "27.9.0",
+		"eslint-plugin-prettier" : "^5.1.3",
+		"eslint-plugin-you-dont-need-lodash-underscore": "^6.14.0",
+		"fs-extra": "^11.2.0",
+		"husky": "^8.0.0",
+		"lint-staged": "^15.2.5",
+		"webpack-remove-empty-scripts": "^1.0.4"
+	},
 	"scripts": {
 		"clean-composer": "rm -rf ./vendor && rm -rf ./composer.lock",
 		"postinstall": "npm run clean-composer && composer install",
@@ -94,25 +117,5 @@
 
 		"prepare": "husky install && npx husky add .husky/pre-commit \"npm run pre-commit\"",
 		"pre-commit": "lint-staged"
-	},
-	"dependencies": {
-		"@storepress/icons": "^2.0.0",
-		"@wordpress/dom-ready": "^4.0.0",
-		"@wordpress/icons": "^10.0.0"
-	},
-	"devDependencies": {
-		"@woocommerce/dependency-extraction-webpack-plugin": "^3.0.1",
-		"@woocommerce/eslint-plugin": "^2.2.0",
-		"@wordpress/base-styles": "^5.0.0",
-		"@wordpress/blocks": "^13.0.0",
-		"@wordpress/dependency-extraction-webpack-plugin": "5.9.0",
-		"@wordpress/i18n": "^5.0.0",
-		"@wordpress/scripts": "27.9.0",
-		"eslint-plugin-you-dont-need-lodash-underscore": "^6.14.0",
-		"fs-extra": "^11.2.0",
-		"husky": "^8.0.0",
-		"lint-staged": "^15.2.5",
-		"webpack-remove-empty-scripts": "^1.0.4",
-		"eslint-plugin-prettier" : "^5.1.3"
 	}
 }
