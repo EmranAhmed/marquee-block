@@ -1,5 +1,12 @@
 # Marquee Block
 
+CSS Only marquee block. 
+
+## Requirements
+
+- WordPress 6.4+
+- PHP 7.4+
+
 ## Initial
 
 - `npm install`

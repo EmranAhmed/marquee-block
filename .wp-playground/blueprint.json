@@ -1,0 +1,31 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"preferredVersions": {
+		"php": "latest",
+		"wp": "latest"
+	},
+	"siteOptions": {
+		"blogname": "Marquee Block Demo"
+	},
+	"steps": [
+		{
+			"step": "installPlugin",
+			"pluginZipFile": {
+				"resource": "url",
+				"url": "https://raw.githubusercontent.com/EmranAhmed/marquee-block/main/.wp-playground/marquee-block.zip"
+			},
+			"options": {
+				"activate": true
+			}
+		},
+		{
+			"step": "runPHP",
+			"code": "<?php require_once 'wordpress/wp-load.php'; wp_insert_post(array('post_title' => 'Marquee Block Example', 'post_status' => 'publish', 'post_type'=>'page', 'post_content'=>'<!-- wp:storepress/marquee --><!-- wp:paragraph {\"align\":\"center\"} --><p class=\"has-text-align-center\">Marquee block adds a touch of movement and interactivity to your site and help to capture attention and engage your site visitors in a unique way.</p><!-- /wp:paragraph --><!-- /wp:storepress/marquee -->')); ?>"
+		}
+	],
+	"features": {
+		"networking": true
+	},
+	"login": true,
+	"landingPage": "/?p=4"
+}

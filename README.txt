@@ -13,6 +13,8 @@ Marquee block is CSS based animation block to display scrolling text, images and
 
 Marquee block adds a touch of movement and interactivity to your site and help to capture attention and engage your site visitors in a unique way.
 
+
+
 == Installation ==
 = Minimum Requirements =
 

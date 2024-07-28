@@ -1,15 +1,20 @@
 {
-	"name" : "marquee-block",
-	"version" : "1.0.1",
-	"description" : "StorePress Marquee Block",
-	"author" : "Emran Ahmed",
-	"private" : true,
-	"license" : "GPL-2.0-or-later",
-	"keywords": ["wordpress", "gutenberg", "block", "storepress"],
+	"name": "marquee-block",
+	"version": "1.0.1",
+	"description": "StorePress Marquee Block",
+	"author": "Emran Ahmed",
+	"private": true,
+	"license": "GPL-2.0-or-later",
+	"keywords": [
+		"wordpress",
+		"gutenberg",
+		"block",
+		"storepress"
+	],
 	"homepage": "https://github.com/EmranAhmed/marquee-block",
-	"repository" : {
-		"type" : "git",
-		"url" : "https://github.com/EmranAhmed/marquee-block"
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/EmranAhmed/marquee-block"
 	},
 	"bugs": {
 		"url": "https://github.com/EmranAhmed/marquee-block/issues"
@@ -37,7 +42,6 @@
 	"files": [
 		"vendor",
 		"build",
-		"src",
 		"includes",
 		"languages",
 		"marquee-block.php",
@@ -58,7 +62,8 @@
 		"@wordpress/dependency-extraction-webpack-plugin": "5.9.0",
 		"@wordpress/i18n": "^5.0.0",
 		"@wordpress/scripts": "27.9.0",
-		"eslint-plugin-prettier" : "^5.1.3",
+		"copyfiles": "^2.4.1",
+		"eslint-plugin-prettier": "^5.1.3",
 		"eslint-plugin-you-dont-need-lodash-underscore": "^6.14.0",
 		"fs-extra": "^11.2.0",
 		"husky": "^8.0.0",
@@ -68,53 +73,34 @@
 	"scripts": {
 		"clean-composer": "rm -rf ./vendor && rm -rf ./composer.lock",
 		"postinstall": "npm run clean-composer && composer install",
-
 		"lint:php": "composer run lint",
 		"format:php": "composer run format",
-
 		"prebuild": "rm -rf ./build && npm run clean-composer && composer install --no-dev --optimize-autoloader",
 		"build": "npm run start -- --no-watch && wp-scripts build --webpack-copy-php --experimental-modules",
-
 		"check-engines": "wp-scripts check-engines",
 		"check-licenses": "wp-scripts check-licenses",
-
 		"format": "wp-scripts format ./src",
 		"format:all": "npm run format:php && npm run format:css && npm run format:js",
 		"format:js": "wp-scripts format './src/**/*.js'",
 		"format:css": "wp-scripts format './src/**/*.scss'",
-
 		"lint:css": "wp-scripts lint-style './src/**/*.scss'",
 		"lint:css:report": "npm run lint:css -- --output-file scss-report.txt",
 		"lint:css:fix": "npm run lint:css -- --fix",
-
 		"lint:js": "wp-scripts lint-js './src/**/*.js'",
 		"lint:js:report": "npm run lint:js -- --format html --output-file lint-report.html",
 		"lint:js:fix": "npm run lint:js -- --fix",
-
 		"lint:md:docs": "wp-scripts lint-md-docs",
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
-
 		"packages-update": "wp-scripts packages-update",
-
 		"preplugin-zip": "rm -rf ./languages && npm run language && npm run build",
 		"plugin-zip": "wp-scripts plugin-zip",
-		"postplugin-zip": "composer install",
-
+		"postplugin-zip": "copyfiles --verbose ${npm_package_name}.zip .wp-playground/ && composer install",
 		"test:e2e": "wp-scripts test-e2e",
 		"test:unit": "wp-scripts test-unit-js",
-
 		"start": "rm -rf ./build && wp-scripts start --webpack-copy-php --experimental-modules",
-
 		"language": "npm run language:make-pot && npm run language:make-json",
-		"language:make-pot": "./vendor/bin/wp i18n make-pot . languages/${npm_package_name}.pot --exclude=bin,node_modules,vendor,languages --package-name=\"StorePress Marquee Block Plugin\" --headers='{\"Report-Msgid-Bugs-To\":\"https://storepress.com/\", \"language-team\":\"LANGUAGE <EMAIL@ADDRESS>\"}'",
+		"language:make-pot": "./vendor/bin/wp i18n make-pot . languages/${npm_package_name}.pot --exclude=src,bin,node_modules,vendor,languages --package-name=\"StorePress Marquee Block Plugin\" --headers='{\"Report-Msgid-Bugs-To\":\"https://storepress.com/\", \"language-team\":\"LANGUAGE <EMAIL@ADDRESS>\"}'",
 		"language:make-json": "./vendor/bin/wp i18n make-json languages --no-purge --pretty-print",
-
-		"create-dynamic-block": "npx @wordpress/create-block@latest --namespace storepress --variant dynamic --no-plugin",
-		"create-static-block": "npx @wordpress/create-block@latest --namespace storepress --no-plugin",
-		"create-interactive-block": "npx @wordpress/create-block@latest --template @wordpress/create-block-interactive-template --namespace storepress --no-plugin",
-		"create-woo-extension": "npx @wordpress/create-block@latest --template @woocommerce/create-woo-extension --namespace storepress",
-		"create-product-editor-block": "npx @wordpress/create-block@latest --template @woocommerce/create-product-editor-block --namespace storepress",
-
 		"prepare": "husky install && npx husky add .husky/pre-commit \"npm run pre-commit\"",
 		"pre-commit": "lint-staged"
 	}
