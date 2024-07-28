@@ -2,6 +2,8 @@
 
 CSS Only marquee block. 
 
+You can [test the block in your browser](https://playground.wordpress.net/?mode=seamless&blueprint-url=https://raw.githubusercontent.com/EmranAhmed/marquee-block/master/.wp-playground/blueprint.json) using Playground.
+
 ## Requirements
 
 - WordPress 6.4+

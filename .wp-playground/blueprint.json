@@ -12,7 +12,7 @@
 			"step": "installPlugin",
 			"pluginZipFile": {
 				"resource": "url",
-				"url": "https://raw.githubusercontent.com/EmranAhmed/marquee-block/main/.wp-playground/marquee-block.zip"
+				"url": "https://raw.githubusercontent.com/EmranAhmed/marquee-block/master/.wp-playground/marquee-block.zip"
 			},
 			"options": {
 				"activate": true
