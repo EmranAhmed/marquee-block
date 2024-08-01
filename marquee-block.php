@@ -8,7 +8,7 @@
  * Plugin Name:       Marquee Block
  * Plugin URI:        https://storepress.com/marquee-block/
  * Description:       Marquee block adds a touch of movement and interactivity to your site and help to capture attention and engage your site visitors in a unique way.
- * Version:           1.0.1
+ * Version:           1.0.0
  * Requires at least: 6.4
  * Requires PHP:      7.4
  * Author:            Emran Ahmed.

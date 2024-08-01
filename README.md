@@ -18,11 +18,6 @@ You can [test the block in your browser](https://playground.wordpress.net/?mode=
 
 - `npm start`
 
-### Create New Block(s)
-
-- `npm run create-dynamic-block [block name]` - To add dynamic block
-- `npm run create-static-block [block name]` - To add static block
-
 ## Lint
 
 - `npm run lint:js` - Lint Javascript

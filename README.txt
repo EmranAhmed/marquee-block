@@ -3,7 +3,7 @@ Contributors: EmranAhmed
 Requires at least: 6.4
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 1.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,7 +13,7 @@ Marquee block is CSS based animation block to display scrolling text, images and
 
 Marquee block adds a touch of movement and interactivity to your site and help to capture attention and engage your site visitors in a unique way.
 
-
+[Test on Playground](https://playground.wordpress.net/?mode=seamless&blueprint-url=https://raw.githubusercontent.com/EmranAhmed/marquee-block/master/.wp-playground/blueprint.json) | [Github URL](https://github.com/EmranAhmed/marquee-block/)
 
 == Installation ==
 = Minimum Requirements =
