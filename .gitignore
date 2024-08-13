@@ -48,7 +48,7 @@ storepress-base-plugin/
 tsconfig.tsbuildinfo
 
 # Node Package Dependencies
-package-lock.json
+# package-lock.json
 .husky/
 
 # wp-env config
