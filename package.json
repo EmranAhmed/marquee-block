@@ -94,14 +94,13 @@
 		"packages-update": "wp-scripts packages-update",
 		"preplugin-zip": "rm -rf ./languages && npm run language && npm run build",
 		"plugin-zip": "wp-scripts plugin-zip",
-		"postplugin-zip": "copyfiles --verbose ${npm_package_name}.zip .wp-playground/ && composer install",
 		"test:e2e": "wp-scripts test-e2e",
 		"test:unit": "wp-scripts test-unit-js",
 		"start": "rm -rf ./build && wp-scripts start --webpack-copy-php --experimental-modules",
 		"language": "npm run language:make-pot && npm run language:make-json",
 		"language:make-pot": "./vendor/bin/wp i18n make-pot . languages/${npm_package_name}.pot --exclude=src,bin,node_modules,vendor,languages --package-name=\"StorePress Marquee Block Plugin\" --headers='{\"Report-Msgid-Bugs-To\":\"https://storepress.com/\", \"language-team\":\"LANGUAGE <EMAIL@ADDRESS>\"}'",
 		"language:make-json": "./vendor/bin/wp i18n make-json languages --no-purge --pretty-print",
-		"prepare": "husky install && npx husky add .husky/pre-commit \"npm run pre-commit\"",
+		"prepare": "git init && husky install && npx husky add .husky/pre-commit \"npm run pre-commit\"",
 		"pre-commit": "lint-staged"
 	}
 }

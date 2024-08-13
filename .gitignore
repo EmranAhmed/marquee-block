@@ -31,7 +31,6 @@ npm-debug.log
 *.sql
 *.swp
 *.zip
-!.wp-playground/*.zip
 # Built packages
 build/
 build-module/
