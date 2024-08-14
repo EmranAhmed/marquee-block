@@ -71,6 +71,7 @@
 	},
 	"scripts": {
 		"clean-composer": "rm -rf ./vendor && rm -rf ./composer.lock",
+		"preinstall": "git init -q && rm -rf ./.husky",
 		"postinstall": "npm run clean-composer && composer install",
 		"lint:php": "composer run lint",
 		"format:php": "composer run format",
@@ -98,7 +99,7 @@
 		"language": "npm run language:make-pot && npm run language:make-json",
 		"language:make-pot": "./vendor/bin/wp i18n make-pot . languages/${npm_package_name}.pot --exclude=src,bin,node_modules,vendor,languages --package-name=\"StorePress Marquee Block Plugin\" --headers='{\"Report-Msgid-Bugs-To\":\"https://storepress.com/\", \"language-team\":\"LANGUAGE <EMAIL@ADDRESS>\"}'",
 		"language:make-json": "./vendor/bin/wp i18n make-json languages --no-purge --pretty-print",
-		"prepare": "git init -q && husky install && npx husky add .husky/pre-commit \"npm run pre-commit\"",
+		"prepare": "husky install && npx husky add .husky/pre-commit \"npm run pre-commit\"",
 		"pre-commit": "lint-staged"
 	}
 }
