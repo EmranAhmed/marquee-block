@@ -36,9 +36,7 @@ Manual installation method requires downloading the “Marquee Block” plugin a
 == Screenshots ==
 
 == Changelog ==
-= 1.0.1 - 2024-07-25 =
-- Update required by org
 
-= 1.0.0 - 2024-06-10 =
+= 1.0.0 - 2024-08-14 =
 - Initial release
 

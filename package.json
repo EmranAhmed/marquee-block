@@ -94,8 +94,6 @@
 		"packages-update": "wp-scripts packages-update",
 		"preplugin-zip": "rm -rf ./languages && npm run language && npm run build",
 		"plugin-zip": "wp-scripts plugin-zip",
-		"test:e2e": "wp-scripts test-e2e",
-		"test:unit": "wp-scripts test-unit-js",
 		"start": "rm -rf ./build && wp-scripts start --webpack-copy-php --experimental-modules",
 		"language": "npm run language:make-pot && npm run language:make-json",
 		"language:make-pot": "./vendor/bin/wp i18n make-pot . languages/${npm_package_name}.pot --exclude=src,bin,node_modules,vendor,languages --package-name=\"StorePress Marquee Block Plugin\" --headers='{\"Report-Msgid-Bugs-To\":\"https://storepress.com/\", \"language-team\":\"LANGUAGE <EMAIL@ADDRESS>\"}'",
