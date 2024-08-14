@@ -11,7 +11,7 @@
  * Version:           1.0.0
  * Requires at least: 6.4
  * Requires PHP:      7.4
- * Author:            Emran Ahmed.
+ * Author:            Emran Ahmed
  * Author URI:        https://storepress.com/
  * Text Domain:       marquee-block
  * License:           GPL v3 or later
