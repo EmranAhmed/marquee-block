@@ -1,9 +1,10 @@
 # Marquee Block
 
-CSS Only marquee block. 
+![Marquee Block](https://raw.githubusercontent.com/EmranAhmed/marquee-block/master/.wp-org/assets/banner-1544x500.png)
+[![Active Installs](https://img.shields.io/wordpress/plugin/installs/marquee-block?logo=wordpress&logoColor=%23fff&label=Active%20Installs&labelColor=%2323282D&color=%2323282D)](https://wordpress.org/plugins/marquee-block/)
+[![Playground Demo Link](https://img.shields.io/wordpress/plugin/v/marquee-block?logo=wordpress&logoColor=%23fff&label=Playground%20Demo&labelColor=%233858e9&color=%233858e9)](https://playground.wordpress.net/?mode=seamless&blueprint-url=https://raw.githubusercontent.com/EmranAhmed/marquee-block/master/.wp-playground/blueprint-github.json)
 
-Download [latest release](https://github.com/EmranAhmed/marquee-block/releases/latest/download/marquee-block.zip) |
-Test [on browser](https://playground.wordpress.net/?mode=seamless&blueprint-url=https://raw.githubusercontent.com/EmranAhmed/marquee-block/master/.wp-playground/blueprint-github.json)
+[Marquee Block](https://wordpress.org/plugins/marquee-block/) adds a touch of movement and interactivity to your site and help to capture attention and engage your site visitors in a unique way. 
 
 ## Requirements
 
