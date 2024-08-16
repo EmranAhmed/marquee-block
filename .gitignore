@@ -42,7 +42,7 @@ dist/
 node_modules/
 vendor/
 languages/
-storepress-base-plugin/
+marquee-block/
 
 # TypeScript files
 tsconfig.tsbuildinfo

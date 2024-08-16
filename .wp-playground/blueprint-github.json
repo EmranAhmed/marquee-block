@@ -11,8 +11,8 @@
 		{
 			"step": "installPlugin",
 			"pluginZipFile": {
-				"resource": "wordpress.org/plugins",
-				"slug": "marquee-block"
+				"resource": "url",
+				"url": "https://github-proxy.com/proxy/?repo=EmranAhmed/marquee-block&release=v1.0.0&asset=marquee-block.zip"
 			},
 			"options": {
 				"activate": true

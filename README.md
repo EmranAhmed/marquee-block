@@ -3,7 +3,7 @@
 CSS Only marquee block. 
 
 Download [latest release](https://github.com/EmranAhmed/marquee-block/releases/latest/download/marquee-block.zip) |
-Test the plugin [in your browser](https://playground.wordpress.net/?mode=seamless&blueprint-url=https://raw.githubusercontent.com/EmranAhmed/marquee-block/master/.wp-playground/blueprint.json) using Playground.
+Test [on browser](https://playground.wordpress.net/?mode=seamless&blueprint-url=https://raw.githubusercontent.com/EmranAhmed/marquee-block/master/.wp-playground/blueprint-github.json)
 
 ## Requirements
 
