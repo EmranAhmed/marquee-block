@@ -18,8 +18,8 @@ Marquee block adds a touch of movement and interactivity to your site and help t
 == Installation ==
 = Minimum Requirements =
 
-* PHP 7.4 or greater is required (PHP 8.0 or greater is recommended)
-* MySQL 5.6 or greater, OR MariaDB version 10.1 or greater, is required
+* PHP 7.4 or greater is required.
+* MySQL 5.6 or greater, OR MariaDB version 10.1 or greater, is required.
 
 = Automatic installation =
 
@@ -37,6 +37,6 @@ Manual installation method requires downloading the “Marquee Block” plugin a
 
 == Changelog ==
 
-= 1.0.0 - 2024-08-14 =
+= 1.0.0 - 2024-08-16 =
 - Initial release
 
