@@ -48,11 +48,11 @@ class Blocks {
 		add_action( 'init', array( $this, 'register_blocks' ) );
 		add_action(
 			'enqueue_block_editor_assets',
-			array( $this, 'block_editor_scripts' ) 
+			array( $this, 'block_editor_scripts' )
 		);
 		add_filter(
 			'block_categories_all',
-			array( $this, 'add_block_category' ) 
+			array( $this, 'add_block_category' )
 		);
 	}
 
@@ -109,13 +109,13 @@ class Blocks {
 			$editor_script_src_url,
 			$editor_script_asset['dependencies'],
 			$editor_script_asset['version'],
-			array( 'strategy' => 'defer' ) 
+			array( 'strategy' => 'defer' )
 		);
 
 		wp_set_script_translations(
 			'marquee-block-editor-scripts',
 			'marquee-block',
-			marquee_block_plugin()->plugin_path() . '/languages' 
+			marquee_block_plugin()->plugin_path() . '/languages'
 		);
 	}
 
@@ -132,7 +132,7 @@ class Blocks {
 		// Scanning block.json directory.
 		$block_json_files = glob(
 			marquee_block_plugin()->build_path()
-									. '/**/block.json' 
+									. '/**/block.json'
 		);
 
 		// Auto register all blocks that were found.
@@ -148,6 +148,7 @@ class Blocks {
 	 * @param array $args extra argument.
 	 *
 	 * @return array
+	 * @since 1.0.0
 	 */
 	public function get_kses_allowed_html( array $args = array() ): array {
 		$defaults = wp_kses_allowed_html( 'post' );
