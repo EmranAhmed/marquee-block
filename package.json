@@ -73,6 +73,7 @@
 		"preinstall": "git init -q && rm -rf ./.husky",
 		"postinstall": "npm run clean-composer && composer install",
 		"lint:php": "composer run lint",
+		"lint:php:fix": "composer run format",
 		"format:php": "composer run format",
 		"prebuild": "rm -rf ./build && npm run clean-composer && composer install --no-dev --optimize-autoloader",
 		"build": "npm run start -- --no-watch && wp-scripts build --webpack-copy-php --experimental-modules",

@@ -1,21 +1,21 @@
 <?php
-	/**
-	 * Blocks Class file.
-	 *
-	 * @package    StorePress/MarqueeBlock
-	 * @since      1.0.0
-	 * @version    1.0.0
-	 */
+/**
+ * Blocks Class file.
+ *
+ * @package    StorePress/MarqueeBlock
+ * @since      1.0.0
+ * @version    1.0.0
+ */
 
-	namespace StorePress\MarqueeBlock;
+namespace StorePress\MarqueeBlock;
 
-	defined( 'ABSPATH' ) || die( 'Keep Silent' );
+defined( 'ABSPATH' ) || die( 'Keep Silent' );
 
-	/**
-	 *  Blocks Class.
-	 *
-	 * @since 1.0.0
-	 */
+/**
+ *  Blocks Class.
+ *
+ * @since 1.0.0
+ */
 class Blocks {
 
 	use Common;
@@ -46,8 +46,14 @@ class Blocks {
 	 */
 	public function hooks() {
 		add_action( 'init', array( $this, 'register_blocks' ) );
-		add_action( 'enqueue_block_editor_assets', array( $this, 'block_editor_scripts' ) );
-		add_filter( 'block_categories_all', array( $this, 'add_block_category' ) );
+		add_action(
+			'enqueue_block_editor_assets',
+			array( $this, 'block_editor_scripts' ) 
+		);
+		add_filter(
+			'block_categories_all',
+			array( $this, 'add_block_category' ) 
+		);
 	}
 
 	/**
@@ -67,7 +73,6 @@ class Blocks {
 	 * @since      1.0.0
 	 */
 	public function add_block_category( array $block_categories ): array {
-
 		$available_slugs = wp_list_pluck( $block_categories, 'slug' );
 
 		$category = array(
@@ -88,18 +93,30 @@ class Blocks {
 	 * Block Editor Script
 	 *
 	 * @since      1.0.0
-	 * @see https://developer.wordpress.org/reference/functions/wp_set_script_translations/
-	 * @see https://developer.wordpress.org/block-editor/how-to-guides/internationalization/#load-translation-file
+	 * @see        https://developer.wordpress.org/reference/functions/wp_set_script_translations/
+	 * @see        https://developer.wordpress.org/block-editor/how-to-guides/internationalization/#load-translation-file
 	 */
 	public function block_editor_scripts() {
 		// Editor Scripts.
-		$editor_script_src_url    = marquee_block_plugin()->build_url() . '/editor-scripts.js';
-		$editor_script_asset_file = marquee_block_plugin()->build_path() . '/editor-scripts.asset.php';
+		$editor_script_src_url    = marquee_block_plugin()->build_url()
+									. '/editor-scripts.js';
+		$editor_script_asset_file = marquee_block_plugin()->build_path()
+									. '/editor-scripts.asset.php';
 		$editor_script_asset      = include $editor_script_asset_file;
 
-		wp_enqueue_script( 'marquee-block-editor-scripts', $editor_script_src_url, $editor_script_asset['dependencies'], $editor_script_asset['version'], array( 'strategy' => 'defer' ) );
+		wp_enqueue_script(
+			'marquee-block-editor-scripts',
+			$editor_script_src_url,
+			$editor_script_asset['dependencies'],
+			$editor_script_asset['version'],
+			array( 'strategy' => 'defer' ) 
+		);
 
-		wp_set_script_translations( 'marquee-block-editor-scripts', 'marquee-block', marquee_block_plugin()->plugin_path() . '/languages' );
+		wp_set_script_translations(
+			'marquee-block-editor-scripts',
+			'marquee-block',
+			marquee_block_plugin()->plugin_path() . '/languages' 
+		);
 	}
 
 	/**
@@ -113,7 +130,10 @@ class Blocks {
 		}
 
 		// Scanning block.json directory.
-		$block_json_files = glob( marquee_block_plugin()->build_path() . '/**/block.json' );
+		$block_json_files = glob(
+			marquee_block_plugin()->build_path()
+									. '/**/block.json' 
+		);
 
 		// Auto register all blocks that were found.
 		foreach ( $block_json_files as $filename ) {
@@ -133,7 +153,17 @@ class Blocks {
 		$defaults = wp_kses_allowed_html( 'post' );
 
 		$tags = array(
-			'svg'   => array( 'class', 'aria-hidden', 'aria-labelledby', 'role', 'xmlns', 'width', 'height', 'viewbox', 'height' ),
+			'svg'   => array(
+				'class',
+				'aria-hidden',
+				'aria-labelledby',
+				'role',
+				'xmlns',
+				'width',
+				'height',
+				'viewbox',
+				'height',
+			),
 			'g'     => array( 'fill' ),
 			'title' => array( 'title' ),
 			'path'  => array( 'd', 'fill' ),
@@ -141,8 +171,9 @@ class Blocks {
 
 		$allowed_args = array_reduce(
 			array_keys( $tags ),
-			function ( $carry, $tag ) use ( $tags ) {
+			function ( array $carry, string $tag ) use ( $tags ) {
 				$carry[ $tag ] = array_fill_keys( $tags[ $tag ], true );
+
 				return $carry;
 			},
 			array()
