@@ -12,7 +12,7 @@
 			"step": "installPlugin",
 			"pluginZipFile": {
 				"resource": "url",
-				"url": "https://github-proxy.com/proxy/?repo=EmranAhmed/marquee-block&release=v1.0.0&asset=marquee-block.zip"
+				"url": "https://github-proxy.com/proxy/?repo=EmranAhmed/marquee-block&release=v1.0.1&asset=marquee-block.zip"
 			},
 			"options": {
 				"activate": true
