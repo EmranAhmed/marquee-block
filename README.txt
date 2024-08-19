@@ -3,7 +3,7 @@ Contributors: EmranAhmed
 Requires at least: 6.4
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -37,9 +37,12 @@ Manual installation method requires downloading the “Marquee Block” plugin a
 
 == Changelog ==
 
+= 1.0.2 - 2024-08-19 =
+- Add whitespace option.
+
 = 1.0.1 - 2024-08-18 =
 - Support SVG Output.
 
 = 1.0.0 - 2024-08-16 =
-- Initial release
+- Initial release.
 

@@ -13,13 +13,12 @@
 
 	> .wp-block-storepress-marquee__item {
 		flex: 0 0 100%;
-		white-space: nowrap;
-		animation: marquee-animation-x var(--animation-speed) linear infinite;
+		animation: storepress-marquee-animation-x var(--animation-speed) linear infinite;
 		animation-direction: var(--direction);
 
 		@media (prefers-reduced-motion: reduce) {
 			animation: none !important;
-			white-space: unset;
+			/*white-space: unset;*/
 
 			&.mirror {
 				display: none;
@@ -31,12 +30,15 @@
 		animation-play-state: paused;
 	}
 
+	&.white-space--no-wrap.orientation-x > .wp-block-storepress-marquee__item {
+		white-space: nowrap;
+	}
+
 	&.orientation-y {
 		flex-direction: column;
 
 		> .wp-block-storepress-marquee__item {
-			white-space: unset;
-			animation: marquee-animation-y var(--animation-speed) linear infinite;
+			animation: storepress-marquee-animation-y var(--animation-speed) linear infinite;
 			animation-direction: var(--direction);
 			animation-delay: -3s;
 		}
@@ -84,13 +86,13 @@
 	}
 }
 
-@keyframes marquee-animation-x {
+@keyframes storepress-marquee-animation-x {
 	to {
 		transform: translateX(calc(-100% - var(--content-gap)));
 	}
 }
 
-@keyframes marquee-animation-y {
+@keyframes storepress-marquee-animation-y {
 	from {
 		transform: translateY(0);
 	}

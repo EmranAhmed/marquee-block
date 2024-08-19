@@ -20,10 +20,11 @@ use WP_Block;
  */
 
 $marquee_block_classes = array(
-	'pause-on-hover' => $attributes['pause'],
-	'has-overlay'    => $attributes['overlay'],
-	'orientation-x'  => 'x' === $attributes['orientation'],
-	'orientation-y'  => 'y' === $attributes['orientation'],
+	'pause-on-hover'       => $attributes['pause'],
+	'has-overlay'          => $attributes['overlay'],
+	'orientation-x'        => 'x' === $attributes['orientation'],
+	'orientation-y'        => 'y' === $attributes['orientation'],
+	'white-space--no-wrap' => $attributes['whiteSpaceNoWrap'],
 );
 
 $marquee_block_styles = array(

@@ -32,9 +32,11 @@ export default function Edit({ attributes, setAttributes }) {
 		gap,
 		overlay,
 		overlayColor,
+		whiteSpaceNoWrap
 	} = attributes;
 
 	const blockProps = useBlockProps();
+
 	const innerBlockProps = useInnerBlocksProps(
 		{
 			className: 'wp-block-storepress-marquee__item',
@@ -184,6 +186,12 @@ export default function Edit({ attributes, setAttributes }) {
 							}}
 						/>
 					)}
+
+					<ToggleControl
+						label={__('White Space - No Wrap', 'marquee-block')}
+						checked={whiteSpaceNoWrap}
+						onChange={(value) => setAttributes({ whiteSpaceNoWrap: value })}
+					/>
 				</PanelBody>
 			</InspectorControls>
 
