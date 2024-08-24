@@ -1,5 +1,6 @@
 === Marquee Block ===
-Contributors: EmranAhmed
+Contributors: EmranAhmed, getwooplugins
+Tags: marquee block, marquee, scroller, text scroller, fse theme, gutenberg
 Requires at least: 6.4
 Tested up to: 6.6
 Requires PHP: 7.4
