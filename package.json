@@ -40,14 +40,18 @@
 		]
 	},
 	"files": [
-		"vendor",
-		"build",
-		"includes",
-		"languages",
-		"marquee-block.php",
-		"changelog.txt",
-		"README.txt"
+		"vendor/**",
+		"build/**",
+		"includes/**",
+		"languages/**",
+		"*.php",
+		"changelog.*",
+		"README.txt",
+		"wpml-config.xml"
 	],
+	"bin": {
+		"package": "./bin/package.js"
+	},
 	"dependencies": {
 		"@storepress/icons": "^2.0.0",
 		"@wordpress/dom-ready": "^4.0.0",
@@ -92,9 +96,10 @@
 		"lint:md:docs": "wp-scripts lint-md-docs",
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
 		"packages-update": "wp-scripts packages-update",
-		"preplugin-zip": "rm -rf ./languages && npm run language && npm run build",
-		"plugin-zip": "wp-scripts plugin-zip",
-		"postplugin-zip": "npm run clean-composer && composer install",
+		"prepackage": "rm -rf ./languages && rm -rf ./${npm_package_name}.zip && npm run language && npm run build",
+		"package": "./bin/package.js",
+		"postpackage": "npm run clean-composer && composer install",
+		"plugin-zip": "npm run package -- --zip",
 		"start": "rm -rf ./build && wp-scripts start --webpack-copy-php --experimental-modules",
 		"language": "npm run language:make-pot && npm run language:make-json",
 		"language:make-pot": "./vendor/bin/wp i18n make-pot . languages/${npm_package_name}.pot --exclude=src,bin,node_modules,vendor,languages --package-name=\"StorePress Marquee Block Plugin\" --headers='{\"Report-Msgid-Bugs-To\":\"https://storepress.com/\", \"language-team\":\"LANGUAGE <EMAIL@ADDRESS>\"}'",
