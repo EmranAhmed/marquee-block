@@ -14,7 +14,7 @@ Marquee block is CSS based animation block to display scrolling text, images and
 
 Marquee block adds a touch of movement and interactivity to your site and help to capture attention and engage your site visitors in a unique way.
 
-[Test on Playground](https://playground.wordpress.net/?mode=seamless&blueprint-url=https://raw.githubusercontent.com/EmranAhmed/marquee-block/master/.wp-playground/blueprint.json) | [Github URL](https://github.com/EmranAhmed/marquee-block/)
+[Test on Playground](https://playground.wordpress.net/?mode=seamless&blueprint-url=https://wordpress.org/plugins/wp-json/plugins/v1/plugin/marquee-block/blueprint.json) | [Github URL](https://github.com/EmranAhmed/marquee-block/)
 
 == Installation ==
 = Minimum Requirements =
