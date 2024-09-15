@@ -20,18 +20,18 @@ use WP_Block;
  */
 
 $marquee_block_classes = array(
-	'pause-on-hover'       => $attributes['pause'],
-	'has-overlay'          => $attributes['overlay'],
+	'pause-on-hover'       => marquee_block_plugin()->get_blocks()->string_to_boolean( $attributes['pause'] ),
+	'has-overlay'          => marquee_block_plugin()->get_blocks()->string_to_boolean( $attributes['overlay'] ),
 	'orientation-x'        => 'x' === $attributes['orientation'],
 	'orientation-y'        => 'y' === $attributes['orientation'],
-	'white-space--no-wrap' => $attributes['whiteSpaceNoWrap'],
+	'white-space--no-wrap' => marquee_block_plugin()->get_blocks()->string_to_boolean( $attributes['whiteSpaceNoWrap'] ),
 );
 
 $marquee_block_styles = array(
 	'--direction'       => 'left' === $attributes['direction'] ? 'normal' : 'reverse',
-	'--animation-speed' => sprintf( '%ds', $attributes['animationSpeed'] ),
-	'--content-gap'     => sprintf( '%dpx', $attributes['gap'] ),
-	'--overlay-color'   => $attributes['overlayColor'],
+	'--animation-speed' => sprintf( '%ds', absint( $attributes['animationSpeed'] ) ),
+	'--content-gap'     => sprintf( '%dpx', absint( $attributes['gap'] ) ),
+	'--overlay-color'   => sanitize_hex_color( $attributes['overlayColor'] ),
 );
 
 $marquee_block_wrapper_attrs = array(
@@ -46,7 +46,6 @@ $marquee_block_allowed_html = marquee_block_plugin()->get_blocks()->get_kses_all
 	<div class="wp-block-storepress-marquee__item">
 		<?php echo wp_kses( $content, $marquee_block_allowed_html ); ?>
 	</div>
-
 	<!-- Mirrors the content above -->
 	<div class="wp-block-storepress-marquee__item mirror" aria-hidden="true">
 		<?php echo wp_kses( $content, $marquee_block_allowed_html ); ?>

@@ -133,24 +133,20 @@ trait Common {
 	 * @since      1.0.0
 	 */
 	public function string_to_boolean( $value ): bool {
-		$value = $value ?? '';
-
-		return is_bool( $value ) ? $value : ( 'yes' === strtolower( $value ) || 1 === $value || 'true' === strtolower( $value ) || '1' === $value );
+		return filter_var( $value, FILTER_VALIDATE_BOOLEAN );
 	}
 
 	/**
 	 * Converts a bool to a 'yes' or 'no'.
 	 *
 	 * @param bool|string $value Bool to convert. If a string is passed it will first be converted to a bool.
+	 * @param string      $true_string Truth string.
+	 * @param string      $false_string Falsy string.
 	 *
 	 * @return string
 	 * @since 1.0.0
 	 */
-	public function boolean_to_string( $value ): string {
-		if ( ! is_bool( $value ) ) {
-			$value = $this->string_to_boolean( $value );
-		}
-
-		return true === $value ? 'yes' : 'no';
+	public function boolean_to_string( $value, string $true_string = 'yes', string $false_string = 'no' ): string {
+		return $this->string_to_boolean( $value ) ? $true_string : $false_string;
 	}
 }
