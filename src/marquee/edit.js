@@ -32,7 +32,7 @@ export default function Edit({ attributes, setAttributes }) {
 		gap,
 		overlay,
 		overlayColor,
-		whiteSpaceNoWrap
+		whiteSpaceNoWrap,
 	} = attributes;
 
 	const blockProps = useBlockProps();
@@ -190,7 +190,9 @@ export default function Edit({ attributes, setAttributes }) {
 					<ToggleControl
 						label={__('White Space - No Wrap', 'marquee-block')}
 						checked={whiteSpaceNoWrap}
-						onChange={(value) => setAttributes({ whiteSpaceNoWrap: value })}
+						onChange={(value) =>
+							setAttributes({ whiteSpaceNoWrap: value })
+						}
 					/>
 				</PanelBody>
 			</InspectorControls>

@@ -22,13 +22,13 @@
 		}
 	],
 	"require" : {
-		"automattic/jetpack-autoloader" : "^v3.0.8"
+		"automattic/jetpack-autoloader" : "^v3.1.2"
 	},
 	"require-dev" : {
 		"automattic/vipwpcs" : "^3.0",
 		"phpcompatibility/phpcompatibility-wp" : "^2.1.5",
 		"woocommerce/woocommerce-sniffs" : "^1.0.0",
-		"wp-cli/i18n-command" : "^v2.6.0",
+		"wp-cli/i18n-command" : "^v2.6.3",
 		"wp-coding-standards/wpcs" : "^3.1.0"
 	},
 	"autoload" : {

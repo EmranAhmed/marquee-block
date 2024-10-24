@@ -1,10 +1,10 @@
 === Marquee Block ===
 Contributors: EmranAhmed, getwooplugins
-Tags: marquee block, marquee, scroller, text scroller, fse theme, gutenberg
+Tags: block, marquee, scroller, image, fse
 Requires at least: 6.4
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -37,6 +37,9 @@ Manual installation method requires downloading the “Marquee Block” plugin a
 == Screenshots ==
 
 == Changelog ==
+
+= 1.0.4 - 2024-10-24 =
+- Update packages.
 
 = 1.0.3 - 2024-09-15 =
 - Modify helper methods.
