@@ -6,7 +6,6 @@ import domReady from '@wordpress/dom-ready';
 /**
  * Internal dependencies
  *
- * @see https://github.com/WordPress/gutenberg/pull/55492
  */
 import './view.scss';
 

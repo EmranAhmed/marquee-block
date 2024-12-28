@@ -1,21 +1,23 @@
 <?php
-	/**
-	 * Main Plugin Class File.
-	 *
-	 * @package    StorePress/MarqueeBlock
-	 * @since      1.0.0
-	 * @version    1.0.0
-	 */
+/**
+ * Main Plugin Class File.
+ *
+ * @package    StorePress/MarqueeBlock
+ * @since      1.0.0
+ * @version    1.0.0
+ */
 
-	namespace StorePress\MarqueeBlock;
+declare( strict_types=1 );
 
-	defined( 'ABSPATH' ) || die( 'Keep Silent' );
+namespace StorePress\MarqueeBlock;
 
-	use Exception;
+defined( 'ABSPATH' ) || die( 'Keep Silent' );
 
-	/**
-	 * Main Plugin Class.
-	 */
+use Exception;
+
+/**
+ * Main Plugin Class.
+ */
 class Plugin {
 
 	/**
@@ -51,9 +53,9 @@ class Plugin {
 		/**
 		 * Action to signal that Plugin has finished loading.
 		 *
-		 * @since 1.0.0
+		 * @param Plugin $instance Plugin Object.
 		 *
-		 * @param Plugin $this Plugin Object.
+		 * @since 1.0.0
 		 */
 		do_action( 'storepress_marquee_block_plugin_loaded', $this );
 	}
@@ -92,7 +94,6 @@ class Plugin {
 	 * @since 1.0.0
 	 */
 	public function includes(): bool {
-
 		if ( file_exists( $this->vendor_path() . '/autoload_packages.php' ) ) {
 			require_once $this->vendor_path() . '/autoload_packages.php';
 			require_once __DIR__ . '/functions.php';
@@ -106,6 +107,7 @@ class Plugin {
 	/**
 	 * Initialize Classes.
 	 *
+	 * @return void
 	 * @since 1.0.0
 	 */
 	public function init() {

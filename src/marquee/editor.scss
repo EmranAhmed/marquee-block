@@ -1,27 +1,39 @@
 .wp-block-storepress-marquee {
-	&.white-space--no-wrap > .wp-block-storepress-marquee__item {
-		white-space: nowrap;
+
+	&:not(.has-child-selected).orientation-x > .wp-block-storepress-marquee__item > * {
+		white-space: var(--white-space) !important;
 	}
-	&.has-overlay {
+
+	&:not(.is-selected, .is-highlighted).has-overlay-color {
 		position: relative;
+		isolation: isolate;
+		overflow: clip;
 
 		&::before,
 		&::after {
+			pointer-events: none;
 			position: absolute;
 			content: "";
-			width: 10%;
-			height: 100%;
 			z-index: 1;
+			inset: 0;
 		}
 
-		&::before {
-			background: linear-gradient(270deg, transparent 0%, var(--overlay-color) 100%);
-			left: 0;
-		}
+		&.orientation-x {
+			&::before,
+			&::after {
+				width: 10%;
+				height: 100%;
+			}
 
-		&::after {
-			background: linear-gradient(90deg, transparent 0%, var(--overlay-color) 100%);
-			right: 0;
+			&::before {
+				background: linear-gradient(270deg, transparent 0%, var(--overlay-color) 100%);
+				margin-inline: 0 auto;
+			}
+
+			&::after {
+				background: linear-gradient(90deg, transparent 0%, var(--overlay-color) 100%);
+				margin-inline: auto 0;
+			}
 		}
 
 		&.orientation-y {
@@ -33,12 +45,12 @@
 
 			&::before {
 				background: linear-gradient(0deg, transparent 0%, var(--overlay-color) 100%);
-				top: 0;
+				margin-block: 0 auto;
 			}
 
 			&::after {
 				background: linear-gradient(180deg, transparent 0%, var(--overlay-color) 100%);
-				bottom: 0;
+				margin-block: auto 0;
 			}
 		}
 	}

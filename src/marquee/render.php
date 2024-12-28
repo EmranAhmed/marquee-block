@@ -14,24 +14,24 @@ use WP_Block;
 /**
  * Dynamic Block Template.
  *
- * @global   array $attributes -  A clean associative array of block attributes.
- * @global   WP_Block $block - The block instance. All the block settings and attributes.
- * @global   string $content - The block inner HTML (usually empty unless using inner blocks).
+ * @var   array<string, mixed> $attributes -  A clean associative array of block attributes.
+ * @var   WP_Block             $block      - The block instance. All the block settings and attributes.
+ * @var   string               $content    - The block inner HTML (usually empty unless using inner blocks).
  */
 
 $marquee_block_classes = array(
-	'pause-on-hover'       => marquee_block_plugin()->get_blocks()->string_to_boolean( $attributes['pause'] ),
-	'has-overlay'          => marquee_block_plugin()->get_blocks()->string_to_boolean( $attributes['overlay'] ),
-	'orientation-x'        => 'x' === $attributes['orientation'],
-	'orientation-y'        => 'y' === $attributes['orientation'],
-	'white-space--no-wrap' => marquee_block_plugin()->get_blocks()->string_to_boolean( $attributes['whiteSpaceNoWrap'] ),
+	'has-overlay-color' => isset( $attributes['overlayColor'] ),
+	'orientation-x'     => 'x' === $attributes['orientation'],
+	'orientation-y'     => 'y' === $attributes['orientation'],
 );
 
 $marquee_block_styles = array(
-	'--direction'       => 'left' === $attributes['direction'] ? 'normal' : 'reverse',
-	'--animation-speed' => sprintf( '%ds', absint( $attributes['animationSpeed'] ) ),
-	'--content-gap'     => sprintf( '%dpx', absint( $attributes['gap'] ) ),
-	'--overlay-color'   => sanitize_hex_color( $attributes['overlayColor'] ),
+	'--animation-direction'  => esc_attr( $attributes['animationDirection'] ),
+	'--animation-speed'      => esc_attr( $attributes['animationSpeed'] ),
+	'--content-gap'          => esc_attr( $attributes['gap'] ),
+	'--overlay-color'        => isset( $attributes['overlayColor'] ) ? sanitize_hex_color( $attributes['overlayColor'] ) : 'transparent',
+	'--white-space'          => esc_attr( $attributes['whiteSpace'] ),
+	'--animation-play-state' => esc_attr( $attributes['hoverAnimationState'] ),
 );
 
 $marquee_block_wrapper_attrs = array(
@@ -42,12 +42,20 @@ $marquee_block_wrapper_attrs = array(
 $marquee_block_allowed_html = marquee_block_plugin()->get_blocks()->get_kses_allowed_html();
 ?>
 
-<div <?php echo wp_kses_post( get_block_wrapper_attributes( $marquee_block_wrapper_attrs ) ); ?>>
+<div
+	<?php
+	echo wp_kses_post( get_block_wrapper_attributes( $marquee_block_wrapper_attrs ) );
+	?>
+>
 	<div class="wp-block-storepress-marquee__item">
-		<?php echo wp_kses( $content, $marquee_block_allowed_html ); ?>
+		<?php
+		echo wp_kses( $content, $marquee_block_allowed_html );
+		?>
 	</div>
 	<!-- Mirrors the content above -->
 	<div class="wp-block-storepress-marquee__item mirror" aria-hidden="true">
-		<?php echo wp_kses( $content, $marquee_block_allowed_html ); ?>
+		<?php
+		echo wp_kses( $content, $marquee_block_allowed_html );
+		?>
 	</div>
 </div>

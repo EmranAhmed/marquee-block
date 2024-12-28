@@ -7,6 +7,8 @@
  * @version    1.0.0
  */
 
+declare( strict_types=1 );
+
 namespace StorePress\MarqueeBlock;
 
 defined( 'ABSPATH' ) || die( 'Keep Silent' );
@@ -32,7 +34,7 @@ class Blocks {
 		/**
 		 * Action to signal that Plugin has finished loading.
 		 *
-		 * @param Blocks $this Plugin Object.
+		 * @param Blocks $instance Plugin Object.
 		 *
 		 * @since 1.0.0
 		 */
@@ -42,6 +44,7 @@ class Blocks {
 	/**
 	 * Blocks Hooks
 	 *
+	 * @return void
 	 * @since      1.0.0
 	 */
 	public function hooks() {
@@ -53,6 +56,7 @@ class Blocks {
 	/**
 	 * Initialize Blocks Included Classes
 	 *
+	 * @return void
 	 * @since      1.0.0
 	 */
 	public function init() {
@@ -61,9 +65,9 @@ class Blocks {
 	/**
 	 *  Add custom block category
 	 *
-	 * @param array $block_categories Available block category.
+	 * @param array<string, mixed> $block_categories Available block category.
 	 *
-	 * @return array New category.
+	 * @return array<string, mixed>
 	 * @since      1.0.0
 	 */
 	public function add_block_category( array $block_categories ): array {
@@ -76,7 +80,7 @@ class Blocks {
 		);
 
 		if ( ! in_array( 'storepress', $available_slugs, true ) ) {
-			array_unshift( $block_categories, $category );
+			$block_categories[] = $category;
 		}
 
 		return $block_categories;
@@ -85,6 +89,7 @@ class Blocks {
 	/**
 	 * Block Editor Script
 	 *
+	 * @return void
 	 * @since      1.0.0
 	 * @see        https://developer.wordpress.org/reference/functions/wp_set_script_translations/
 	 * @see        https://developer.wordpress.org/block-editor/how-to-guides/internationalization/#load-translation-file
@@ -103,6 +108,7 @@ class Blocks {
 	/**
 	 * Block Register
 	 *
+	 * @return void
 	 * @since      1.0.0
 	 */
 	public function register_blocks() {
@@ -127,9 +133,9 @@ class Blocks {
 	/**
 	 * Returns an array of allowed HTML tags and attributes for a given context.
 	 *
-	 * @param array $args extra argument.
+	 * @param array<string, mixed> $args extra argument.
 	 *
-	 * @return array
+	 * @return array<string, mixed>
 	 * @since 1.0.0
 	 */
 	public function get_kses_allowed_html( array $args = array() ): array {

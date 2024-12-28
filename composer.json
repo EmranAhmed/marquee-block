@@ -1,51 +1,58 @@
 {
-	"name" : "storepress/marquee-block",
-	"description" : "Marquee Block",
-	"minimum-stability" : "stable",
-	"license" : "GPLv3",
-	"type" : "wordpress-plugin",
-	"keywords" : [
+	"name": "storepress/marquee-block",
+	"description": "Marquee Block",
+	"minimum-stability": "stable",
+	"license": "GPLv3",
+	"type": "wordpress-plugin",
+	"keywords": [
 		"gutenberg",
 		"wordpress",
 		"storepress",
 		"plugin"
 	],
-	"homepage" : "https://github.com/EmranAhmed/marquee-block#readme",
-	"authors" : [
+	"homepage": "https://github.com/EmranAhmed/marquee-block#readme",
+	"authors": [
 		{
-			"name" : "EmranAhmed",
-			"email" : "emran.bd.08@gmail.com"
+			"name": "EmranAhmed",
+			"email": "emran.bd.08@gmail.com"
 		},
 		{
-			"name" : "StorePress",
-			"email" : "storepresshq@gmail.com"
+			"name": "StorePress",
+			"email": "storepresshq@gmail.com"
 		}
 	],
-	"require" : {
-		"automattic/jetpack-autoloader" : "^v3.1.2"
+	"require": {
+		"automattic/jetpack-autoloader": "^v5.0.0"
 	},
-	"require-dev" : {
-		"automattic/vipwpcs" : "^3.0",
-		"phpcompatibility/phpcompatibility-wp" : "^2.1.5",
-		"woocommerce/woocommerce-sniffs" : "^1.0.0",
-		"wp-cli/i18n-command" : "^v2.6.3",
-		"wp-coding-standards/wpcs" : "^3.1.0"
+	"require-dev": {
+		"automattic/vipwpcs": "^3.0.1",
+		"phpcompatibility/phpcompatibility-wp": "^2.1.5",
+		"woocommerce/woocommerce-sniffs": "^1.0.0",
+		"wp-cli/i18n-command": "^v2.6.3",
+		"wp-coding-standards/wpcs": "^3.1.0",
+		"phpstan/extension-installer": "^1.4.3",
+		"phpstan/phpstan-strict-rules": "^1.6.1",
+		"szepeviktor/phpstan-wordpress": "^v1.3.5"
 	},
-	"autoload" : {
-		"psr-4" : {
-			"StorePress\\MarqueeBlock\\" : "includes/"
+	"autoload": {
+		"psr-4": {
+			"StorePress\\MarqueeBlock\\": "includes/"
 		}
 	},
-	"config" : {
-		"optimize-autoloader" : true,
-		"sort-packages" : true,
-		"allow-plugins" : {
-			"dealerdirect/phpcodesniffer-composer-installer" : true,
-			"automattic/jetpack-autoloader" : true
+	"config": {
+		"optimize-autoloader": true,
+		"sort-packages": true,
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"automattic/jetpack-autoloader": true,
+			"phpstan/extension-installer": true
 		}
 	},
-	"scripts" : {
-		"format" : "./vendor/bin/phpcbf --standard=phpcs.xml",
-		"lint" : "./vendor/bin/phpcs --standard=phpcs.xml --report-summary --report-source --ignore-annotations --report-full=phpcs-report.txt"
+	"scripts": {
+		"format": "./vendor/bin/phpcbf --standard=phpcs.xml",
+		"lint": "./vendor/bin/phpcs --standard=phpcs.xml --report-summary --report-source",
+		"lint:report": "./vendor/bin/phpcs --standard=phpcs.xml --report-summary --report-source --ignore-annotations --report-full=phpcs-report.txt",
+		"phpstan" : "./vendor/bin/phpstan analyse . --memory-limit=2G -vvv",
+		"phpstan-report" : "./vendor/bin/phpstan analyse . --memory-limit=2G -vvv > phpstan-report.txt"
 	}
 }

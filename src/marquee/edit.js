@@ -6,12 +6,13 @@ import {
 	InspectorControls,
 	useBlockProps,
 	useInnerBlocksProps,
+	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis
+	__experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
+	// eslint-disable-next-line @wordpress/no-unsafe-wp-apis
+	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 } from '@wordpress/block-editor';
 import {
 	PanelBody,
-	ToggleControl,
-	RangeControl,
-	ColorPicker,
 	__experimentalToggleGroupControl as ToggleGroupControl, // eslint-disable-line @wordpress/no-unsafe-wp-apis
 	__experimentalToggleGroupControlOption as ToggleGroupControlOption, // eslint-disable-line @wordpress/no-unsafe-wp-apis
 } from '@wordpress/components';
@@ -23,19 +24,38 @@ import {
 	arrowDown,
 } from '@wordpress/icons';
 
-export default function Edit({ attributes, setAttributes }) {
+import { clsx } from 'clsx';
+
+/**
+ * Internal dependencies
+ */
+import UnitRangeControl from './unit-range-control';
+import './editor.scss';
+
+export default function Edit({ attributes, setAttributes, clientId }) {
 	const {
 		orientation,
-		direction,
-		pause,
+		animationDirection,
+		hoverAnimationState,
 		animationSpeed,
 		gap,
-		overlay,
 		overlayColor,
-		whiteSpaceNoWrap,
+		whiteSpace,
 	} = attributes;
 
-	const blockProps = useBlockProps();
+	const blockProps = useBlockProps({
+		className: clsx({
+			'has-overlay-color': overlayColor,
+			'orientation-x': orientation === 'x',
+			'orientation-y': orientation === 'y',
+		}),
+		style: {
+			'--overlay-color': overlayColor ?? 'transparent',
+			'--white-space': whiteSpace,
+		},
+	});
+
+	const colorGradientSettings = useMultipleOriginColorsAndGradients();
 
 	const innerBlockProps = useInnerBlocksProps(
 		{
@@ -55,6 +75,34 @@ export default function Edit({ attributes, setAttributes }) {
 		}
 	);
 
+	const setOverlayColor = (newValue) => {
+		setAttributes({ overlayColor: newValue });
+	};
+
+	const setOrientation = (newValue) => {
+		setAttributes({ orientation: newValue });
+	};
+
+	const setAnimationDirection = (newValue) => {
+		setAttributes({ animationDirection: newValue });
+	};
+
+	const setHoverAnimationState = (newValue) => {
+		setAttributes({ hoverAnimationState: newValue });
+	};
+
+	const setAnimationSpeed = (newValue) => {
+		setAttributes({ animationSpeed: newValue });
+	};
+
+	const setWhiteSpace = (newValue) => {
+		setAttributes({ whiteSpace: newValue });
+	};
+
+	const setGap = (newValue) => {
+		setAttributes({ gap: newValue });
+	};
+
 	return (
 		<>
 			<InspectorControls>
@@ -62,13 +110,10 @@ export default function Edit({ attributes, setAttributes }) {
 					<ToggleGroupControl
 						label={__('Orientation', 'marquee-block')}
 						value={orientation}
-						onChange={(value) =>
-							setAttributes({ orientation: value })
-						}
+						onChange={setOrientation}
 						isBlock
 					>
 						<ToggleGroupControlOption
-							key="x"
 							value="x"
 							label={
 								<Icon
@@ -84,7 +129,6 @@ export default function Edit({ attributes, setAttributes }) {
 							}
 						/>
 						<ToggleGroupControlOption
-							key="y"
 							value="y"
 							label={
 								<Icon
@@ -103,15 +147,12 @@ export default function Edit({ attributes, setAttributes }) {
 
 					<ToggleGroupControl
 						label={__('Animation Direction', 'marquee-block')}
-						value={direction}
-						onChange={(value) =>
-							setAttributes({ direction: value })
-						}
+						value={animationDirection}
+						onChange={setAnimationDirection}
 						isBlock
 					>
 						<ToggleGroupControlOption
-							key="left"
-							value="left"
+							value="normal"
 							label={
 								<Icon
 									icon={
@@ -124,8 +165,7 @@ export default function Edit({ attributes, setAttributes }) {
 							}
 						/>
 						<ToggleGroupControlOption
-							key="right"
-							value="right"
+							value="reverse"
 							label={
 								<Icon
 									icon={
@@ -139,62 +179,67 @@ export default function Edit({ attributes, setAttributes }) {
 						/>
 					</ToggleGroupControl>
 
-					<RangeControl
-						initialPosition={10}
-						value={animationSpeed}
+					<ToggleGroupControl
+						label={__('On Hover Animation', 'marquee-block')}
+						value={hoverAnimationState}
+						onChange={setHoverAnimationState}
+						isBlock
+					>
+						<ToggleGroupControlOption
+							value="paused"
+							label={__('Pause', 'marquee-block')}
+						/>
+						<ToggleGroupControlOption
+							value="running"
+							label={__('Continue', 'marquee-block')}
+						/>
+					</ToggleGroupControl>
+
+					<UnitRangeControl
 						label={__('Animation Speed', 'marquee-block')}
-						help={__('Animation speed in seconds', 'marquee-block')}
-						max={100}
-						min={1}
-						onChange={(value) =>
-							setAttributes({ animationSpeed: value })
-						}
+						onChange={setAnimationSpeed}
+						value={animationSpeed}
+						allowedUnits={['s', 'ms']}
 					/>
+				</PanelBody>
+				<PanelBody title={__('Style', 'marquee-block')}>
+					<ToggleGroupControl
+						label={__('White Space', 'marquee-block')}
+						value={whiteSpace}
+						onChange={setWhiteSpace}
+						isBlock
+					>
+						<ToggleGroupControlOption
+							value="wrap"
+							label={__('Wrap', 'marquee-block')}
+						/>
+						<ToggleGroupControlOption
+							value="nowrap"
+							label={__('No Wrap', 'marquee-block')}
+						/>
+					</ToggleGroupControl>
 
-					<RangeControl
-						initialPosition={40}
-						value={gap}
+					<UnitRangeControl
 						label={__('Content Gap', 'marquee-block')}
-						help={__('Content gap in PX', 'marquee-block')}
-						max={200}
-						min={0}
-						step={5}
-						onChange={(value) => setAttributes({ gap: value })}
-					/>
-
-					<ToggleControl
-						label={__('Pause on hover', 'marquee-block')}
-						checked={pause}
-						onChange={(value) => setAttributes({ pause: value })}
+						onChange={setGap}
+						value={gap}
+						allowedUnits={['%', 'px', 'em', 'rem']}
 					/>
 				</PanelBody>
 			</InspectorControls>
 
-			<InspectorControls group="styles">
-				<PanelBody title={__('Styles', 'marquee-block')}>
-					<ToggleControl
-						label={__('Enable Overlay', 'marquee-block')}
-						checked={overlay}
-						onChange={(value) => setAttributes({ overlay: value })}
-					/>
-
-					{overlay && (
-						<ColorPicker
-							defaultValue={overlayColor}
-							onChange={(value) => {
-								setAttributes({ overlayColor: value });
-							}}
-						/>
-					)}
-
-					<ToggleControl
-						label={__('White Space - No Wrap', 'marquee-block')}
-						checked={whiteSpaceNoWrap}
-						onChange={(value) =>
-							setAttributes({ whiteSpaceNoWrap: value })
-						}
-					/>
-				</PanelBody>
+			<InspectorControls group="color">
+				<ColorGradientSettingsDropdown
+					panelId={clientId}
+					settings={[
+						{
+							label: __('Overlay color', 'marquee-block'),
+							colorValue: overlayColor,
+							onColorChange: setOverlayColor,
+						},
+					]}
+					{...colorGradientSettings}
+				/>
 			</InspectorControls>
 
 			<div {...blockProps}>

@@ -1,0 +1,16 @@
+parameters:
+	editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
+	editorUrlTitle: '%%relFile%%:%%line%%'
+	inferPrivatePropertyTypeFromConstructor: true
+	treatPhpDocTypesAsCertain: false
+	phpVersion: 70400
+	level: 6
+	paths:
+		- .
+	excludePaths:
+		- build
+		- test?
+		- vendor
+		- node_modules
+		- languages?
+		- build?

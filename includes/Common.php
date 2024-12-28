@@ -1,15 +1,17 @@
 <?php
-	/**
-	 * Common Methods for Classes.
-	 *
-	 * @package    StorePress/MarqueeBlock
-	 * @since      1.0.0
-	 * @version    1.0.0
-	 */
+/**
+ * Common Methods for Classes.
+ *
+ * @package    StorePress/MarqueeBlock
+ * @since      1.0.0
+ * @version    1.0.0
+ */
 
-	namespace StorePress\MarqueeBlock;
+declare( strict_types=1 );
 
-	defined( 'ABSPATH' ) || die( 'Keep Silent' );
+namespace StorePress\MarqueeBlock;
+
+defined( 'ABSPATH' ) || die( 'Keep Silent' );
 
 trait Common {
 	/**
@@ -31,94 +33,158 @@ trait Common {
 	/**
 	 * Create HTML Attributes from given array
 	 *
-	 * @param array $attributes Attribute array.
-	 * @param array $exclude    Exclude attribute. Default array.
+	 * @param array<string, mixed> $attributes Attribute array.
+	 * @param string[]             $exclude    Exclude attribute. Default array.
 	 *
 	 * @return string
 	 */
-	public function get_html_attributes( array $attributes, array $exclude = array() ): string {
+	public function get_html_attributes(
+		array $attributes,
+		array $exclude = array()
+	): string {
+		$attrs = array();
 
-		$attrs = array_map(
-			function ( $key ) use ( $attributes, $exclude ) {
+		foreach ( $attributes as $attribute_name => $attribute_value ) {
+			// Exclude attribute.
+			if ( in_array( $attribute_name, $exclude, true ) ) {
+				continue;
+			}
 
-				// Exclude attribute.
-				if ( in_array( $key, $exclude, true ) ) {
-					return '';
+			// Skip if attribute value is blank.
+			if ( is_string( $attribute_value )
+				&& $this->is_empty_string( $attribute_value )
+			) {
+				continue;
+			}
+
+			// Skip if attribute value is null.
+			if ( is_null( $attribute_value ) ) {
+				continue;
+			}
+
+			// Skip if attribute value is boolean false.
+			if ( false === $attribute_value ) {
+				continue;
+			}
+
+			// If attribute is class and value is array.
+			if ( is_array( $attribute_value ) ) {
+				if ( 'class' === $attribute_name ) {
+					$attribute_value
+						= $this->get_css_classes( $attribute_value );
+				} else {
+					$attribute_value = wp_json_encode( $attribute_value );
 				}
+			}
 
-				$value = $attributes[ $key ];
+			// If attribute is boolean true only use attribute name.
+			if ( true === $attribute_value ) {
+				$attrs[] = sprintf( '%s', esc_attr( $attribute_name ) );
+				continue;
+			}
 
-				// If attribute value is null.
-				if ( is_null( $value ) ) {
-					return '';
-				}
+			$attrs[] = sprintf(
+				'%s="%s"',
+				esc_attr( $attribute_name ),
+				esc_attr( $attribute_value )
+			);
+		}
 
-				// If attribute value is boolean.
-				if ( is_bool( $value ) ) {
-					return $value ? $key : '';
-				}
-
-				// If attribute value is array.
-				if ( is_array( $value ) ) {
-					$value = $this->get_css_classes( $value );
-				}
-
-				return sprintf( '%s="%s"', esc_attr( $key ), esc_attr( $value ) );
-			},
-			array_keys( $attributes )
-		);
-
-		return implode( ' ', $attrs );
+		return implode( ' ', array_unique( $attrs ) );
 	}
 
 
 	/**
 	 * Generate Inline Style from array
 	 *
-	 * @param array $inline_styles_array Inline style as array.
+	 * @param array<string, mixed> $inline_styles_array Inline style as array.
 	 *
 	 * @return string
-	 * @since      1.0.0
+	 * @since  1.0.0
 	 */
 	public function get_inline_styles( array $inline_styles_array = array() ): string {
-
 		$styles = array();
 
 		foreach ( $inline_styles_array as $property => $value ) {
 			if ( is_null( $value ) ) {
 				continue;
 			}
-			$styles[] = sprintf( '%s: %s;', esc_attr( $property ), esc_attr( $value ) );
+			if ( is_bool( $value ) ) {
+				continue;
+			}
+
+			if ( is_array( $value ) ) {
+				continue;
+			}
+
+			if ( is_string( $value ) && $this->is_empty_string( $value ) ) {
+				continue;
+			}
+
+			$styles[] = sprintf(
+				'%s: %s;',
+				esc_attr( $property ),
+				esc_attr( $value )
+			);
 		}
 
-		return implode( ' ', $styles );
+		return implode( ' ', array_unique( $styles ) );
 	}
 
 	/**
 	 * Array to css class.
 	 *
-	 * @param array $classes_array css classes array.
+	 * @param array<int|string, ?mixed> $classes_array css classes array.
 	 *
 	 * @return string
-	 * @since      1.0.0
+	 * @since  1.0.0
+	 * @example
+	 * <code>
+	 *   ['class-a', 'class-b']
+	 *   // or
+	 *   ['class-a'=>true, 'class-b'=>false, 'class-c'=>'', 'class-e'=>null, 'class-d'=>'hello']
+	 * </code>
 	 */
 	public function get_css_classes( array $classes_array = array() ): string {
-
 		$classes = array();
-
 		foreach ( $classes_array as $class_name => $should_include ) {
-
 			// Is class assign by numeric array. Like: ['class-a', 'class-b'].
-			if ( is_numeric( $class_name ) && ! is_string( $class_name ) ) {
-				$classes[] = esc_attr( $should_include );
+			if ( is_int( $class_name ) ) {
+				if ( ! is_string( $should_include ) ) {
+					continue;
+				}
+
+				if ( $this->is_empty_string( $should_include ) ) {
+					continue;
+				}
+
+				$classes[] = $should_include;
+				continue;
+			}
+
+			if ( false === $should_include ) {
+				continue;
+			}
+
+			if ( is_string( $should_include )
+				&& $this->is_empty_string( $should_include )
+			) {
+				continue;
+			}
+
+			if ( is_null( $should_include ) ) {
+				continue;
+			}
+
+			if ( is_array( $should_include )
+				&& $this->is_empty_array( $should_include )
+			) {
 				continue;
 			}
 
 			// Is class assign by associative array.
-			// Like: ['class-a'=>true, 'class-b'=>false, class-c'=>'', 'class-d'=>'hello'].
-			if ( ! empty( $should_include ) ) {
-				$classes[] = esc_attr( $class_name );
-			}
+			// Like: ['class-a'=>true, 'class-b'=>false, class-c'=>'', 'class-d'=>'hello', 'class-x'=>null, 'class-y'=>array()].
+			$classes[] = $class_name;
 		}
 
 		return implode( ' ', array_unique( $classes ) );
@@ -129,7 +195,7 @@ trait Common {
 	 *
 	 * @param string|bool $value String to convert. If a bool is passed it will be returned as-is.
 	 *
-	 * @return boolean
+	 * @return bool
 	 * @since      1.0.0
 	 */
 	public function string_to_boolean( $value ): bool {
@@ -139,8 +205,8 @@ trait Common {
 	/**
 	 * Converts a bool to a 'yes' or 'no'.
 	 *
-	 * @param bool|string $value Bool to convert. If a string is passed it will first be converted to a bool.
-	 * @param string      $true_string Truth string.
+	 * @param bool|string $value        Bool to convert. If a string is passed it will first be converted to a bool.
+	 * @param string      $true_string  Truth string.
 	 * @param string      $false_string Falsy string.
 	 *
 	 * @return string
@@ -148,5 +214,57 @@ trait Common {
 	 */
 	public function boolean_to_string( $value, string $true_string = 'yes', string $false_string = 'no' ): string {
 		return $this->string_to_boolean( $value ) ? $true_string : $false_string;
+	}
+
+	/**
+	 * Check is string is empty.
+	 *
+	 * @param string $check_value Check value.
+	 *
+	 * @return bool
+	 */
+	public function is_empty_string( string $check_value = '' ): bool {
+		return 0 === strlen( trim( $check_value ) );
+	}
+
+	/**
+	 * Check is array is all empty values.
+	 *
+	 * @param array<int|string, ?mixed> $items Check array.
+	 *
+	 * @return bool
+	 */
+	public function is_array_each_empty_value( array $items = array() ): bool {
+		$checked = array_map(
+			function ( $value ) {
+				if ( is_array( $value ) && ! $this->is_array_each_empty_value( $value ) ) {
+						return true;
+				}
+
+				if ( is_string( $value ) && ! $this->is_empty_string( $value ) ) {
+					return true;
+				}
+
+				if ( true === $value ) {
+					return true;
+				}
+
+				return false;
+			},
+			$items 
+		);
+
+		return ! in_array( true, array_unique( $checked ), true );
+	}
+
+	/**
+	 * Check numeric array is empty.
+	 *
+	 * @param array<int|string, ?mixed> $items Check array.
+	 *
+	 * @return bool
+	 */
+	public function is_empty_array( array $items = array() ): bool {
+		return 0 === count( $items );
 	}
 }

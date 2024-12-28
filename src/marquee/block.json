@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "storepress/marquee",
-	"version": "1.0.3",
+	"version": "1.1.0",
 	"title": "Marquee",
 	"category": "storepress",
 	"description": "Marquee block is CSS based animation block to display scrolling text, images and any kinds of blocks horizontally and vertically.",
@@ -11,43 +11,54 @@
 			"type": "string",
 			"default": "x"
 		},
-		"direction": {
+		"animationDirection": {
 			"type": "string",
-			"default": "left"
+			"enum": [
+				"normal",
+				"reverse"
+			],
+			"default": "normal"
 		},
-		"pause": {
-			"type": "boolean",
-			"default": true
+		"hoverAnimationState": {
+			"type": "string",
+			"enum": [
+				"paused",
+				"running"
+			],
+			"default": "paused"
 		},
 		"animationSpeed": {
-			"type": "integer",
-			"default": 10
+			"type": "string",
+			"default": "10s"
 		},
 		"gap": {
-			"type": "integer",
-			"default": 40
+			"type": "string",
+			"default": "40px"
 		},
-		"overlay": {
-			"type": "boolean",
-			"default": false
-		},
-		"whiteSpaceNoWrap": {
-			"type": "boolean",
-			"default": false
+		"whiteSpace": {
+			"type": "string",
+			"enum": [
+				"wrap",
+				"nowrap"
+			],
+			"default": "wrap"
 		},
 		"overlayColor": {
-			"type": "string",
-			"default": "#fff"
+			"type": "string"
 		}
 	},
 	"example": {},
 	"supports": {
 		"html": false,
-		"align": ["wide", "full"]
+		"align": [
+			"wide",
+			"full"
+		]
 	},
 	"textdomain": "marquee-block",
 	"editorScript": "file:./index.js",
-	"viewScript" : "file:./view.js",
+	"editorStyle": "file:./index.css",
+	"viewScript": "file:./view.js",
 	"viewStyle": "file:./view.css",
 	"render": "file:./render.php"
 }
