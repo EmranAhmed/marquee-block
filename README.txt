@@ -38,7 +38,7 @@ Manual installation method requires downloading the “Marquee Block” plugin a
 
 == Changelog ==
 
-= 1.1.0 - 2024-12-28 =
+= 1.1.0 - 2024-12-29 =
 
 - Change settings and layout.
 - Breaking Changed applied.
