@@ -2,7 +2,7 @@
 Contributors: EmranAhmed, getwooplugins
 Tags: block, marquee, scroller, image, fse
 Requires at least: 6.4
-Tested up to: 6.6
+Tested up to: 6.7
 Requires PHP: 7.4
 Stable tag: 1.1.0
 License: GPLv3
@@ -39,6 +39,7 @@ Manual installation method requires downloading the “Marquee Block” plugin a
 == Changelog ==
 
 = 1.1.0 - 2024-12-28 =
+
 - Change settings and layout.
 - Breaking Changed applied.
 
