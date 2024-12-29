@@ -61,11 +61,11 @@ jobs:
               run: |
                   echo "RELEASE_NAME=$(node -p -e "require('./package.json').name")" >> $GITHUB_ENV
 
-
             - name: "Upload Release"
               uses: softprops/action-gh-release@v2
               with:
-                  files: ./${{ env.RELEASE_NAME }}-${{ env.RELEASE_TAG }}.zip
+                  files: ./${{ env.RELEASE_NAME }}.zip
                   make_latest: true
+                  name: Release - v${{ env.RELEASE_TAG }}
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
