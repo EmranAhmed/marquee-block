@@ -26,10 +26,12 @@ import {
 
 import { clsx } from 'clsx';
 
+import { UnitRangeControl } from '@storepress/components';
+
 /**
  * Internal dependencies
  */
-import UnitRangeControl from './unit-range-control';
+
 import './editor.scss';
 
 export default function Edit({ attributes, setAttributes, clientId }) {

@@ -50,6 +50,7 @@
 		"package": "./bin/package.js"
 	},
 	"dependencies": {
+		"@storepress/components": "^0.0.3",
 		"@storepress/icons": "^2.0.0",
 		"@wordpress/dom-ready": "^4.10.0",
 		"@wordpress/icons": "^10.10.0",
