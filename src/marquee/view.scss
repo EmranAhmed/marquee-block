@@ -1,10 +1,14 @@
 .wp-block-storepress-marquee {
-	--animation-direction: normal; // normal | reverse
+	--animation-direction: normal;
 	--content-gap: 40px;
 	--animation-speed: 10s;
 	--overlay-color: transparent;
 	--white-space: wrap;
 	--animation-play-state: paused;
+
+	--animation-name: storepress-marquee-animation-x;
+	--_animation-transform: calc(-100% - var(--content-gap));
+
 	position: relative;
 
 	display: flex;
@@ -13,12 +17,16 @@
 	gap: var(--content-gap);
 	overflow: clip;
 
-	> .wp-block-storepress-marquee__item {
+	&:hover > .wp-block-storepress-marquee__item {
+		animation-play-state: var(--animation-play-state);
+	}
+
+	& > .wp-block-storepress-marquee__item {
 		flex: 1 0 100%;
 		width: 100%;
 		/*width: 100%;
 		height: 100%;*/
-		animation: storepress-marquee-animation-x var(--animation-speed) linear infinite;
+		animation: var(--animation-name) var(--animation-speed) linear infinite;
 		animation-direction: var(--animation-direction);
 		@media (prefers-reduced-motion: reduce) {
 			animation: none !important;
@@ -28,25 +36,21 @@
 		}
 	}
 
-	&:hover > .wp-block-storepress-marquee__item {
-		animation-play-state: var(--animation-play-state); // running | paused
-	}
-
-	&.orientation-x > .wp-block-storepress-marquee__item > * {
-		white-space: var(--white-space);
+	&.orientation-x {
+		flex-direction: row;
+		& > .wp-block-storepress-marquee__item > * {
+			white-space: var(--white-space);
+		}
 	}
 
 	&.orientation-y {
 		flex-direction: column;
-
-		> .wp-block-storepress-marquee__item {
-			animation: storepress-marquee-animation-y var(--animation-speed) linear infinite;
-			animation-delay: -3s;
+		& > .wp-block-storepress-marquee__item {
+			/*animation-delay: -3s;*/
 		}
 	}
 
 	&.has-overlay-color {
-		position: relative;
 		isolation: isolate;
 
 		&::before,
@@ -57,7 +61,6 @@
 			z-index: 1;
 			inset: 0;
 		}
-
 
 		&.orientation-x {
 
@@ -99,8 +102,11 @@
 }
 
 @keyframes storepress-marquee-animation-x {
+	from {
+		transform: translateX(0);
+	}
 	to {
-		transform: translateX(calc(-100% - var(--content-gap)));
+		transform: translateX(var(--_animation-transform));
 	}
 }
 
@@ -108,8 +114,7 @@
 	from {
 		transform: translateY(0);
 	}
-
 	to {
-		transform: translateY(calc(-100% - var(--content-gap)));
+		transform: translateY(var(--_animation-transform));
 	}
 }

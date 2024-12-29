@@ -31,6 +31,7 @@ $marquee_block_styles = array(
 	'--content-gap'          => esc_attr( $attributes['gap'] ),
 	'--overlay-color'        => isset( $attributes['overlayColor'] ) ? sanitize_hex_color( $attributes['overlayColor'] ) : 'transparent',
 	'--white-space'          => esc_attr( $attributes['whiteSpace'] ),
+	'--animation-name'       => sprintf( 'storepress-marquee-animation-%s', esc_attr( $attributes['orientation'] ) ),
 	'--animation-play-state' => esc_attr( $attributes['hoverAnimationState'] ),
 );
 
