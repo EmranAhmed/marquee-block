@@ -43,13 +43,15 @@ node_modules/
 vendor/
 languages/
 marquee-block/
+wp-plugin-check/
+.husky/
 
 # TypeScript files
 tsconfig.tsbuildinfo
 
 # Node Package Dependencies
 # package-lock.json
-.husky/_
+
 
 # wp-env config
 .wp-env.override.json

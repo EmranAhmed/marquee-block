@@ -8,9 +8,9 @@ parameters:
 	paths:
 		- .
 	excludePaths:
-		- build
-		- test?
+		- test (?) # optional path, might not exist
 		- vendor
 		- node_modules
-		- languages?
-		- build?
+		- languages (?) # optional path, might not exist
+		- build (?) # optional path, might not exist
+		- wp-plugin-check (?) # optional path, might not exist

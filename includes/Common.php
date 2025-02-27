@@ -15,19 +15,52 @@ defined( 'ABSPATH' ) || die( 'Keep Silent' );
 
 trait Common {
 	/**
-	 * Return singleton instance of Class.
-	 * The instance will be created if it does not exist yet.
+	 * Get data if set, otherwise return a default value or null. Prevents notices when data is not set.
 	 *
-	 * @return self The main instance.
-	 * @since 1.0.0
+	 * @param mixed $variable      Variable.
+	 * @param mixed $default_value Default value.
+	 *
+	 * @return mixed
+	 * @since  1.0.0
 	 */
-	public static function instance(): self {
-		static $instance = null;
-		if ( is_null( $instance ) ) {
-			$instance = new self();
+	public function get_var( $variable, $default_value = null ) {
+		return true === isset( $variable ) ? $variable : $default_value;
+	}
+
+	/**
+	 * Get $_GET data if set, otherwise return a default value or null. Prevents notices when data is not set.
+	 *
+	 * @param string $variable      Variable.
+	 * @param mixed  $default_value Default value.
+	 *
+	 * @return mixed
+	 * @since  1.0.0
+	 */
+	public function http_get_var( string $variable = '', $default_value = null ) {
+		$get_data = $_GET; // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( $this->is_empty_string( $variable ) ) {
+			return $this->is_empty_array( $get_data ) ? false : $get_data;
 		}
 
-		return $instance;
+		return $this->get_var( $get_data[ $variable ], $default_value );
+	}
+
+	/**
+	 * Get $_POST data if set, otherwise return a default value or null. Prevents notices when data is not set.
+	 *
+	 * @param string $variable      Variable.
+	 * @param mixed  $default_value Default value.
+	 *
+	 * @return mixed
+	 * @since  1.0.0
+	 */
+	public function http_post_var( string $variable = '', $default_value = null ) {
+		$post_data = $_POST; // phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( $this->is_empty_string( $variable ) ) {
+			return $this->is_empty_array( $post_data ) ? false : $post_data;
+		}
+
+		return $this->get_var( $post_data[ $variable ], $default_value );
 	}
 
 	/**
@@ -37,11 +70,9 @@ trait Common {
 	 * @param string[]             $exclude    Exclude attribute. Default array.
 	 *
 	 * @return string
+	 * @since  1.0.0
 	 */
-	public function get_html_attributes(
-		array $attributes,
-		array $exclude = array()
-	): string {
+	public function get_html_attributes( array $attributes, array $exclude = array() ): string {
 		$attrs = array();
 
 		foreach ( $attributes as $attribute_name => $attribute_value ) {
@@ -51,9 +82,7 @@ trait Common {
 			}
 
 			// Skip if attribute value is blank.
-			if ( is_string( $attribute_value )
-				&& $this->is_empty_string( $attribute_value )
-			) {
+			if ( is_string( $attribute_value ) && $this->is_empty_string( $attribute_value ) ) {
 				continue;
 			}
 
@@ -70,8 +99,7 @@ trait Common {
 			// If attribute is class and value is array.
 			if ( is_array( $attribute_value ) ) {
 				if ( 'class' === $attribute_name ) {
-					$attribute_value
-						= $this->get_css_classes( $attribute_value );
+					$attribute_value = $this->get_css_classes( $attribute_value );
 				} else {
 					$attribute_value = wp_json_encode( $attribute_value );
 				}
@@ -83,11 +111,7 @@ trait Common {
 				continue;
 			}
 
-			$attrs[] = sprintf(
-				'%s="%s"',
-				esc_attr( $attribute_name ),
-				esc_attr( $attribute_value )
-			);
+			$attrs[] = sprintf( '%s="%s"', esc_attr( $attribute_name ), esc_attr( $attribute_value ) );
 		}
 
 		return implode( ' ', array_unique( $attrs ) );
@@ -121,11 +145,7 @@ trait Common {
 				continue;
 			}
 
-			$styles[] = sprintf(
-				'%s: %s;',
-				esc_attr( $property ),
-				esc_attr( $value )
-			);
+			$styles[] = sprintf( '%s: %s;', esc_attr( $property ), esc_attr( $value ) );
 		}
 
 		return implode( ' ', array_unique( $styles ) );
@@ -166,9 +186,7 @@ trait Common {
 				continue;
 			}
 
-			if ( is_string( $should_include )
-				&& $this->is_empty_string( $should_include )
-			) {
+			if ( is_string( $should_include ) && $this->is_empty_string( $should_include ) ) {
 				continue;
 			}
 
@@ -176,9 +194,7 @@ trait Common {
 				continue;
 			}
 
-			if ( is_array( $should_include )
-				&& $this->is_empty_array( $should_include )
-			) {
+			if ( is_array( $should_include ) && $this->is_empty_array( $should_include ) ) {
 				continue;
 			}
 
@@ -188,32 +204,6 @@ trait Common {
 		}
 
 		return implode( ' ', array_unique( $classes ) );
-	}
-
-	/**
-	 * Converts a string (e.g. 'yes' or 'no') to a bool.
-	 *
-	 * @param string|bool $value String to convert. If a bool is passed it will be returned as-is.
-	 *
-	 * @return bool
-	 * @since      1.0.0
-	 */
-	public function string_to_boolean( $value ): bool {
-		return filter_var( $value, FILTER_VALIDATE_BOOLEAN );
-	}
-
-	/**
-	 * Converts a bool to a 'yes' or 'no'.
-	 *
-	 * @param bool|string $value        Bool to convert. If a string is passed it will first be converted to a bool.
-	 * @param string      $true_string  Truth string.
-	 * @param string      $false_string Falsy string.
-	 *
-	 * @return string
-	 * @since 1.0.0
-	 */
-	public function boolean_to_string( $value, string $true_string = 'yes', string $false_string = 'no' ): string {
-		return $this->string_to_boolean( $value ) ? $true_string : $false_string;
 	}
 
 	/**
@@ -238,7 +228,7 @@ trait Common {
 		$checked = array_map(
 			function ( $value ) {
 				if ( is_array( $value ) && ! $this->is_array_each_empty_value( $value ) ) {
-						return true;
+					return true;
 				}
 
 				if ( is_string( $value ) && ! $this->is_empty_string( $value ) ) {
@@ -251,7 +241,7 @@ trait Common {
 
 				return false;
 			},
-			$items 
+			$items
 		);
 
 		return ! in_array( true, array_unique( $checked ), true );
@@ -266,5 +256,33 @@ trait Common {
 	 */
 	public function is_empty_array( array $items = array() ): bool {
 		return 0 === count( $items );
+	}
+
+	/**
+	 * Converts a bool to a 'yes' or 'no'.
+	 *
+	 * @param mixed $check_value Bool to convert. If a string is passed it will first be converted to a bool.
+	 *
+	 * @return string
+	 * @since 1.0.0
+	 */
+	public function boolean_to_string( $check_value ): string {
+		$value = $this->string_to_boolean( $check_value );
+
+		return true === $value ? 'yes' : 'no';
+	}
+
+	/**
+	 * Converts a string (e.g. 'yes' or 'no') to a bool.
+	 * Recognizing words like Yes, No, Off, On, both string and native types of true and false,
+	 * and is not case-sensitive when validating strings.
+	 *
+	 * @param mixed $check_value String to convert. If a bool is passed it will be returned as-is.
+	 *
+	 * @return boolean
+	 * @since      1.0.0
+	 */
+	public function string_to_boolean( $check_value ): bool {
+		return filter_var( $check_value, FILTER_VALIDATE_BOOLEAN );
 	}
 }

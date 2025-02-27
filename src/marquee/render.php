@@ -14,7 +14,7 @@ use WP_Block;
 /**
  * Dynamic Block Template.
  *
- * @var   array<string, mixed> $attributes -  A clean associative array of block attributes.
+ * @var   array<string, mixed> $attributes - A clean associative array of block attributes.
  * @var   WP_Block             $block      - The block instance. All the block settings and attributes.
  * @var   string               $content    - The block inner HTML (usually empty unless using inner blocks).
  */

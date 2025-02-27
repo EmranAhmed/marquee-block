@@ -47,7 +47,14 @@ class Plugin {
 			$this->hooks();
 			$this->init();
 		} catch ( Exception $e ) {
-			wp_trigger_error( __METHOD__, $e->getMessage() );
+			$message = sprintf( '<strong>%s:</strong> %s', $this->name(), $e->getMessage() );
+			add_action(
+				'admin_notices',
+				function () use ( $message ) {
+					printf( '<div class="notice notice-error"><p>%s</p></div>', wp_kses_data( $message ) );
+				},
+				50
+			);
 		}
 
 		/**
@@ -68,6 +75,22 @@ class Plugin {
 	 */
 	public function get_plugin_file(): string {
 		return constant( 'STOREPRESS_MARQUEE_BLOCK_PLUGIN_FILE' );
+	}
+
+	/**
+	 * Get Plugin Name.
+	 *
+	 * @return string
+	 * @since 1.0.0
+	 */
+	public function name(): string {
+		static $names;
+
+		if ( is_null( $names ) ) {
+			$names = get_file_data( $this->get_plugin_file(), array( 'Plugin Name' ) );
+		}
+
+		return esc_attr( $names[0] );
 	}
 
 	/**
@@ -123,6 +146,16 @@ class Plugin {
 	 */
 	public function hooks() {
 		// Register with hook.
+		add_action( 'init', array( $this, 'load_translations' ) );
+	}
+
+	/**
+	 * Load Plugin Translation Files.
+	 *
+	 * @return void
+	 */
+	public function load_translations() {
+		load_plugin_textdomain( 'marquee-block', false, $this->plugin_dirname() . '/languages' );
 	}
 
 	/**
@@ -152,7 +185,7 @@ class Plugin {
 	 * @since 1.0.0
 	 */
 	public function plugin_dirname(): string {
-		return dirname( plugin_basename( $this->get_plugin_file() ) );
+		return untrailingslashit( dirname( plugin_basename( $this->get_plugin_file() ) ) );
 	}
 
 	/**

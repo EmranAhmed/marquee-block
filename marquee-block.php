@@ -8,7 +8,7 @@
  * Plugin Name:       Marquee Block
  * Plugin URI:        https://wordpress.org/plugins/marquee-block
  * Description:       Marquee block adds a touch of movement and interactivity to your site and help to capture attention and engage your site visitors in a unique way.
- * Version:           1.1.0
+ * Version:           1.1.1
  * Requires at least: 6.4
  * Requires PHP:      7.4
  * Author:            Emran Ahmed
@@ -33,11 +33,6 @@ if ( ! defined( 'STOREPRESS_MARQUEE_BLOCK_PLUGIN_FILE' ) ) {
 	define( 'STOREPRESS_MARQUEE_BLOCK_PLUGIN_FILE', __FILE__ );
 }
 
-// Include the Plugin class.
-if ( ! class_exists( 'StorePress\MarqueeBlock\Plugin' ) ) {
-	require_once plugin_dir_path( __FILE__ ) . '/includes/Plugin.php';
-}
-
 /**
  * The function that always returns the same instance to ensure only one instance exists in the global scope at any time.
  *
@@ -55,8 +50,10 @@ function marquee_block_plugin(): Plugin {
  * @since 1.0.0
  */
 function marquee_block_plugin_init() {
-	// Load Plugin TextDomain.
-	load_plugin_textdomain( 'marquee-block', false, plugin_dir_path( __FILE__ ) . 'languages' );
+	// Include the Plugin class.
+	if ( ! class_exists( 'StorePress\MarqueeBlock\Plugin' ) ) {
+		require_once plugin_dir_path( __FILE__ ) . '/includes/Plugin.php';
+	}
 
 	// Init Plugin.
 	marquee_block_plugin();

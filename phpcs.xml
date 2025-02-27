@@ -4,6 +4,7 @@
 
 	<file>./</file>
 	<!-- Exclude paths -->
+	<exclude-pattern>*/wp-plugin-check/*</exclude-pattern>
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 	<exclude-pattern>*/tests/*</exclude-pattern>
@@ -91,5 +92,8 @@
 			</property>
 		</properties>
 	</rule>
+
+	<!-- WordPress.org Plugin Check compatibility. -->
+	<rule ref="PluginCheck"/>
 </ruleset>
 

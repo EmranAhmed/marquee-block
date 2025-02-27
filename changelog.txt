@@ -1,25 +1,22 @@
-== Marquee Block ==
+*** Marquee Block ***
 
-= 1.1.0 - 2024-12-29 =
+2025-02-27 - version 1.1.1
+* Updated - Textdomain load.
 
-* Change settings and layout.
+2024-12-29 - version 1.1.0
+* Updated - Settings and layout.
 
-= 1.0.4 - 2024-10-24 =
+2024-10-24 - version 1.0.4
+* Updated - WordPress packages.
 
-* Update wp packages.
+2024-09-15 - version 1.0.3
+* Updated - Modify helper methods.
 
-= 1.0.3 - 2024-09-15 =
+2024-08-19 - version 1.0.2
+* Added - whitespace option.
 
-* Modify helper methods.
+2024-08-18 - version 1.0.1
+* Added - Support SVG Output.
 
-= 1.0.2 - 2024-08-19 =
-
-* Add whitespace option.
-
-= 1.0.1 - 2024-08-18 =
-
-* Support SVG Output.
-
-= 1.0.0 - 2024-08-16 =
-
+2024-08-16 - version 1.0.0
 * Initial release.

@@ -2,7 +2,7 @@
 	"name": "storepress/marquee-block",
 	"description": "Marquee Block",
 	"minimum-stability": "stable",
-	"license": "GPLv3",
+	"license": "GPL-2.0-or-later",
 	"type": "wordpress-plugin",
 	"keywords": [
 		"gutenberg",
@@ -22,18 +22,29 @@
 		}
 	],
 	"require": {
-		"automattic/jetpack-autoloader": "^v5.0.0"
+		"automattic/jetpack-autoloader": "^v5.0.2"
 	},
 	"require-dev": {
 		"automattic/vipwpcs": "^3.0.1",
-		"phpcompatibility/phpcompatibility-wp": "^2.1.5",
+		"phpcompatibility/phpcompatibility-wp": "^2.1.6",
+		"phpstan/extension-installer": "^1.4.3",
+		"phpstan/phpstan": "^2.1",
+		"phpstan/phpstan-strict-rules": "^2.0.3",
+		"szepeviktor/phpstan-wordpress": "^v2.0.1",
 		"woocommerce/woocommerce-sniffs": "^1.0.0",
 		"wp-cli/i18n-command": "^v2.6.3",
 		"wp-coding-standards/wpcs": "^3.1.0",
-		"phpstan/extension-installer": "^1.4.3",
-		"phpstan/phpstan-strict-rules": "^1.6.1",
-		"szepeviktor/phpstan-wordpress": "^v1.3.5"
+		"plugin-check/phpcs-sniffs": "@dev"
 	},
+	"repositories": [
+		{
+			"type": "path",
+			"url": "./wp-plugin-check",
+			"options": {
+				"symlink": true
+			}
+		}
+	],
 	"autoload": {
 		"psr-4": {
 			"StorePress\\MarqueeBlock\\": "includes/"
@@ -52,7 +63,7 @@
 		"format": "./vendor/bin/phpcbf --standard=phpcs.xml",
 		"lint": "./vendor/bin/phpcs --standard=phpcs.xml --report-summary --report-source",
 		"lint:report": "./vendor/bin/phpcs --standard=phpcs.xml --report-summary --report-source --ignore-annotations --report-full=phpcs-report.txt",
-		"phpstan" : "./vendor/bin/phpstan analyse . --memory-limit=2G -vvv",
-		"phpstan-report" : "./vendor/bin/phpstan analyse . --memory-limit=2G -vvv > phpstan-report.txt"
+		"phpstan": "./vendor/bin/phpstan --memory-limit=2G",
+		"phpstan-report": "./vendor/bin/phpstan --memory-limit=2G -vvv > phpstan-report.txt"
 	}
 }

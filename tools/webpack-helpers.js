@@ -2,9 +2,7 @@
 /**
  * External dependencies
  */
-const {
-	getWordPressSrcDirectory,
-} = require( '@wordpress/scripts/utils/config' );
+const { getProjectSourcePath } = require( '@wordpress/scripts/utils/config' );
 const { fromProjectRoot } = require( '@wordpress/scripts/utils/file' );
 
 const { sep } = require( 'path' );
@@ -84,7 +82,7 @@ function requestToExternalModule( request ) {
 }
 
 function getFile( fileName ) {
-	return fromProjectRoot( getWordPressSrcDirectory() + sep + fileName );
+	return fromProjectRoot( getProjectSourcePath() + sep + fileName );
 }
 
 function getWebPackAlias() {
