@@ -43,9 +43,14 @@
 ## Release
 
 - `npm run plugin-zip` - make zip based on `package.json` `files` list.
+- `npm run package` - make directory based on `package.json` `files` list.
 
 ## Provide your own translations
 
 - `npm run language` - Make POT File
 - Then follow this link to test
 - [Check translation guide](https://developer.wordpress.org/block-editor/how-to-guides/internationalization/#provide-your-own-translations)
+
+## Git Tag Release
+
+- `PKG_VERSION=$(node -p "require('./package.json').version") && git tag $PKG_VERSION && git push origin "$_"`
