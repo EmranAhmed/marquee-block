@@ -42,21 +42,8 @@ $marquee_block_wrapper_attrs = array(
 
 $marquee_block_allowed_html = marquee_block_plugin()->get_blocks()->get_kses_allowed_html();
 ?>
-
-<div
-	<?php
-	echo wp_kses_post( get_block_wrapper_attributes( $marquee_block_wrapper_attrs ) );
-	?>
->
-	<div class="wp-block-storepress-marquee__item">
-		<?php
-		echo wp_kses( $content, $marquee_block_allowed_html );
-		?>
-	</div>
-	<!-- Mirrors the content above -->
-	<div class="wp-block-storepress-marquee__item mirror" aria-hidden="true">
-		<?php
-		echo wp_kses( $content, $marquee_block_allowed_html );
-		?>
-	</div>
+<div <?php echo wp_kses_post( get_block_wrapper_attributes( $marquee_block_wrapper_attrs ) ); ?>>
+	<div class="wp-block-storepress-marquee__item"><?php echo wp_kses( $content, $marquee_block_allowed_html ); ?></div>
+	<!-- Mirrors the content -->
+	<div class="wp-block-storepress-marquee__item mirror" aria-hidden="true"><?php echo wp_kses( $content, $marquee_block_allowed_html ); ?></div>
 </div>

@@ -38,6 +38,10 @@ Manual installation method requires downloading the “Marquee Block” plugin a
 
 == Changelog ==
 
+= 1.2.0 - 2025-03-25 =
+
+- Fix Overlapping Text on Small Device.
+
 = 1.1.1 - 2025-02-27 =
 
 - Fix TextDomain load issue.

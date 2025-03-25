@@ -22,7 +22,7 @@
 		}
 	],
 	"require": {
-		"automattic/jetpack-autoloader": "^v5.0.2"
+		"automattic/jetpack-autoloader": "^v5.0.5"
 	},
 	"require-dev": {
 		"automattic/vipwpcs": "^3.0.1",

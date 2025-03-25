@@ -1,5 +1,8 @@
 *** Marquee Block ***
 
+2025-03-25 - version 1.2.0
+* Fixed - Overlapping Text on Small Device.
+
 2025-02-27 - version 1.1.1
 * Updated - Textdomain load.
 
