@@ -35,15 +35,31 @@
 
 	&.orientation-x {
 		flex-direction: row;
-		& > .wp-block-storepress-marquee__item > * {
+
+		& > .wp-block-storepress-marquee__item > *:not(.wp-block-group) {
+			white-space: var(--white-space);
+		}
+
+		// Apply whitespace on deep
+		& > .wp-block-storepress-marquee__item > * > * {
 			white-space: var(--white-space);
 		}
 	}
 
 	&.orientation-y {
 		flex-direction: column;
-		& > .wp-block-storepress-marquee__item {
-			/*animation-delay: -3s;*/
+
+		/*& > .wp-block-storepress-marquee__item {
+			!*animation-delay: -3s;*!
+			white-space: var(--white-space);
+		}*/
+
+		& > .wp-block-storepress-marquee__item > *:not(.wp-block-group) {
+			white-space: var(--white-space);
+		}
+
+		// Apply whitespace on deep
+		& > .wp-block-storepress-marquee__item > * > * {
 			white-space: var(--white-space);
 		}
 	}

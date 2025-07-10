@@ -1,5 +1,8 @@
 *** Marquee Block ***
 
+2025-07-10 - version 1.2.1
+* Updated - Add white space on deeper block.
+
 2025-03-25 - version 1.2.0
 * Fixed - Overlapping Text on Small Device.
 

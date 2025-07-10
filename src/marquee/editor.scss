@@ -1,6 +1,10 @@
 .wp-block-storepress-marquee {
 
-	&:not(.has-child-selected).orientation-x > .wp-block-storepress-marquee__item > * {
+	&:not(.has-child-selected) > .wp-block-storepress-marquee__item > *:not(.wp-block-group) {
+		white-space: var(--white-space) !important;
+	}
+
+	&:not(.has-child-selected) > .wp-block-storepress-marquee__item > * > * {
 		white-space: var(--white-space) !important;
 	}
 
