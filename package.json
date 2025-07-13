@@ -48,7 +48,8 @@
 		"wpml-config.xml"
 	],
 	"bin": {
-		"package": "./tools/package.js"
+		"package": "./tools/package.js",
+		"changelog": "./tools/changelog.js"
 	},
 	"dependencies": {
 		"@storepress/components": "^0.0.3",
@@ -103,6 +104,7 @@
 		"packages-update": "wp-scripts packages-update",
 		"prepackage": "rm -rf ./languages && rm -rf ./${npm_package_name}.zip && npm run clean-composer && composer install --no-dev --optimize-autoloader",
 		"package": "./tools/package.js",
+		"changelog": "./tools/changelog.js",
 		"postpackage": "npm run clean-composer && composer install",
 		"plugin-zip": "npm run package -- --zip",
 		"start": "rm -rf ./build && wp-scripts start --webpack-copy-php --experimental-modules",

@@ -58,11 +58,21 @@ jobs:
                 run: |
                     echo "RELEASE_NAME=$(node -p -e "require('./package.json').name")" >> $GITHUB_ENV
 
+
+                # This step runs the script and captures its output
+            - name: Get Changelog
+              id: changelog
+              run: |
+                  echo "changelog<<EOF" >> $GITHUB_OUTPUT
+                  npm run changelog >> $GITHUB_OUTPUT
+                  echo "EOF" >> $GITHUB_OUTPUT
+
             -   name: "Upload Release"
                 uses: softprops/action-gh-release@v2
                 with:
                     files: ./${{ env.RELEASE_NAME }}.zip
                     make_latest: true
                     name: Release - v${{ env.RELEASE_TAG }}
+                    body: ${{ steps.changelog.outputs.changelog }}
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

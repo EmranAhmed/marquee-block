@@ -85,6 +85,10 @@ function getFile( fileName ) {
 	return fromProjectRoot( getProjectSourcePath() + sep + fileName );
 }
 
+function getChangelogFile() {
+	return fromProjectRoot( 'changelog.txt' );
+}
+
 function getWebPackAlias() {
 	return {
 		//'@storepress/icons': getFile('packages/icons'),
@@ -94,6 +98,7 @@ function getWebPackAlias() {
 }
 
 module.exports = {
+	getChangelogFile,
 	getFile,
 	getWebPackAlias,
 	requestToExternal,
