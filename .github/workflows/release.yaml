@@ -64,7 +64,7 @@ jobs:
               id: changelog
               run: |
                   echo "changelog<<EOF" >> $GITHUB_OUTPUT
-                  npm run changelog >> $GITHUB_OUTPUT
+                  node ./tools/changelog.js >> $GITHUB_OUTPUT
                   echo "EOF" >> $GITHUB_OUTPUT
 
             -   name: "Upload Release"
