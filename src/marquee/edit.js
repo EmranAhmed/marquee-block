@@ -34,7 +34,7 @@ import { UnitRangeControl } from '@storepress/components';
 
 import './editor.scss';
 
-export default function Edit({ attributes, setAttributes, clientId }) {
+export default function Edit( { attributes, setAttributes, clientId } ) {
 	const {
 		orientation,
 		animationDirection,
@@ -45,17 +45,17 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 		whiteSpace,
 	} = attributes;
 
-	const blockProps = useBlockProps({
-		className: clsx({
+	const blockProps = useBlockProps( {
+		className: clsx( {
 			'has-overlay-color': overlayColor,
 			'orientation-x': orientation === 'x',
 			'orientation-y': orientation === 'y',
-		}),
+		} ),
 		style: {
 			'--overlay-color': overlayColor ?? 'transparent',
 			'--white-space': whiteSpace,
 		},
-	});
+	} );
 
 	const colorGradientSettings = useMultipleOriginColorsAndGradients();
 
@@ -77,42 +77,42 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 		}
 	);
 
-	const setOverlayColor = (newValue) => {
-		setAttributes({ overlayColor: newValue });
+	const setOverlayColor = ( newValue ) => {
+		setAttributes( { overlayColor: newValue } );
 	};
 
-	const setOrientation = (newValue) => {
-		setAttributes({ orientation: newValue });
+	const setOrientation = ( newValue ) => {
+		setAttributes( { orientation: newValue } );
 	};
 
-	const setAnimationDirection = (newValue) => {
-		setAttributes({ animationDirection: newValue });
+	const setAnimationDirection = ( newValue ) => {
+		setAttributes( { animationDirection: newValue } );
 	};
 
-	const setHoverAnimationState = (newValue) => {
-		setAttributes({ hoverAnimationState: newValue });
+	const setHoverAnimationState = ( newValue ) => {
+		setAttributes( { hoverAnimationState: newValue } );
 	};
 
-	const setAnimationSpeed = (newValue) => {
-		setAttributes({ animationSpeed: newValue });
+	const setAnimationSpeed = ( newValue ) => {
+		setAttributes( { animationSpeed: newValue } );
 	};
 
-	const setWhiteSpace = (newValue) => {
-		setAttributes({ whiteSpace: newValue });
+	const setWhiteSpace = ( newValue ) => {
+		setAttributes( { whiteSpace: newValue } );
 	};
 
-	const setGap = (newValue) => {
-		setAttributes({ gap: newValue });
+	const setGap = ( newValue ) => {
+		setAttributes( { gap: newValue } );
 	};
 
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={__('Settings', 'marquee-block')}>
+				<PanelBody title={ __( 'Settings', 'marquee-block' ) }>
 					<ToggleGroupControl
-						label={__('Orientation', 'marquee-block')}
-						value={orientation}
-						onChange={setOrientation}
+						label={ __( 'Orientation', 'marquee-block' ) }
+						value={ orientation }
+						onChange={ setOrientation }
 						isBlock
 					>
 						<ToggleGroupControlOption
@@ -148,9 +148,9 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 					</ToggleGroupControl>
 
 					<ToggleGroupControl
-						label={__('Animation Direction', 'marquee-block')}
-						value={animationDirection}
-						onChange={setAnimationDirection}
+						label={ __( 'Animation Direction', 'marquee-block' ) }
+						value={ animationDirection }
+						onChange={ setAnimationDirection }
 						isBlock
 					>
 						<ToggleGroupControlOption
@@ -182,70 +182,70 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 					</ToggleGroupControl>
 
 					<ToggleGroupControl
-						label={__('On Hover Animation', 'marquee-block')}
-						value={hoverAnimationState}
-						onChange={setHoverAnimationState}
+						label={ __( 'On Hover Animation', 'marquee-block' ) }
+						value={ hoverAnimationState }
+						onChange={ setHoverAnimationState }
 						isBlock
 					>
 						<ToggleGroupControlOption
 							value="paused"
-							label={__('Pause', 'marquee-block')}
+							label={ __( 'Pause', 'marquee-block' ) }
 						/>
 						<ToggleGroupControlOption
 							value="running"
-							label={__('Continue', 'marquee-block')}
+							label={ __( 'Continue', 'marquee-block' ) }
 						/>
 					</ToggleGroupControl>
 
 					<UnitRangeControl
-						label={__('Animation Speed', 'marquee-block')}
-						onChange={setAnimationSpeed}
-						value={animationSpeed}
-						allowedUnits={['s', 'ms']}
+						label={ __( 'Animation Speed', 'marquee-block' ) }
+						onChange={ setAnimationSpeed }
+						value={ animationSpeed }
+						allowedUnits={ [ 's', 'ms' ] }
 					/>
 				</PanelBody>
-				<PanelBody title={__('Style', 'marquee-block')}>
+				<PanelBody title={ __( 'Style', 'marquee-block' ) }>
 					<ToggleGroupControl
-						label={__('White Space', 'marquee-block')}
-						value={whiteSpace}
-						onChange={setWhiteSpace}
+						label={ __( 'White Space', 'marquee-block' ) }
+						value={ whiteSpace }
+						onChange={ setWhiteSpace }
 						isBlock
 					>
 						<ToggleGroupControlOption
 							value="wrap"
-							label={__('Wrap', 'marquee-block')}
+							label={ __( 'Wrap', 'marquee-block' ) }
 						/>
 						<ToggleGroupControlOption
 							value="nowrap"
-							label={__('No Wrap', 'marquee-block')}
+							label={ __( 'No Wrap', 'marquee-block' ) }
 						/>
 					</ToggleGroupControl>
 
 					<UnitRangeControl
-						label={__('Content Gap', 'marquee-block')}
-						onChange={setGap}
-						value={gap}
-						allowedUnits={['%', 'px', 'em', 'rem']}
+						label={ __( 'Content Gap', 'marquee-block' ) }
+						onChange={ setGap }
+						value={ gap }
+						allowedUnits={ [ '%', 'px', 'em', 'rem' ] }
 					/>
 				</PanelBody>
 			</InspectorControls>
 
 			<InspectorControls group="color">
 				<ColorGradientSettingsDropdown
-					panelId={clientId}
-					settings={[
+					panelId={ clientId }
+					settings={ [
 						{
-							label: __('Overlay color', 'marquee-block'),
+							label: __( 'Overlay color', 'marquee-block' ),
 							colorValue: overlayColor,
 							onColorChange: setOverlayColor,
 						},
-					]}
-					{...colorGradientSettings}
+					] }
+					{ ...colorGradientSettings }
 				/>
 			</InspectorControls>
 
-			<div {...blockProps}>
-				<div {...innerBlockProps} />
+			<div { ...blockProps }>
+				<div { ...innerBlockProps } />
 			</div>
 		</>
 	);

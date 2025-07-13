@@ -73,6 +73,7 @@
 		"fs-extra": "^11.3.0",
 		"husky": "^9.1.7",
 		"lint-staged": "^15.4.3",
+		"prettier": "npm:wp-prettier@latest",
 		"webpack-remove-empty-scripts": "^1.0.4"
 	},
 	"scripts": {
