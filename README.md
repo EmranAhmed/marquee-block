@@ -54,3 +54,4 @@
 ## Git Tag Release
 
 - `PKG_VERSION=$(node -p "require('./package.json').version") && git tag $PKG_VERSION && git push origin "$_"`
+- Delete `git tag -d 1.2.1 && git push origin --delete "$_"`
