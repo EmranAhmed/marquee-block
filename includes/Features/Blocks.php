@@ -9,9 +9,13 @@
 
 declare( strict_types=1 );
 
-namespace StorePress\MarqueeBlock;
+namespace StorePress\MarqueeBlock\Features;
 
 defined( 'ABSPATH' ) || die( 'Keep Silent' );
+
+use StorePress\AdminUtils\Traits\HelperMethodsTrait;
+use StorePress\AdminUtils\Traits\SingletonTrait;
+use StorePress\MarqueeBlock\Traits\UtilityHelperTrait;
 
 /**
  *  Blocks Class.
@@ -20,8 +24,9 @@ defined( 'ABSPATH' ) || die( 'Keep Silent' );
  */
 class Blocks {
 
-	use Singleton;
-	use Common;
+	use SingletonTrait;
+	use HelperMethodsTrait;
+	use UtilityHelperTrait;
 
 	/**
 	 * Initialise class.
@@ -30,12 +35,14 @@ class Blocks {
 	 */
 	protected function __construct() {
 		$this->hooks();
-		$this->init();
 
 		/**
-		 * Action to signal that Plugin has finished loading.
+		 * Fires after the Blocks service has finished loading.
 		 *
-		 * @param Blocks $instance Plugin Object.
+		 * Allows other plugins or themes to hook in after blocks
+		 * are registered and ready.
+		 *
+		 * @param Blocks $instance The Blocks service instance.
 		 *
 		 * @since 1.0.0
 		 */
@@ -52,15 +59,6 @@ class Blocks {
 		add_action( 'init', array( $this, 'register_blocks' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'block_editor_scripts' ) );
 		add_filter( 'block_categories_all', array( $this, 'add_block_category' ) );
-	}
-
-	/**
-	 * Initialize Blocks Included Classes
-	 *
-	 * @return void
-	 * @since      1.0.0
-	 */
-	public function init() {
 	}
 
 	/**
@@ -97,32 +95,62 @@ class Blocks {
 	 */
 	public function block_editor_scripts() {
 		// Editor Scripts.
-		$editor_script_src_url    = marquee_block_plugin()->build_url() . '/editor-scripts.js';
-		$editor_script_asset_file = marquee_block_plugin()->build_path() . '/editor-scripts.asset.php';
+		$editor_script_src_url    = $this->build_url() . '/editor-scripts.js';
+		$editor_script_asset_file = $this->build_path() . '/editor-scripts.asset.php';
 		$editor_script_asset      = include $editor_script_asset_file;
 
 		wp_enqueue_script( 'marquee-block-editor-scripts', $editor_script_src_url, $editor_script_asset['dependencies'], $editor_script_asset['version'], array( 'strategy' => 'defer' ) );
 
-		wp_set_script_translations( 'marquee-block-editor-scripts', 'marquee-block', marquee_block_plugin()->plugin_path() . '/languages' );
+		wp_set_script_translations( 'marquee-block-editor-scripts', 'marquee-block', $this->languages_path() );
 	}
 
 	/**
-	 * Block Register
+	 * Register all Gutenberg blocks.
+	 *
+	 * Scans the build directory for block.json files and auto-registers
+	 * each block found. Blocks are registered using WordPress's native
+	 * register_block_type() function.
 	 *
 	 * @return void
-	 * @since      1.0.0
+	 *
+	 * @since 1.0.0
+	 *
+	 * @see   Plugin::build_path()       Returns the build directory path.
+	 * @see   register_block_type()      WordPress function to register blocks.
+	 *
+	 * @example
+	 * // Blocks are automatically registered via init hook
+	 * // Build directory structure expected:
+	 * // build/
+	 * //   popup/block.json
+	 * //   slider/block.json
+	 * //   pointer/block.json
+	 *
+	 * @example
+	 * // Each block.json defines block metadata:
+	 * // {
+	 * //   "apiVersion": 3,
+	 * //   "name": "storepress/hotspot-popup",
+	 * //   "title": "Image Hotspot Popup",
+	 * //   "category": "storepress"
+	 * // }
+	 *
+	 * @example
+	 * // Registered blocks can be used in templates:
+	 * // <!-- wp:storepress/hotspot-popup -->...<!-- /wp:storepress/hotspot-popup -->
+	 *
+	 * @example
+	 * // Check if blocks are registered:
+	 * // $registry = WP_Block_Type_Registry::get_instance();
+	 * // $is_registered = $registry->is_registered( 'storepress/hotspot-popup' );
 	 */
-	public function register_blocks() {
-		if ( ! file_exists( marquee_block_plugin()->build_path() ) ) {
+	public function register_blocks(): void {
+		if ( ! file_exists( $this->build_path() ) ) {
 			return;
 		}
 
-		// Scanning block.json directory.
-		$block_json_files = glob( marquee_block_plugin()->build_path() . '/**/block.json' );
-
-		if ( ! is_array( $block_json_files ) ) {
-			return;
-		}
+		// Scanning block.json directory for all block definitions.
+		$block_json_files = glob( $this->build_path() . '/**/block.json' );
 
 		// Auto register all blocks that were found.
 		foreach ( $block_json_files as $filename ) {

@@ -1,17 +1,25 @@
 parameters:
+
+	# Editor
 	editorUrl: 'phpstorm://open?file=%%file%%&line=%%line%%'
 	editorUrlTitle: '%%relFile%%:%%line%%'
+
+	# Rules
 	inferPrivatePropertyTypeFromConstructor: true
 	treatPhpDocTypesAsCertain: false
-	phpVersion: 70400
+
+	# Configuration
 	level: 6
+	phpVersion:
+		min: 70400
+		max: 80400
+	bootstrapFiles:
+		- marquee-block.php
 	paths:
-		- .
-	excludePaths:
-		- test (?) # optional path, might not exist
-		- vendor
-		- node_modules
-		- marquee-block (?) # optional path, might not exist
-		- languages (?) # optional path, might not exist
-		- build (?) # optional path, might not exist
-		- wp-plugin-check (?) # optional path, might not exist
+		- marquee-block.php
+		- includes/
+	scanDirectories:
+			- ../woocommerce
+#	ignoreErrors:
+#		# https://phpstan.org/user-guide/ignoring-errors#ignoring-in-configuration-file
+#		- identifier: missingType.generics

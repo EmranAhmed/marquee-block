@@ -11,11 +11,13 @@ const { sep } = require( 'path' );
 // react-dom --> window.ReactDOM
 const externalScriptsMap = {
 	//'slick-carousel' : ['Slick'],
+	//'@storepress/utils': [ 'StorePress', 'Utils' ],
 };
 
 // @babel/runtime/regenerator --> wp-polyfill
 const scriptHandleMap = {
 	//'slick-carousel' : 'slick-carousel',
+	//'@storepress/utils': 'storepress-utils',
 };
 
 const externalModulesMap = {

@@ -47,14 +47,6 @@ const scriptConfig = {
 			stage: RemoveEmptyScriptsPlugin.STAGE_AFTER_PROCESS_PLUGINS,
 		}),
 	],
-	/*optimization: {
-		splitChunks: {
-			chunks: 'all',
-			minSize: 1,
-			name: 'common',
-		},
-		// runtimeChunk: { name: 'utils' },
-	},*/
 }
 
 const moduleConfig = {

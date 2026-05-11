@@ -1,0 +1,24 @@
+{
+	"description": "Default Claude Code settings for the Image Hotspot Blocks - Pro WordPress Plugin",
+	"hooks": {
+		"PostToolUse": [
+			{
+				"matcher": "Write|Edit",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "npm run format:all || true"
+					}
+				]
+			}
+		]
+	},
+	"permissions": {
+		"allow": [
+			"Bash(npm run *)",
+			"Bash(composer run *)"
+		],
+		"deny": [],
+		"ask": []
+	}
+}

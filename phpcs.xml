@@ -2,7 +2,8 @@
 <ruleset name="Plugin">
 	<description>Rules for the Plugin</description>
 
-	<file>./</file>
+	<file>./includes</file>
+	<file>./marquee-block.php</file>
 	<!-- Exclude paths -->
 	<exclude-pattern>*/wp-plugin-check/*</exclude-pattern>
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
@@ -25,9 +26,15 @@
 	<arg name="colors"/>
 
 	<!-- Check up to 8 files simultaneously. -->
-	<arg name="parallel" value="8"/>
+	<arg name="parallel" value="20"/>
 
 	<arg name="encoding" value="utf-8"/>
+
+	<!-- Set severity to 1 to see everything that isn't effectively turned off. -->
+	<!--<arg name="severity" value="1" />-->
+
+	<!-- Whenever possible, cache the scan results and re-use those for unchanged files on the next scan. -->
+	<arg name="cache" value="phpcs-cache.json"/>
 
 	<!-- Set the memory limit to 256M.
 	 For most standard PHP configurations, this means the memory limit will temporarily be raised.
@@ -55,12 +62,26 @@
 	the wiki:
 	https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/wiki/Customizable-sniff-properties
 	-->
+	<rule ref="WordPress.WP.Capabilities">
+		<properties>
+			<property name="custom_capabilities" type="array">
+				<element value="edit_products"/>
+			</property>
+		</properties>
+	</rule>
 	<rule ref="WordPress-Core"/>
-	<rule ref="WordPress-VIP-Go"/>
+	<rule ref="WordPress-VIP-Go">
+		<!-- Deprecated: @todo remove in PHPCS 4.0 -->
+		<exclude name="WordPressVIPMinimum.JS"/>
+		<exclude name="WordPressVIPMinimum.Files.IncludingFile.UsingCustomFunction"/>
+		<exclude name="WordPressVIPMinimum.Files.IncludingFile.UsingVariable"/>
+	</rule>
 	<rule ref="WordPress-Extra">
 		<exclude name="WordPress.Files.FileName"/>
+		<!-- Allow internal variable names without prefixes -->
+		<exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound" />
 	</rule>
-	<rule ref="WooCommerce-Core"/>
+
 	<!-- Let's also check that everything is properly documented. -->
 	<rule ref="WordPress-Docs"/>
 
@@ -94,6 +115,8 @@
 	</rule>
 
 	<!-- WordPress.org Plugin Check compatibility. -->
-	<rule ref="PluginCheck"/>
+	<rule ref="PluginCheck">
+		<exclude name="PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound"/>
+	</rule>
 </ruleset>
 

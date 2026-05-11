@@ -1,5 +1,9 @@
 *** Marquee Block ***
 
+2026-05-11 - version 2.0.0
+* Add - WordPress 6.9+ compatibility
+* Update - Plugin file structure
+
 2025-07-10 - version 1.2.1
 * Updated - Add white space on deeper block.
 

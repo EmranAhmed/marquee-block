@@ -11,6 +11,11 @@ declare( strict_types=1 );
 
 namespace StorePress\MarqueeBlock;
 
+use StorePress\MarqueeBlock\ServiceProviders\BlockSupportServiceProvider;
+use StorePress\MarqueeBlock\ServiceProviders\BlocksServiceProvider;
+use StorePress\MarqueeBlock\ServiceProviders\DeactivationServiceProvider;
+use StorePress\MarqueeBlock\ServiceProviders\ServiceProviders;
+
 defined( 'ABSPATH' ) || die( 'Keep Silent' );
 
 use Exception;
@@ -21,19 +26,23 @@ use Exception;
 class Plugin {
 
 	/**
-	 * Return singleton instance of Plugin.
-	 * The instance will be created if it does not exist yet.
+	 * Absolute path to the main plugin file.
 	 *
-	 * @return self The main instance.
 	 * @since 1.0.0
+	 * @var   string
+	 */
+	protected string $plugin_file;
+
+	/**
+	 * Returns the singleton Plugin instance, creating it on first call.
+	 *
+	 * @return static
+	 * @since  1.0.0
 	 */
 	public static function instance(): self {
 		static $instance = null;
-		if ( is_null( $instance ) ) {
-			$instance = new self();
-		}
 
-		return $instance;
+		return $instance ??= new self();
 	}
 
 	/**
@@ -42,20 +51,9 @@ class Plugin {
 	 * @since 1.0.0
 	 */
 	protected function __construct() {
-		try {
-			$this->includes();
-			$this->hooks();
-			$this->init();
-		} catch ( Exception $e ) {
-			$message = sprintf( '<strong>%s:</strong> %s', $this->name(), $e->getMessage() );
-			add_action(
-				'admin_notices',
-				function () use ( $message ) {
-					printf( '<div class="notice notice-error"><p>%s</p></div>', wp_kses_data( $message ) );
-				},
-				50
-			);
-		}
+		$this->includes();
+		$this->hooks();
+		$this->init();
 
 		/**
 		 * Action to signal that Plugin has finished loading.
@@ -68,74 +66,21 @@ class Plugin {
 	}
 
 	/**
-	 * Plugin Absolute File.
-	 *
-	 * @return string
-	 * @since 1.0.0
-	 */
-	public function get_plugin_file(): string {
-		return constant( 'STOREPRESS_MARQUEE_BLOCK_PLUGIN_FILE' );
-	}
-
-	/**
-	 * Get Plugin Name.
-	 *
-	 * @return string
-	 * @since 1.0.0
-	 */
-	public function name(): string {
-		static $names;
-
-		if ( is_null( $names ) ) {
-			$names = get_file_data( $this->get_plugin_file(), array( 'Plugin Name' ) );
-		}
-
-		return esc_attr( $names[0] );
-	}
-
-	/**
-	 * Get Plugin Version.
-	 *
-	 * @return string
-	 * @since 1.0.0
-	 */
-	public function version(): string {
-		static $versions;
-
-		if ( is_null( $versions ) ) {
-			$versions = get_file_data( $this->get_plugin_file(), array( 'Version' ) );
-		}
-
-		return esc_attr( $versions[0] );
-	}
-
-	/**
-	 * Includes.
-	 *
-	 * @return bool
-	 * @throws Exception When class files loading fails.
-	 * @since 1.0.0
-	 */
-	public function includes(): bool {
-		if ( file_exists( $this->vendor_path() . '/autoload_packages.php' ) ) {
-			require_once $this->vendor_path() . '/autoload_packages.php';
-			require_once __DIR__ . '/functions.php';
-
-			return true;
-		}
-
-		throw new Exception( '"vendor/autoload_packages.php" file missing. Please run `composer install`' );
-	}
-
-	/**
-	 * Initialize Classes.
+	 * Loads the Composer autoloader and plugin utility functions.
 	 *
 	 * @return void
-	 * @since 1.0.0
+	 * @since  1.0.0
+	 * @see    init()
 	 */
-	public function init() {
-		// Setup BLocks.
-		$this->get_blocks();
+	public function includes(): void {
+
+		require_once __DIR__ . '/functions.php';
+
+		$vendor_path = untrailingslashit( plugin_dir_path( $this->get_plugin_file() ) ) . '/vendor';
+
+		if ( file_exists( $vendor_path . '/autoload_packages.php' ) ) {
+			require_once $vendor_path . '/autoload_packages.php';
+		}
 	}
 
 	/**
@@ -145,180 +90,68 @@ class Plugin {
 	 * @since 1.0.0
 	 */
 	public function hooks() {
-		// Register with hook.
-		add_action( 'init', array( $this, 'load_translations' ) );
 	}
 
 	/**
-	 * Load Plugin Translation Files.
+	 * Boots all service providers.
 	 *
 	 * @return void
+	 * @since  1.0.0
+	 * @see    service_providers()
 	 */
-	public function load_translations() {
-		load_plugin_textdomain( 'marquee-block', false, $this->plugin_dirname() . '/languages' );
+	public function init(): void {
+		$this->service_providers();
+	}
+
+	// =====================================================================
+	// Plugin Identity Methods
+	// =====================================================================
+
+	/**
+	 * Returns the absolute path to the main plugin file.
+	 *
+	 * @return  string
+	 * @since   1.0.0
+	 * @example Plugin::instance()->get_plugin_file(); // '/path/to/variation-duplicator-for-woocommerce.php'
+	 */
+	public function get_plugin_file(): string {
+		return get_plugin_file();
+	}
+
+	// =====================================================================
+	// Service Provider Registration Methods
+	// =====================================================================
+
+	/**
+	 * Returns all service provider class names to register and boot.
+	 *
+	 * @return  array<int, class-string>
+	 * @since   1.0.0
+	 * @see     service_providers()
+	 * @example Plugin::instance()->get_service_providers();
+	 */
+	public function get_service_providers(): array {
+		return array(
+			BlocksServiceProvider::class,
+			DeactivationServiceProvider::class,
+			BlockSupportServiceProvider::class,
+		);
 	}
 
 	/**
-	 * Get Plugin basename directory name
+	 * Instantiates and returns the ServiceProviders runner.
 	 *
-	 * @return string
-	 * @since 1.0.0
+	 * @return  ServiceProviders
+	 * @since   1.0.0
+	 * @see     get_service_providers()
+	 * @example Plugin::instance()->service_providers();
 	 */
-	public function basename(): string {
-		return wp_basename( dirname( $this->get_plugin_file() ) );
+	public function service_providers(): ServiceProviders {
+		return ServiceProviders::instance( $this->get_service_providers() );
 	}
 
-	/**
-	 * Get Plugin basename
-	 *
-	 * @return string
-	 * @since 1.0.0
-	 */
-	public function plugin_basename(): string {
-		return plugin_basename( $this->get_plugin_file() );
-	}
 
-	/**
-	 * Get Plugin directory name
-	 *
-	 * @return string
-	 * @since 1.0.0
-	 */
-	public function plugin_dirname(): string {
-		return untrailingslashit( dirname( plugin_basename( $this->get_plugin_file() ) ) );
-	}
-
-	/**
-	 * Get Plugin directory path
-	 *
-	 * @return string
-	 * @since 1.0.0
-	 */
-	public function plugin_path(): string {
-		return untrailingslashit( plugin_dir_path( $this->get_plugin_file() ) );
-	}
-
-	/**
-	 * Get Plugin directory url
-	 *
-	 * @return string
-	 * @since 1.0.0
-	 */
-	public function plugin_url(): string {
-		return untrailingslashit( plugin_dir_url( $this->get_plugin_file() ) );
-	}
-
-	/**
-	 * Get Plugin image url
-	 *
-	 * @return string
-	 * @since 1.0.0
-	 */
-	public function images_url(): string {
-		return untrailingslashit( plugin_dir_url( $this->get_plugin_file() ) . 'images' );
-	}
-
-	/**
-	 * Get Assets URL
-	 *
-	 * @return string
-	 * @since 1.0.0
-	 */
-	public function assets_url(): string {
-		return untrailingslashit( plugin_dir_url( $this->get_plugin_file() ) . 'assets' );
-	}
-
-	/**
-	 * Get Asset Absolute Path
-	 *
-	 * @return string
-	 * @since 1.0.0
-	 */
-	public function assets_path(): string {
-		return $this->plugin_path() . '/assets';
-	}
-
-	/**
-	 * Get Vendor path
-	 *
-	 * @return string
-	 * @since 1.0.0
-	 */
-	public function vendor_path(): string {
-		return $this->plugin_path() . '/vendor';
-	}
-
-	/**
-	 * Get Vendor URL
-	 *
-	 * @return string
-	 * @since 1.0.0
-	 */
-	public function vendor_url(): string {
-		return untrailingslashit( plugin_dir_url( $this->get_plugin_file() ) . 'vendor' );
-	}
-
-	/**
-	 * Get Node Modules build URL
-	 *
-	 * @return string
-	 * @since 1.0.0
-	 */
-	public function build_url(): string {
-		return untrailingslashit( plugin_dir_url( $this->get_plugin_file() ) . 'build' );
-	}
-
-	/**
-	 * Get Node Modules build path
-	 *
-	 * @return string
-	 * @since 1.0.0
-	 */
-	public function build_path(): string {
-		return $this->plugin_path() . '/build';
-	}
-
-	/**
-	 * Get Asset file make time for versioning.
-	 *
-	 * @param string $file Asset file name.
-	 *
-	 * @return int asset file make time.
-	 * @since 1.0.0
-	 */
-	public function assets_version( string $file ): int {
-		return filemtime( $this->assets_path() . $file );
-	}
-
-	/**
-	 * Get includes directory absolute path
-	 *
-	 * @return string
-	 * @since 1.0.0
-	 */
-	public function include_path(): string {
-		return untrailingslashit( plugin_dir_path( $this->get_plugin_file() ) . 'includes' );
-	}
-
-	/**
-	 * Get templates directory absolute path
-	 *
-	 * @return string
-	 * @since 1.0.0
-	 */
-	public function template_path(): string {
-		return untrailingslashit( plugin_dir_path( $this->get_plugin_file() ) . 'templates' );
-	}
-
-	// Add feature classes from here...
-
-	/**
-	 * Get Block Instance.
-	 *
-	 * @return Blocks
-	 * @since 1.0.0
-	 */
-	public function get_blocks(): Blocks {
-		return Blocks::instance();
-	}
+	// =====================================================================
+	// Hook Callbacks
+	// =====================================================================
 }

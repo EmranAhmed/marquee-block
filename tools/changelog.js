@@ -1,69 +1,61 @@
 #!/usr/bin/env node
-'use strict'
+'use strict';
 /**
  * External dependencies
  */
-const fs = require('fs-extra')
-const { stdout } = require('process')
+const fs = require( 'fs' );
 
 /**
- * Internal dependencies
+ * WordPress dependencies
  */
-
 const {
-	hasPackageProp,
 	getPackageProp,
-	hasArgInCLI,
-} = require('@wordpress/scripts/utils')
+	fromProjectRoot,
+} = require( '@wordpress/scripts/utils' );
 
-const {
-	getChangelogFile,
-} = require('./webpack-helpers')
+// Get Current Version.
+const version = getPackageProp( 'version' );
 
+// Get Changelog File.
+const changelogFile = fromProjectRoot( 'changelog.txt' );
 
+// Read and find the changelog entry for the current version.
+const changelogContent = fs.readFileSync( changelogFile, 'utf8' );
+const lines = changelogContent.split( '\n' );
+const changelogEntry = [];
+let inSection = false;
 
-const version = getPackageProp('version')
+const commonPattern = `^\\d{4}-\\d{2}-\\d{2}|^\\d{2}-\\d{2}-\\d{4}\\s*-\\s*version`;
+const currentPattern = `${ commonPattern }\\s*${ version }`;
 
-const changelogFile = getChangelogFile()
+const currentExp = new RegExp( currentPattern, 'i' );
 
-// 2. Read and find the changelog entry for the current version.
-const changelog = fs.readFileSync(changelogFile, 'utf8')
-const lines = changelog.split('\n')
-const changelogEntry = []
-let inSection = false
-const versionString = `version ${version}`
-const dateRegex = /^\d{4}-\d{2}-\d{2}/
+const sectionExp = new RegExp( commonPattern, 'i' );
 
-for (const line of lines) {
-	if (inSection) {
-		if (dateRegex.test(line) && !line.includes(versionString)) {
-			break
+for ( const line of lines ) {
+	// Reach current section.
+	if ( currentExp.test( line ) ) {
+		inSection = true;
+		continue;
+	}
+
+	// We have to stop when we get another section.
+	if ( inSection ) {
+		if ( sectionExp.test( line ) ) {
+			inSection = false;
+			break;
 		}
-		changelogEntry.push(line)
-	} else if (line.includes(versionString)) {
-		inSection = true
-		// continue
-		// changelogEntry.push(line)
+
+		changelogEntry.push( line );
 	}
 }
 
-if (changelogEntry.length === 0) {
-	changelogEntry.push(`- No changelog entry for version ${version}.\n\n`)
+if ( changelogEntry.length === 0 ) {
+	changelogEntry.push( `- No changelog entry for version ${ version }.\n\n` );
 }
 
-// 3. Prepare the final output string
-const finalOutput = changelogEntry.join('\n').trim()
+// Prepare the final output string
+const finalOutput = changelogEntry.join( '\n' ).trim();
 
-// 4. Check if running in GitHub Actions environment
-/*if (process.env.GITHUB_OUTPUT) {
-	// If yes, write to the GITHUB_OUTPUT file to set an output variable
-	// The format `key<<DELIMITER` is used for multiline strings
-	fs.appendFileSync(process.env.GITHUB_OUTPUT, `changelog_body<<EOF\n${finalOutput}\nEOF\n`)
-} else {
-	stdout.write(`${finalOutput}\n`)
-}*/
-
-stdout.write(`## What's Changed\n\n`)
-stdout.write(`${finalOutput}\n`)
-
-
+process.stdout.write( `## What's Changed\n\n` );
+process.stdout.write( `${ finalOutput }\n` );

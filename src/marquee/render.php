@@ -36,11 +36,11 @@ $marquee_block_styles = array(
 );
 
 $marquee_block_wrapper_attrs = array(
-	'class' => esc_attr( marquee_block_plugin()->get_blocks()->get_css_classes( $marquee_block_classes ) ),
-	'style' => esc_attr( marquee_block_plugin()->get_blocks()->get_inline_styles( $marquee_block_styles ) ),
+	'class' => esc_attr( get_blocks()->get_css_classes( $marquee_block_classes ) ),
+	'style' => esc_attr( get_blocks()->get_inline_styles( $marquee_block_styles ) ),
 );
 
-$marquee_block_allowed_html = marquee_block_plugin()->get_blocks()->get_kses_allowed_html();
+$marquee_block_allowed_html = get_blocks()->get_kses_allowed_html();
 ?>
 <div <?php echo wp_kses_post( get_block_wrapper_attributes( $marquee_block_wrapper_attrs ) ); ?>>
 	<div class="wp-block-storepress-marquee__item"><?php echo wp_kses( $content, $marquee_block_allowed_html ); ?></div>
