@@ -1,5 +1,5 @@
 {
-	"description": "Default Claude Code settings for the Image Hotspot Blocks - Pro WordPress Plugin",
+	"description": "Default Claude Code settings for the Marquee Block WordPress Plugin",
 	"hooks": {
 		"PostToolUse": [
 			{
