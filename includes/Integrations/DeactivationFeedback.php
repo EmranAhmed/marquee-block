@@ -153,7 +153,7 @@ class DeactivationFeedback extends AbstractDeactivationFeedback {
 
 			'dont_know_about'               => array(
 				'title'   => esc_html__( 'I couldn\'t understand how to make it work.', 'marquee-block' ),
-				'message' => esc_html__( 'On any variable product\'s "Variations" tab, tick the new "Duplicate" checkbox next to the variations you want to copy, click "Bulk Duplicate," enter how many copies you need, and hit "OK" — the plugin instantly creates identical copies for you to tweak.', 'marquee-block' ),
+				'message' => esc_html__( 'Just insert the "Marquee" from the block inserter, then add any blocks inside it (text, images, buttons, etc.) — whatever you place inside will automatically scroll like a marquee. No extra setup needed.', 'marquee-block' ),
 			),
 
 			'found_a_better_plugin'         => array(

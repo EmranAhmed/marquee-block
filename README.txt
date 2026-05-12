@@ -1,5 +1,5 @@
 === Marquee Block ===
-Contributors: EmranAhmed, getwooplugins
+Contributors: EmranAhmed, getwooplugins, storepress
 Tags: block, marquee, scroller, image, fse
 Requires at least: 6.4
 Tested up to: 6.9
@@ -42,7 +42,6 @@ Manual installation method requires downloading the “Marquee Block” plugin a
 
 * Add: WordPress 6.9+ compatibility
 * Update: Plugin file structure
-
 
 = 1.2.1 - 2025-07-10 =
 
