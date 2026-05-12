@@ -24,7 +24,7 @@ function readJSONFile (fileName) {
 
 const EXACT_VERSION_PACKAGES = {
 	'eslint-formatter-pretty':'5.0.0',
-	'eslint-plugin-prettier':'^5.5.4',
+	'eslint-plugin-prettier':'^5.5.5',
 	'prettier':'npm:wp-prettier@3.0.3',
 }
 

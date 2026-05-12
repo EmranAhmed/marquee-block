@@ -62,24 +62,13 @@
 	the wiki:
 	https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/wiki/Customizable-sniff-properties
 	-->
-	<rule ref="WordPress.WP.Capabilities">
-		<properties>
-			<property name="custom_capabilities" type="array">
-				<element value="edit_products"/>
-			</property>
-		</properties>
-	</rule>
 	<rule ref="WordPress-Core"/>
 	<rule ref="WordPress-VIP-Go">
 		<!-- Deprecated: @todo remove in PHPCS 4.0 -->
 		<exclude name="WordPressVIPMinimum.JS"/>
-		<exclude name="WordPressVIPMinimum.Files.IncludingFile.UsingCustomFunction"/>
-		<exclude name="WordPressVIPMinimum.Files.IncludingFile.UsingVariable"/>
 	</rule>
 	<rule ref="WordPress-Extra">
 		<exclude name="WordPress.Files.FileName"/>
-		<!-- Allow internal variable names without prefixes -->
-		<exclude name="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound" />
 	</rule>
 
 	<!-- Let's also check that everything is properly documented. -->

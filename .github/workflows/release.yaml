@@ -39,12 +39,12 @@ jobs:
                 uses: shivammathur/setup-php@v2
                 with:
                     coverage: none
-                    php-version: "7.4"
+                    php-version: "8.4"
 
             -   name: "Setup and Install Node.js"
                 uses: actions/setup-node@v4
                 with:
-                    node-version: '20.x'
+                    node-version: '22.x'
             -   run: npm clean-install
 
             -   name: "Make Zip"

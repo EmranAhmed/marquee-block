@@ -1,32 +1,42 @@
 *** Marquee Block ***
 
-2026-05-11 - version 2.0.0
+2026-05-12 - version 2.0.0
+
 * Add - WordPress 6.9+ compatibility
 * Update - Plugin file structure
 
 2025-07-10 - version 1.2.1
+
 * Updated - Add white space on deeper block.
 
 2025-03-25 - version 1.2.0
+
 * Fixed - Overlapping Text on Small Device.
 
 2025-02-27 - version 1.1.1
+
 * Updated - Textdomain load.
 
 2024-12-29 - version 1.1.0
+
 * Updated - Settings and layout.
 
 2024-10-24 - version 1.0.4
+
 * Updated - WordPress packages.
 
 2024-09-15 - version 1.0.3
+
 * Updated - Modify helper methods.
 
 2024-08-19 - version 1.0.2
+
 * Added - whitespace option.
 
 2024-08-18 - version 1.0.1
+
 * Added - Support SVG Output.
 
 2024-08-16 - version 1.0.0
+
 * Initial release.

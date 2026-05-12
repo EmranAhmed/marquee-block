@@ -55,7 +55,7 @@ class Blocks {
 	 * @return void
 	 * @since      1.0.0
 	 */
-	public function hooks() {
+	public function hooks(): void {
 		add_action( 'init', array( $this, 'register_blocks' ) );
 		add_action( 'enqueue_block_editor_assets', array( $this, 'block_editor_scripts' ) );
 		add_filter( 'block_categories_all', array( $this, 'add_block_category' ) );

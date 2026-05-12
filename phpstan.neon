@@ -18,8 +18,8 @@ parameters:
 	paths:
 		- marquee-block.php
 		- includes/
-	scanDirectories:
-			- ../woocommerce
+#	scanDirectories:
+#			- ../woocommerce
 #	ignoreErrors:
 #		# https://phpstan.org/user-guide/ignoring-errors#ignoring-in-configuration-file
 #		- identifier: missingType.generics

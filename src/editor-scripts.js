@@ -1,6 +1,9 @@
 /**
  * External dependencies
  */
+/**
+ * WordPress dependencies
+ */
 import { Icon } from '@wordpress/icons';
 import { updateCategory } from '@wordpress/blocks';
 import { storepress } from '@storepress/icons';

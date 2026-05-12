@@ -1,28 +1,25 @@
 <?php
-/**
- * Main Plugin Class File.
- *
- * @package    StorePress/MarqueeBlock
- * @since      1.0.0
- * @version    1.0.0
- */
+	/**
+	 * Main Plugin Class File.
+	 *
+	 * @package    StorePress/MarqueeBlock
+	 * @since      1.0.0
+	 * @version    1.0.0
+	 */
 
-declare( strict_types=1 );
+	declare( strict_types=1 );
 
-namespace StorePress\MarqueeBlock;
+	namespace StorePress\MarqueeBlock;
 
-use StorePress\MarqueeBlock\ServiceProviders\BlockSupportServiceProvider;
-use StorePress\MarqueeBlock\ServiceProviders\BlocksServiceProvider;
-use StorePress\MarqueeBlock\ServiceProviders\DeactivationServiceProvider;
-use StorePress\MarqueeBlock\ServiceProviders\ServiceProviders;
+	use StorePress\MarqueeBlock\ServiceProviders\BlocksServiceProvider;
+	use StorePress\MarqueeBlock\ServiceProviders\DeactivationServiceProvider;
+	use StorePress\MarqueeBlock\ServiceProviders\ServiceProviders;
 
-defined( 'ABSPATH' ) || die( 'Keep Silent' );
+	defined( 'ABSPATH' ) || die( 'Keep Silent' );
 
-use Exception;
-
-/**
- * Main Plugin Class.
- */
+	/**
+	 * Main Plugin Class.
+	 */
 class Plugin {
 
 	/**
@@ -46,7 +43,7 @@ class Plugin {
 	}
 
 	/**
-	 * Initialise the plugin.
+	 * Initialize the plugin.
 	 *
 	 * @since 1.0.0
 	 */
@@ -89,7 +86,7 @@ class Plugin {
 	 * @return void
 	 * @since 1.0.0
 	 */
-	public function hooks() {
+	public function hooks(): void {
 	}
 
 	/**
@@ -131,11 +128,20 @@ class Plugin {
 	 * @example Plugin::instance()->get_service_providers();
 	 */
 	public function get_service_providers(): array {
-		return array(
+		$service_providers = array(
 			BlocksServiceProvider::class,
 			DeactivationServiceProvider::class,
-			BlockSupportServiceProvider::class,
 		);
+
+		/**
+		 * Filters the list of service provider class names to register and boot.
+		 *
+		 * @param array<int, class-string> $service_providers Service provider class names.
+		 * @param Plugin                   $plugin            Plugin instance.
+		 *
+		 * @since 2.0.0
+		 */
+		return apply_filters( 'storepress_marquee_block_service_providers', $service_providers, $this );
 	}
 
 	/**
@@ -149,9 +155,4 @@ class Plugin {
 	public function service_providers(): ServiceProviders {
 		return ServiceProviders::instance( $this->get_service_providers() );
 	}
-
-
-	// =====================================================================
-	// Hook Callbacks
-	// =====================================================================
 }

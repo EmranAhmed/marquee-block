@@ -38,7 +38,7 @@ Manual installation method requires downloading the “Marquee Block” plugin a
 
 == Changelog ==
 
-= 2.0.0 - 11-05-2026 =
+= 2.0.0 - 12-05-2026 =
 
 * Add: WordPress 6.9+ compatibility
 * Update: Plugin file structure

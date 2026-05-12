@@ -50,7 +50,9 @@ class DeactivationFeedback extends AbstractDeactivationFeedback {
 	 * @example DeactivationFeedback::get_instance()->title(); // 'QUICK FEEDBACK from Variatio Dduplicator For WooCommerce'
 	 */
 	public function title(): string {
-		return esc_html__( 'QUICK FEEDBACK', 'marquee-block' );
+		$name = $this->get_plugin_name();
+		/* translators: %s: Plugin Name. */
+		return sprintf( esc_html__( 'QUICK FEEDBACK for %s', 'marquee-block' ), $name );
 	}
 
 	/**
@@ -140,7 +142,6 @@ class DeactivationFeedback extends AbstractDeactivationFeedback {
 	 */
 	public function get_reasons(): array {
 		$current_user = wp_get_current_user();
-		$name         = $this->get_plugin_name();
 
 		$support_ticket = sprintf( '<a target="_blank" href="https://getwooplugins.com/tickets/">%s</a>', esc_html__( 'support ticket', 'marquee-block' ) );
 		$documentation  = sprintf( '<a target="_blank" href="https://getwooplugins.com/documentation/marquee-block/">%s</a>', esc_html__( 'documentation', 'marquee-block' ) );
