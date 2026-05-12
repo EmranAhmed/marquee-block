@@ -65,3 +65,4 @@ lib/vendor/
 contributors.md
 contributors.html
 *-report*
+phpcs-cache.json
