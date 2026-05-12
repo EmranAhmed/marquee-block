@@ -28,7 +28,8 @@
 		"*.php",
 		"changelog.*",
 		"README.txt",
-		"wpml-config.xml"
+		"wpml-config.xml",
+		"composer.json"
 	],
 	"bin": {
 		"package": "./tools/package.js"
