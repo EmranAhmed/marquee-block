@@ -24,7 +24,7 @@ const changelogContent = fs.readFileSync( changelogFile, 'utf8' );
 const lines = changelogContent.split( '\n' );
 const changelogEntry = [];
 
-const commonPattern = `^(?:\\d{4}-\\d{2}-\\d{2}|^\\d{2}-\\d{2}-\\d{4})\\s*-\\s*version`;
+const commonPattern = `^(?:\\d{4}-\\d{2}-\\d{2}|\\d{2}-\\d{2}-\\d{4})\\s*-\\s*version`;
 const currentPattern = `${ commonPattern }\\s*${ version }`;
 
 const currentExp = new RegExp( currentPattern, 'i' );
