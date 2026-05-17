@@ -24,21 +24,19 @@ const changelogContent = fs.readFileSync( changelogFile, 'utf8' );
 const lines = changelogContent.split( '\n' );
 const changelogEntry = [];
 
-const commonPattern = `^\\d{4}-\\d{2}-\\d{2}|^\\d{2}-\\d{2}-\\d{4}\\s*-\\s*version`;
+const commonPattern = `^(?:\\d{4}-\\d{2}-\\d{2}|^\\d{2}-\\d{2}-\\d{4})\\s*-\\s*version`;
 const currentPattern = `${ commonPattern }\\s*${ version }`;
 
 const currentExp = new RegExp( currentPattern, 'i' );
 
 const sectionExp = new RegExp( commonPattern, 'i' );
 
-let foundCurrentSection = false;
 let inSection = false;
 
 for ( const line of lines ) {
 	// Reach current section.
-	if ( ! foundCurrentSection && currentExp.test( line ) ) {
+	if ( currentExp.test( line ) ) {
 		inSection = true;
-		foundCurrentSection = true;
 		continue;
 	}
 
