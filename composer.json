@@ -2,7 +2,7 @@
 	"name": "storepress/marquee-block",
 	"description": "Marquee Block",
 	"license": "GPL-2.0-or-later",
-	"version" : "2.0.0",
+	"version" : "2.1.0",
 	"type": "wordpress-plugin",
 	"keywords": [
 		"gutenberg",
@@ -24,23 +24,23 @@
 		}
 	],
 	"require": {
-		"storepress/admin-utils" : "^3.3.5",
-		"automattic/jetpack-autoloader" : "^v5.0.17"
+		"storepress/admin-utils" : "^3.9.0",
+		"automattic/jetpack-autoloader" : "^v5.0.20"
 	},
 	"require-dev": {
-		"automattic/vipwpcs": "^3.0.1",
+		"automattic/vipwpcs": "^3.1.0",
 		"dealerdirect/phpcodesniffer-composer-installer": "^v1.2.1",
-		"php-stubs/woocommerce-stubs": "^v10.7.0",
+		"php-stubs/woocommerce-stubs": "^v10.8.1",
 		"phpcompatibility/php-compatibility": "9.3.5",
 		"phpcompatibility/phpcompatibility-wp": "^2.1.8",
 		"phpstan/extension-installer": "^1.4.3",
-		"phpstan/phpstan": "^2.1.54",
+		"phpstan/phpstan": "^2.2.9",
 		"plugin-check/phpcs-sniffs": "@dev",
-		"squizlabs/php_codesniffer": "3.13.5",
+		"squizlabs/php_codesniffer": "3.13.6",
 		"szepeviktor/phpstan-wordpress": "^v2.0.3",
-		"woocommerce/woocommerce-sniffs": "^1.0.1",
-		"wp-cli/i18n-command": "^v2.7.3",
-		"wp-coding-standards/wpcs": "^3.3.0"
+		"woocommerce/woocommerce-sniffs": "^2.0.0",
+		"wp-cli/i18n-command": "^v3.0.0",
+		"wp-coding-standards/wpcs": "^3.4.1"
 	},
 	"repositories": [
 		{
@@ -72,8 +72,9 @@
 	"scripts": {
 		"phpstan" : "./vendor/bin/phpstan --memory-limit=4G",
 		"phpstan-report" : "./vendor/bin/phpstan --memory-limit=4G -vvv > phpstan-report.txt",
+		"phpstan-clear" : "./vendor/bin/phpstan clear-result-cache",
 		"format" : "./vendor/bin/phpcbf --standard=phpcs.xml",
 		"lint-report" : "./vendor/bin/phpcs --standard=phpcs.xml --report-summary --report-source --ignore-annotations --report-full=phpcs-report.txt",
-		"lint" : "./vendor/bin/phpcs --standard=phpcs.xml --report-summary --report-source"
+		"lint" : "./vendor/bin/phpcs --standard=phpcs.xml --report=full"
 	}
 }

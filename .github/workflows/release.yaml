@@ -1,3 +1,5 @@
+name: Github Release
+
 on:
     push:
         # Sequence of patterns matched against refs/tags
@@ -6,73 +8,100 @@ on:
             # Semver (https://semver.org/) release pattern.
             # - '[0-9]+.[0-9]+.[0-9]+*'
 
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
+
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions: write-all
 
 env:
     REPOSITORY_NAME: ${{ github.event.repository.name }}
 
-name: Release
-
 jobs:
 
-
     # Build distribution release.
+    #
+    # git tag $(node -p "require('./package.json').version") && git push origin "$_"
     #
     # Performs the following steps:
     # - Checks out the repository.
     # - Set up PHP.
-    # - Install PHP Dependencies.
     # - Setup and Install Node.js.
-    # - Make Zip.
-    # - Upload Release.
-
+    # - Npm Install.
+    # - Make ZIP.
+    # - Get release version.
+    # - Get release file base name.
+    # - Get Changelog.
+    # - Make Release.
 
     build:
         name: Release
         runs-on: ubuntu-latest
         steps:
             -   name: "Checks out the repository"
-                uses: actions/checkout@v4
+                uses: actions/checkout@v6
 
             -   name: "Set up PHP"
                 uses: shivammathur/setup-php@v2
                 with:
+                    tools: composer:v2
                     coverage: none
                     php-version: "8.4"
 
             -   name: "Setup and Install Node.js"
-                uses: actions/setup-node@v4
+                uses: actions/setup-node@v6
                 with:
-                    node-version: '22.x'
-            -   run: npm clean-install
+                    node-version: '24.x'
+                    cache: 'npm'
 
-            -   name: "Make Zip"
-                run: npm run plugin-zip --if-present
+            -   name: "Get composer cache directory"
+                id: composer-cache
+                run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
 
-            -   name: "Get release version."
-                run: |
-                    echo "RELEASE_TAG=$(node -p -e "require('./package.json').version")" >> $GITHUB_ENV
-
-            -   name: "Get release file base name."
-                run: |
-                    echo "RELEASE_NAME=$(node -p -e "require('./package.json').name")" >> $GITHUB_ENV
-
-
-                # This step runs the script and captures its output
-            - name: Get Changelog
-              id: changelog
-              run: |
-                  echo "changelog<<EOF" >> $GITHUB_OUTPUT
-                  node ./tools/changelog.js >> $GITHUB_OUTPUT
-                  echo "EOF" >> $GITHUB_OUTPUT
-
-            -   name: "Upload Release"
-                uses: softprops/action-gh-release@v2
+            -   name: "Cache dependencies"
+                uses: actions/cache@v4
                 with:
-                    files: ./${{ env.RELEASE_NAME }}.zip
-                    make_latest: true
+                    path: ${{ steps.composer-cache.outputs.dir }}
+                    key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+                    restore-keys: ${{ runner.os }}-composer-
+
+            -   name: "Cache wp-plugin-check"
+                id: wp-plugin-check
+                uses: actions/cache@v4
+                with:
+                    path: |
+                        wp-plugin-check
+                    key: ${{ runner.os }}-wp-plugin-check-${{ hashFiles('**/composer.json') }}
+                    restore-keys: |
+                        ${{ runner.os }}-wp-plugin-check-
+
+            -   name: "Npm Install"
+                run: npm ci --prefer-offline --no-audit --no-fund
+
+            -   name: "Make ZIP"
+                run: npm run plugin-zip
+
+            -   name: "Get Version"
+                run: echo "RELEASE_TAG=$(node -p -e "require('./package.json').version")" >> $GITHUB_ENV
+
+            -   name: "Get File Base Name"
+                run: echo "RELEASE_NAME=$(node -p -e "require('./package.json').name.replace(/^@/, '').replace('/', '-').toLowerCase()")" >> $GITHUB_ENV
+
+            -   name: "Get Changelog"
+                id: changelog
+                run: |
+                    echo "changelog<<EOF" >> $GITHUB_OUTPUT
+                    node ./tools/changelog.js >> $GITHUB_OUTPUT
+                    echo "EOF" >> $GITHUB_OUTPUT
+
+            -   name: "Make Release"
+                uses: softprops/action-gh-release@v3
+                with:
                     name: Release - v${{ env.RELEASE_TAG }}
+                    tag_name: ${{ env.RELEASE_TAG }}
+                    files: ./${{ env.RELEASE_NAME }}-v${{ env.RELEASE_TAG }}.zip
+                    make_latest: true
+                    overwrite_files: true
                     body: ${{ steps.changelog.outputs.changelog }}
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

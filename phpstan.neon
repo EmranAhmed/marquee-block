@@ -9,7 +9,7 @@ parameters:
 	treatPhpDocTypesAsCertain: false
 
 	# Configuration
-	level: 6
+	level: max
 	phpVersion:
 		min: 70400
 		max: 80400

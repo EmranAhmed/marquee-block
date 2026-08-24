@@ -2,11 +2,11 @@
 Contributors: EmranAhmed, getwooplugins, storepress
 Tags: block, marquee, scroller, image, fse
 Requires at least: 6.4
-Tested up to: 6.9
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.0.0
-License: GPLv3
-License URI: https://www.gnu.org/licenses/gpl-3.0.html
+Stable tag: 2.1.0
+License: GPL-2.0-or-later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Marquee block is CSS based animation block to display scrolling text, images and any kinds of blocks horizontally and vertically.
 
@@ -14,7 +14,7 @@ Marquee block is CSS based animation block to display scrolling text, images and
 
 Marquee block adds a touch of movement and interactivity to your site and help to capture attention and engage your site visitors in a unique way.
 
-[Test on Playground](https://playground.wordpress.net/?mode=seamless&blueprint-url=https://wordpress.org/plugins/wp-json/plugins/v1/plugin/marquee-block/blueprint.json) | [Github URL](https://github.com/EmranAhmed/marquee-block/)
+[Github URL](https://github.com/EmranAhmed/marquee-block/)
 
 == Installation ==
 = Minimum Requirements =
@@ -37,6 +37,11 @@ Manual installation method requires downloading the “Marquee Block” plugin a
 == Screenshots ==
 
 == Changelog ==
+
+= 2.1.0 - 24-08-2026 =
+
+* Add - WordPress 7.1+ compatibility
+* Update - Internal Packages
 
 = 2.0.0 - 12-05-2026 =
 

@@ -8,14 +8,14 @@
 	 * Plugin Name:       Marquee Block
 	 * Plugin URI:        https://wordpress.org/plugins/marquee-block
 	 * Description:       Marquee block adds a touch of movement and interactivity to your site and help to capture attention and engage your site visitors in a unique way.
-	 * Version:           2.0.0
+	 * Version:           2.1.0
 	 * Requires at least: 6.4
 	 * Requires PHP:      7.4
 	 * Author:            Emran Ahmed
 	 * Author URI:        https://storepress.com/
 	 * Text Domain:       marquee-block
-	 * License:           GPL v3 or later
-	 * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
+	 * License:           GPL-2.0-or-later
+	 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 	 * Domain Path:       /languages
 	 */
 
@@ -35,7 +35,6 @@
 if ( ! class_exists( Plugin::class, false ) ) {
 	require_once plugin_dir_path( __FILE__ ) . 'includes/Plugin.php';
 }
-
 
 	/**
 	 * Plugin Instance.

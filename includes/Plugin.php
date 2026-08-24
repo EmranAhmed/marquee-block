@@ -33,10 +33,15 @@ class Plugin {
 	/**
 	 * Returns the singleton Plugin instance, creating it on first call.
 	 *
-	 * @return static
+	 * @return self
 	 * @since  1.0.0
 	 */
 	public static function instance(): self {
+		/**
+		 * Plugin Static instance.
+		 *
+		 * @var self|null $instance
+		 */
 		static $instance = null;
 
 		return $instance ??= new self();
@@ -71,9 +76,9 @@ class Plugin {
 	 */
 	public function includes(): void {
 
-		require_once __DIR__ . '/functions.php';
+		require_once untrailingslashit( plugin_dir_path( __DIR__ ) ) . '/includes/functions.php';
 
-		$vendor_path = untrailingslashit( plugin_dir_path( $this->get_plugin_file() ) ) . '/vendor';
+		$vendor_path = untrailingslashit( plugin_dir_path( __DIR__ ) ) . '/vendor';
 
 		if ( file_exists( $vendor_path . '/autoload_packages.php' ) ) {
 			require_once $vendor_path . '/autoload_packages.php';
@@ -86,8 +91,7 @@ class Plugin {
 	 * @return void
 	 * @since 1.0.0
 	 */
-	public function hooks(): void {
-	}
+	public function hooks(): void {}
 
 	/**
 	 * Boots all service providers.
@@ -98,21 +102,6 @@ class Plugin {
 	 */
 	public function init(): void {
 		$this->service_providers();
-	}
-
-	// =====================================================================
-	// Plugin Identity Methods
-	// =====================================================================
-
-	/**
-	 * Returns the absolute path to the main plugin file.
-	 *
-	 * @return  string
-	 * @since   1.0.0
-	 * @example Plugin::instance()->get_plugin_file(); // '/path/to/variation-duplicator-for-woocommerce.php'
-	 */
-	public function get_plugin_file(): string {
-		return get_plugin_file();
 	}
 
 	// =====================================================================

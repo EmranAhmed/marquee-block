@@ -20,6 +20,7 @@
 	use StorePress\AdminUtils\Abstracts\AbstractServiceProvider;
 	use StorePress\AdminUtils\Traits\SingletonTrait;
 	use StorePress\MarqueeBlock\Features\Blocks;
+	use StorePress\MarqueeBlock\Interfaces\ServiceProviderInterface;
 	use StorePress\MarqueeBlock\Traits\UtilityHelperTrait;
 
 	/**
@@ -32,7 +33,7 @@
 	 *
 	 * @name BlocksServiceProvider
 	 */
-class BlocksServiceProvider extends AbstractServiceProvider {
+class BlocksServiceProvider extends AbstractServiceProvider implements ServiceProviderInterface {
 
 	use SingletonTrait;
 	use UtilityHelperTrait;

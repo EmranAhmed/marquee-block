@@ -20,6 +20,7 @@
 	use StorePress\AdminUtils\Abstracts\AbstractServiceProvider;
 	use StorePress\AdminUtils\Traits\SingletonTrait;
 	use StorePress\MarqueeBlock\Integrations\DeactivationFeedback;
+	use StorePress\MarqueeBlock\Interfaces\ServiceProviderInterface;
 	use StorePress\MarqueeBlock\Traits\UtilityHelperTrait;
 
 	/**
@@ -32,7 +33,7 @@
 	 *
 	 * @name DeactivationServiceProvider
 	 */
-class DeactivationServiceProvider extends AbstractServiceProvider {
+class DeactivationServiceProvider extends AbstractServiceProvider implements ServiceProviderInterface {
 
 	use SingletonTrait;
 	use UtilityHelperTrait;

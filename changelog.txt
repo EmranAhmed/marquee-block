@@ -1,5 +1,10 @@
 *** Marquee Block ***
 
+2026-08-24 - version 2.1.0
+
+* Add - WordPress 7.1+ compatibility
+* Update - Internal Packages
+
 2026-05-12 - version 2.0.0
 
 * Add - WordPress 6.9+ compatibility

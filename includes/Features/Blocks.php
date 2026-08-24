@@ -64,12 +64,18 @@ class Blocks {
 	/**
 	 *  Add custom block category
 	 *
-	 * @param array<string, mixed> $block_categories Available block category.
+	 * @param array<int, mixed> $block_categories Available block category.
 	 *
-	 * @return array<string, mixed>
+	 * @return array<int, mixed>
 	 * @since      1.0.0
 	 */
 	public function add_block_category( array $block_categories ): array {
+
+		/**
+		 * Slugs.
+		 *
+		 * @var list<string> $available_slugs
+		 */
 		$available_slugs = wp_list_pluck( $block_categories, 'slug' );
 
 		$category = array(
@@ -93,13 +99,19 @@ class Blocks {
 	 * @see        https://developer.wordpress.org/reference/functions/wp_set_script_translations/
 	 * @see        https://developer.wordpress.org/block-editor/how-to-guides/internationalization/#load-translation-file
 	 */
-	public function block_editor_scripts() {
+	public function block_editor_scripts(): void {
 		// Editor Scripts.
-		$editor_script_src_url    = $this->build_url() . '/editor-scripts.js';
-		$editor_script_asset_file = $this->build_path() . '/editor-scripts.asset.php';
-		$editor_script_asset      = include $editor_script_asset_file;
+		$url        = $this->build_url() . '/editor-scripts.js';
+		$asset_file = $this->build_path() . '/editor-scripts.asset.php';
 
-		wp_enqueue_script( 'marquee-block-editor-scripts', $editor_script_src_url, $editor_script_asset['dependencies'], $editor_script_asset['version'], array( 'strategy' => 'defer' ) );
+		/**
+		 * Asset File data.
+		 *
+		 * @var array{dependencies: list<string>, version: string} $asset
+		 */
+		$asset = include $asset_file;
+
+		wp_enqueue_script( 'marquee-block-editor-scripts', $url, $asset['dependencies'], $asset['version'], array( 'strategy' => 'defer' ) );
 
 		wp_set_script_translations( 'marquee-block-editor-scripts', 'marquee-block', $this->languages_path() );
 	}
@@ -152,6 +164,10 @@ class Blocks {
 		// Scanning block.json directory for all block definitions.
 		$block_json_files = glob( $this->build_path() . '/**/block.json' );
 
+		if ( false === $block_json_files ) {
+			return;
+		}
+
 		// Auto register all blocks that were found.
 		foreach ( $block_json_files as $filename ) {
 			$block_type = dirname( $filename );
@@ -168,6 +184,12 @@ class Blocks {
 	 * @since 1.0.0
 	 */
 	public function get_kses_allowed_html( array $args = array() ): array {
+
+		/**
+		 * Allowed HTML tags and attributes for the 'post' context.
+		 *
+		 * @var array<string, mixed> $defaults
+		 */
 		$defaults = wp_kses_allowed_html( 'post' );
 
 		$tags = array(
@@ -187,9 +209,15 @@ class Blocks {
 			'path'  => array( 'd', 'fill' ),
 		);
 
+		/**
+		 * Allowed attributes keyed by tag name.
+		 *
+		 * @var array<string, array<string, true>> $allowed_args
+		 */
+
 		$allowed_args = array_reduce(
 			array_keys( $tags ),
-			function ( array $carry, string $tag ) use ( $tags ) {
+			static function ( array $carry, string $tag ) use ( $tags ) {
 				$carry[ $tag ] = array_fill_keys( $tags[ $tag ], true );
 
 				return $carry;

@@ -14,6 +14,7 @@
 	namespace StorePress\MarqueeBlock\ServiceProviders;
 
 	use StorePress\AdminUtils\Traits\SingletonTrait;
+	use StorePress\MarqueeBlock\Interfaces\ServiceProviderInterface;
 
 	defined( 'ABSPATH' ) || die( 'Keep Silent' );
 
@@ -39,7 +40,7 @@ class ServiceProviders {
 	/**
 	 * Registered service provider class names.
 	 *
-	 * @var array<int, class-string>
+	 * @var array<int, class-string<ServiceProviderInterface>>
 	 */
 	protected array $service_providers = array();
 
@@ -50,7 +51,7 @@ class ServiceProviders {
 	/**
 	 * Stores the provider list and immediately boots all providers via init().
 	 *
-	 * @param  array<int, class-string> $service_providers List of service provider class names.
+	 * @param  array<int, class-string<ServiceProviderInterface>> $service_providers List of service provider class names.
 	 *
 	 * @since  1.0.0
 	 * @see    init()
@@ -63,8 +64,9 @@ class ServiceProviders {
 	/**
 	 * Returns all registered service provider class names.
 	 *
+	 * @return array<int, class-string<ServiceProviderInterface>>
+	 *
 	 * @since   1.0.0
-	 * @return  array<int, class-string>
 	 * @see     init()
 	 * @example ServiceProviders::instance()->get_providers(); // [ BlocksServiceProvider::class, ... ]
 	 */
@@ -84,6 +86,7 @@ class ServiceProviders {
 	 * @see    get_providers()
 	 */
 	private function init(): void {
+
 		$providers = $this->get_providers();
 
 		foreach ( $providers as $provider ) {

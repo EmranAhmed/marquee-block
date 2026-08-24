@@ -102,10 +102,4 @@
 			</property>
 		</properties>
 	</rule>
-
-	<!-- WordPress.org Plugin Check compatibility. -->
-	<rule ref="PluginCheck">
-		<exclude name="PluginCheck.CodeAnalysis.DiscouragedFunctions.load_plugin_textdomainFound"/>
-	</rule>
 </ruleset>
-
